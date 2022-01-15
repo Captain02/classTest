@@ -1,0 +1,50 @@
+package ${packageName}.service.impl;
+
+import com.jzysoft.commonmoudle.lib.config.page.DaoSupport;
+import com.jzysoft.commonmoudle.lib.config.page.Page;
+import com.jzysoft.commonmoudle.lib.config.page.PageData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * ${functionName}Service业务层处理
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${ClassName}ServiceImpl implements ${ClassName}Service
+{
+    @Autowired
+    DaoSupport daoSupport;
+
+    //    列表
+    @Override
+    public List<PageData> select${ClassName}List(Page page) throws Exception {
+        return (List<PageData>) daoSupport.findForList("${ClassName}Mapper.select${ClassName}listPage", page);
+    }
+    //    id
+    @Override
+    public PageData select${ClassName}ById(PageData pageData) throws Exception {
+        return (PageData) daoSupport.findForObject("${ClassName}Mapper.select${ClassName}ById", pageData);
+    }
+    //    保存
+    @Override
+    public void insert${ClassName}(PageData pageData) throws Exception {
+        daoSupport.save("${ClassName}Mapper.insert${ClassName}", pageData);
+    }
+
+    //    修改
+    @Override
+    public void update${ClassName}(PageData pageData) throws Exception {
+        daoSupport.update("${ClassName}Mapper.update${ClassName}", pageData);
+    }
+
+    //    删除
+    @Override
+    public void delete${ClassName}ByIds(PageData pageData) throws Exception {
+        daoSupport.delete("${ClassName}Mapper.delete${ClassName}ById", pageData);
+    }
+}

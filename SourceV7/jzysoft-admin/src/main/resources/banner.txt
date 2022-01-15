@@ -1,0 +1,2 @@
+Application Version: ${jzysoft.version}
+Spring Boot Version: ${spring-boot.version}

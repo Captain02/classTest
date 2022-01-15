@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DropdownMapper">
+
+    <!--普通下拉框-->
+    <select id="selectCommon" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select ${ValueFieldName} as id,${NameFieldName} as name
+        from ${TableName}
+
+    </select>
+    <!--普通下拉框-->
+    <select id="selectCommons" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select ${ValueFieldName} as id,${NameFieldName} as name
+        from ${TableName}
+        where JZZCLXID=1
+    </select>
+    <!--权限下拉框-->
+    <select id="selectCommonaq" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select ${ValueFieldName} as id,${NameFieldName} as name
+        from ${TableName}
+        left join sys_dept on sys_dept.dept_id =customer.deptid
+        where 1=1
+        <if test="parentid != null  and parentid != ''  ">
+            AND parent_id = #{parentid}
+        </if>
+        <if test="deptid != null  and deptid != ''  ">
+            AND deptid = #{deptid}
+        </if>
+    </select>
+    <!--字典表下拉框-->
+    <select id="selectCommonZd" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select CONVERT(dict_value,SIGNED) as id,${NameFieldName} as name
+        from ${TableName} where dict_type = '${dict_type}'
+    </select>
+    <!--字典表下拉框-->
+    <select id="selectCommonZdx" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select ${ValueFieldName} as id,${NameFieldName} as name
+        from ${TableName} where dict_type = '${dict_type}'
+    </select>
+    <!---->
+    <!--根据键获取数据-->
+    <select id="GetCommonDropDownById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select ${ValueFieldName} as id,${NameFieldName} as name
+        from ${TableName} where ${key} = ${value}
+    </select>
+    <!---->
+
+</mapper>

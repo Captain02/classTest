@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="includejqgrid :: includejqgrid">
+
+</head>
+<body>
+
+<div id="rrapp" class="layui-fluid" style="background-color: #F1F1F2">
+    <!--搜索-->
+    <div class="layui-row">
+
+        <div id="sera" class="col-sm-12 search-collapse">
+            <form id="gen-form">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            名称
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.Name"
+                                    placeholder="名称"/>
+                        </li>
+
+                    </ul>
+                </div>
+                <!--搜索下拉-->
+
+                <a class="btn btn-primary btn-rounded btn-sm" style="margin-top: 5px" @click="query"><i
+                        class="fa fa-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
+                <a class="btn btn-warning btn-rounded btn-sm" style="margin-top: 5px" @click="reset"><i
+                        class="fa fa-refresh"></i>&nbsp;重置</a>
+            </form>
+        </div>
+    </div>
+    <!--按钮-->
+    <div id="anniu" class="layui-row">
+        <div class="col-sm-12">
+            <a class="btn btn-success" @click="addPage()">
+                <i class="fa fa-plus"></i> 新增
+            </a>
+            <a class="btn btn-primary btn-edit" @click="editPage()">
+                <i class="fa fa-edit"></i> 修改
+            </a>
+            <a class="btn btn-danger btn-del " @click="del()">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+        </div>
+    </div>
+    <!--jqgrid-->
+    <div class="layui-row" style="background-color: white;">
+        <!--jqgrid表格-->
+        <div id="jq" class="col-sm-12">
+            <table id="jqGrid" data-mobile-responsive="true" style="text-align: center"></table>
+            <div id="jqGridPager" style="background-color: white"></div>
+        </div>
+    </div>
+
+    <!--表单-->
+    <form style="padding: 10px" hidden action="" id="editLayer">
+        <input type="hidden" name="id" id="treeId">
+        <!--<div class="layui-form-item layui-form-text">-->
+        <!--<label style="width: 100px" class="layui-form-label"> 内部序号-->
+        <!--</label>-->
+        <!--<div style="margin-right: 20px" class="layui-input-block">-->
+        <!--<input type="text" name="InOrder" v-model="edit.InOrder" required-->
+        <!--lay-verify="InOrder" placeholder="请输入" class="layui-input">-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 编号
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="Code" v-model="edit.Code" required
+                       lay-verify="Code" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 名称
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="Name" v-model="edit.Name" required
+                       lay-verify="Name" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <!--<div class="layui-form-item layui-form-text">-->
+        <!--<label style="width: 100px" class="layui-form-label"> 经度偏移-->
+        <!--</label>-->
+        <!--<div style="margin-right: 20px" class="layui-input-block">-->
+        <!--<input type="text" name="Lngoff" v-model="edit.Lngoff" required-->
+        <!--lay-verify="Lngoff" placeholder="请输入" class="layui-input">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="layui-form-item layui-form-text">-->
+        <!--<label style="width: 100px" class="layui-form-label"> 纬度偏移-->
+        <!--</label>-->
+        <!--<div style="margin-right: 20px" class="layui-input-block">-->
+        <!--<input type="text" name="Latoff" v-model="edit.Latoff" required-->
+        <!--lay-verify="Latoff" placeholder="请输入" class="layui-input">-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 110px" class="layui-form-label"> 建筑组成类型
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <select v-model="edit.JZZCLXID" class="form-control" >
+                    <option v-for="dropdown in dropdown" :value="dropdown.id">{{dropdown.name}}</option>
+                </select>
+            </div>
+        </div>
+        <!--<div class="layui-form-item layui-form-text">-->
+        <!--<label style="width: 100px" class="layui-form-label"> 父级ID-->
+        <!--</label>-->
+        <!--<div style="margin-right: 20px" class="layui-input-block">-->
+        <!--<input type="text" name="ParentID" v-model="edit.ParentID" required-->
+        <!--lay-verify="ParentID" placeholder="请输入" class="layui-input">-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 110px" class="layui-form-label"> 所属建筑组成
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input class="form-control" type="text" v-model="edit.Pame" name="deptName" @click="selectDeptTree()"
+                       readonly="true"
+                       id="treeName">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 点集合
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="Points" v-model="edit.Points" required disabled="disabled"
+                       lay-verify="Points" placeholder="不可输入" class="layui-input">
+                <a class="btn  btn-success btn5" style="margin-top: 10px" @click="mapchoose()">
+                    <i class="fa fa-info"></i> 选择地图
+                </a>
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 备注
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="Memo" v-model="edit.Memo" required
+                       lay-verify="Memo" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+
+
+    </form>
+    <script src="/js/xtJzZc/xtJzZc.js"></script>
+</div>
+</body>
+</html>

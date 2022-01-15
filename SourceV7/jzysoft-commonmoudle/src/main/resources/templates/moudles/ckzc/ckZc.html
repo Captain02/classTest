@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<!--<head th:include="include :: header"></head>-->
+<head th:include="includejqgrid :: includejqgrid">
+</head>
+<body>
+<div id="rrapp" class="layui-fluid" style="background-color: #F1F1F2">
+    <!--搜索-->
+    <div class="layui-row">
+
+        <div id="sera" class="col-sm-12 search-collapse">
+            <form id="gen-form">
+                <div class="select-list">
+                    <ul>
+
+
+                        <!--普通下拉-->
+                        <li>
+                            测控组成类型:<select class="btn-group" v-model="q.CKZCLXID" style="width:220px; height:35.23px;">
+                            <option selected="selected" value="null">全部</option>
+                            <option v-for="dropdown in dropdown" :value="dropdown.id">{{dropdown.name}}</option>
+                        </select>
+                        </li>
+                        <li>
+                            名称:<input style="width:220px; height:35.23px  " type="text" v-model="q.Name"
+                                      placeholder="名称"/>
+                        </li>
+                    </ul>
+                </div>
+
+                <a class="btn btn-primary btn-rounded btn-sm" @click="query"><i
+                        class="fa fa-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
+                <a class="btn btn-warning btn-rounded btn-sm" @click="reset"><i
+                        class="fa fa-refresh"></i>&nbsp;重置</a>
+            </form>
+        </div>
+    </div>
+    <!--按钮-->
+    <div id="anniu" class="layui-row">
+        <div class="col-sm-12">
+            <a class="btn btn-success" @click="addPage()">
+                <i class="fa fa-plus"></i> 新增
+            </a>
+            <a class="btn btn-primary btn-edit" @click="editPage()">
+                <i class="fa fa-edit"></i> 修改
+            </a>
+            <a class="btn btn-danger btn-del " @click="del()">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+        </div>
+    </div>
+    <!--jqgrid-->
+    <div class="layui-row" style="background-color: white;">
+        <!--jqgrid表格-->
+        <div id="jq" class="col-sm-12">
+            <table id="jqGrid" data-mobile-responsive="true"></table>
+            <div id="jqGridPager" style="background-color: white"></div>
+        </div>
+    </div>
+    <!--表单-->
+    <form style="padding: 10px" hidden action="" id="editLayer">
+        <input type="hidden" name="id" id="treeId">
+        <input type="hidden" name="id" id="treeIds">
+        <div class="layui-form-item layui-form-text" v-show="layertitle == '编辑'">
+            <label style="width: 100px" class="layui-form-label"> 内部序号
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="InOrder" v-model="edit.InOrder" required
+                       lay-verify="InOrder" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label style="width: 110px" class="layui-form-label">编号</label>
+                <div style="width: 250px" class="layui-input-inline">
+                    <input type="text" v-model="edit.Code" required
+                           lay-verify="edit.Code" placeholder="请输入" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label style="width: 110px" class="layui-form-label">名称</label>
+                <div style="width: 250px" class="layui-input-inline">
+                    <input type="text" v-model="edit.Name" required
+                           lay-verify="edit.Name" placeholder="请输入" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label style="width: 110px" class="layui-form-label">所属建筑组成</label>
+                <div style="width: 250px" class="layui-input-inline">
+                    <input class="form-control" type="text" v-model="edit.JzName" name="deptName"
+                           @click="selectDeptTrees()"
+                           readonly="true"
+                           id="treeNames">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label style="width: 110px" class="layui-form-label">所属测控组成</label>
+                <div style="width: 250px" class="layui-input-inline">
+                    <input class="form-control" type="text" v-model="edit.Pame" name="deptName"
+                           @click="selectDeptTree()"
+                           readonly="true"
+                           id="treeName">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label style="width: 110px" class="layui-form-label">测控组成类型</label>
+                <div style="width: 250px" class="layui-input-inline">
+                    <select v-model="edit.CKZCLXID" class="form-control" @change="road()">
+                        <option v-for="dropdown in dropdown" :value="dropdown.id">{{dropdown.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label style="width: 110px" class="layui-form-label">高度</label>
+                <div style="width: 250px" class="layui-input-inline">
+                    <input type="text" name="GD" v-model="edit.GD" required
+                           lay-verify="GD" placeholder="请输入" class="layui-input">
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label style="width: 110px" class="layui-form-label">经度</label>
+                <div style="width: 250px" class="layui-input-inline">
+                    <input type="text" name="JD" v-model="edit.JD" required
+                           lay-verify="JD" placeholder="请输入" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label style="width: 110px" class="layui-form-label">纬度</label>
+                <div style="width: 250px" class="layui-input-inline">
+                    <input type="text" name="WD" v-model="edit.WD" required
+                           lay-verify="WD" placeholder="请输入" class="layui-input">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 备注
+            </label>
+            <div style="margin-right: 30px" class="layui-input-block">
+                <input type="text" name="Memo" v-model="edit.Memo" required
+                       lay-verify="Memo" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <!----------------------------------------摄像机数据-------------------------------------------------->
+        <div v-show="edit.CKZCLXID==2">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">内网IP</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="nw_ip" v-model="edit.nw_ip" required
+                               lay-verify="nw_ip" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">内网端口</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="nw_port" v-model="edit.nw_port" required
+                               lay-verify="nw_port" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">内网WEB端口</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="nw_web_port" v-model="edit.nw_web_port" required
+                               lay-verify="nw_web_port" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">外网IP</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="ww_ip" v-model="edit.ww_ip" required
+                               lay-verify="ww_ip" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">外网端口</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="ww_port" v-model="edit.ww_port" required
+                               lay-verify="ww_port" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">外网WEB端口</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="ww_web_port" v-model="edit.ww_web_port" required
+                               lay-verify="ww_web_port" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">用户名</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="username" v-model="edit.username" required
+                               lay-verify="username" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">密码</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="password" v-model="edit.password" required
+                               lay-verify="password" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">通道</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="td" v-model="edit.td" required
+                               lay-verify="td" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label style="width: 110px" class="layui-form-label">RTSP地址</label>
+                    <div style="width: 250px" class="layui-input-inline">
+                        <input type="text" name="rtsp_url" v-model="edit.rtsp_url" required
+                               lay-verify="rtsp_url" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    </form>
+    <script src="/js/ckZc/ckZc.js"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+package ${basePackage}.web.controller.${moduleName};
+
+import com.jzysoft.commonmoudle.lib.config.page.Page;
+import com.jzysoft.commonmoudle.lib.config.page.PageData;
+import com.jzysoft.commonmoudle.lib.util.BaseJQController;
+import com.jzysoft.commonmoudle.lib.util.RJQ;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * ${functionName}Controller
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Controller
+@RequestMapping("/$className/${className}")
+public class ${ClassName}Controller extends BaseJQController {
+    private String prefix = "moudles/${className}";
+    @Autowired
+        ${ClassName}Service ${className}Service;
+
+    @RequestMapping(value = "")
+    public String ${ClassName}() {
+        return prefix + "/${className}";
+    }
+
+    /**
+     * 列表
+     * sxd
+     */
+    @ResponseBody
+    @GetMapping("/list")
+    public RJQ sel${ClassName}Page(Page page) throws Exception {
+        PageData pageData = this.getPageData();
+        page.setPd(pageData);
+        List<PageData> list = ${className}Service.select${ClassName}List(page);
+        return RJQ.ok().put("page", page).put("data", list);
+    }
+
+    /**
+     * 根据id获取数据${tableComment}
+     * sxd
+     */
+    @ResponseBody
+    @GetMapping("/findByid")
+    public RJQ get${ClassName}Info() throws Exception {
+        PageData pageData = this.getPageData();
+        PageData data = ${className}Service.select${ClassName}ById(pageData);
+        return RJQ.ok().put("data", data);
+    }
+
+    /**
+     * 新增${tableComment}
+     * sxd
+     */
+    @ResponseBody
+    @PostMapping("/adddata")
+    public RJQ save${ClassName}Data(@RequestBody PageData pageData) throws Exception {
+            ${className}Service.insert${ClassName}(pageData);
+        return RJQ.ok();
+    }
+
+    /**
+     * 修改${tableComment}
+     * sxd
+     */
+    @ResponseBody
+    @PostMapping("/updatedata")
+    public RJQ edit${ClassName}Data(@RequestBody PageData pageData) throws Exception {
+            ${className}Service.update${ClassName}(pageData);
+        return RJQ.ok();
+    }
+
+    /**
+     * 批量删除${tableComment}
+     * sxd
+     */
+    @ResponseBody
+    @PostMapping("/del")
+    public RJQ del${ClassName}DataList(@RequestBody Integer[] ids) throws Exception {
+        PageData pageData = this.getPageData();
+        for (Integer id : ids) {
+            pageData.put("${pkColumn.columnName}", id);
+                ${className}Service.delete${ClassName}ByIds(pageData);
+        }
+        return RJQ.ok();
+    }
+
+
+}

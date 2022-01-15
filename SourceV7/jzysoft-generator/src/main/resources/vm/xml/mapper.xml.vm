@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${ClassName}Mapper">
+
+
+    <sql id="select${ClassName}Vo">
+        select #foreach($column in $columns)${column.columnName}#if($velocityCount != $columns.size()),#end#end from ${tableName}
+    </sql>
+    <!--列表-->
+    <select id="select${ClassName}listPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="select${ClassName}Vo"/>
+        WHERE 1 =1
+
+        #foreach($column in $columns)
+            #if($column.columnName != $pkColumn.columnName)
+                <if test="pd.${column.columnName} != null  and pd.${column.columnName} != ''  ">
+                    AND ${column.columnName} like '%' #{pd.${column.columnName}} '%'
+                </if>
+            #end
+        #end
+        <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+    <!--id-->
+    <select id="select${ClassName}ById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="select${ClassName}Vo"/>
+        where ${pkColumn.columnName} = #{${pkColumn.columnName}}
+    </select>
+    <!--保存-->
+    <insert id="insert${ClassName}"  #if($primaryKey.extra ==
+        'auto_increment') useGeneratedKeys="true" keyProperty="$pkColumn.columnName"#end>
+        insert into ${tableName}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #foreach($column in $columns)
+                #if($column.columnName != $pkColumn.columnName)
+
+                    <if test="$column.columnName != null  and $column.columnName != ''">$column.columnName,
+                    </if>
+                #end
+            #end
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #foreach($column in $columns)
+                #if($column.columnName != $pkColumn.columnName)
+                    <if test="$column.columnName != null and $column.columnName != '' ">#{$column.columnName},
+                    </if>
+                #end
+            #end
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="update${ClassName}">
+        update ${tableName}
+        <trim prefix="SET" suffixOverrides=",">
+            #foreach($column in $columns)
+                #if($column.columnName != $pkColumn.columnName)
+                    <if test="$column.columnName != null  and $column.columnName != ''">$column.columnName =
+                        #{$column.columnName},
+                    </if>
+                #end
+            #end
+        </trim>
+        where ${pkColumn.columnName} = #{${pkColumn.columnName}}
+    </update>
+    <!--删除-->
+    <delete id="delete${ClassName}ById">
+        delete from ${tableName} where ${pkColumn.columnName} = #{${pkColumn.columnName}}
+    </delete>
+    <!--删除-->
+    <delete id="delete${ClassName}ByIds">
+        delete from ${tableName} where ${pkColumn.columnName} in
+        <foreach item="${pkColumn.columnName}" collection="list" index="index" open="(" separator="," close=")">
+            #{${pkColumn.columnName}}
+        </foreach>
+    </delete>
+</mapper>

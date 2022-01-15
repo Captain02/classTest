@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="XtJzZclxJcMapper">
+
+
+    <sql id="selectXtJzZclxJcVo">
+        select ID,InOrder,Code,Name,KZBM,HasChild,Memo,DelFlag from xt_jz_zclx_jc
+    </sql>
+    <!--列表-->
+    <select id="selectXtJzZclxJclistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectXtJzZclxJcVo"/>
+        WHERE 1 =1
+
+        <if test="pd.Name != null  and pd.Name != ''  ">
+            AND Name like    '%${pd.Name}%'
+
+        </if>
+        <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+
+
+    <!--id-->
+    <select id="selectXtJzZclxJcById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectXtJzZclxJcVo"/>
+        where ID = #{ID}
+    </select>
+    <!--保存-->
+    <insert id="insertXtJzZclxJc" useGeneratedKeys="true" keyProperty="ID">
+
+        insert into xt_jz_zclx_jc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="InOrder != null  and InOrder != ''">InOrder,
+            </if>
+
+            <if test="Code != null  and Code != ''">Code,
+            </if>
+
+            <if test="Name != null  and Name != ''">Name,
+            </if>
+
+            <if test="KZBM != null  and KZBM != ''">KZBM,
+            </if>
+
+            <if test="HasChild != null  and HasChild != ''">HasChild,
+            </if>
+
+            <if test="Memo != null  and Memo != ''">Memo,
+            </if>
+
+            <if test="DelFlag != null  and DelFlag != ''">DelFlag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="InOrder != null and InOrder != '' ">#{InOrder},
+            </if>
+            <if test="Code != null and Code != '' ">#{Code},
+            </if>
+            <if test="Name != null and Name != '' ">#{Name},
+            </if>
+            <if test="KZBM != null and KZBM != '' ">#{KZBM},
+            </if>
+            <if test="HasChild != null and HasChild != '' ">#{HasChild},
+            </if>
+            <if test="Memo != null and Memo != '' ">#{Memo},
+            </if>
+            <if test="DelFlag != null and DelFlag != '' ">#{DelFlag},
+            </if>
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateXtJzZclxJc">
+        update xt_jz_zclx_jc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="InOrder != null  and InOrder != ''">InOrder =
+                #{InOrder},
+            </if>
+            <if test="Code != null  and Code != ''">Code =
+                #{Code},
+            </if>
+            <if test="Name != null  and Name != ''">Name =
+                #{Name},
+            </if>
+            <if test="KZBM != null  and KZBM != ''">KZBM =
+                #{KZBM},
+            </if>
+            <if test="HasChild != null  and HasChild != ''">HasChild =
+                #{HasChild},
+            </if>
+            <if test="Memo != null  and Memo != ''">Memo =
+                #{Memo},
+            </if>
+            <if test="DelFlag != null  and DelFlag != ''">DelFlag =
+                #{DelFlag},
+            </if>
+        </trim>
+        where ID = ${ID}
+    </update>
+    <!--删除-->
+    <delete id="deleteXtJzZclxJcById">
+        delete from xt_jz_zclx_jc where ID = #{ID}
+    </delete>
+    <!--删除-->
+    <delete id="deleteXtJzZclxJcByIds">
+        delete from xt_jz_zclx_jc where ID in
+        <foreach item="ID" collection="list" index="index" open="(" separator="," close=")">
+            #{ID}
+        </foreach>
+    </delete>
+</mapper>

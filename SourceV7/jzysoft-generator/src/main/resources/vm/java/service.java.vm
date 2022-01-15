@@ -1,0 +1,30 @@
+package ${packageName}.service;
+
+import com.jzysoft.commonmoudle.lib.config.page.Page;
+import com.jzysoft.commonmoudle.lib.config.page.PageData;
+
+import java.util.List;
+
+
+/**
+ * ${functionName}Service接口
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Service
+{
+    //    列表
+    List<PageData> select${ClassName}List(Page page) throws Exception;
+    //    id
+    PageData select${ClassName}ById(PageData pageData) throws Exception;
+
+    //    保存
+    void insert${ClassName}(PageData pageData) throws Exception;
+
+    //    修改
+    void update${ClassName}(PageData pageData) throws Exception;
+
+    //    删除
+    void delete${ClassName}ByIds(PageData pageData) throws Exception;
+}

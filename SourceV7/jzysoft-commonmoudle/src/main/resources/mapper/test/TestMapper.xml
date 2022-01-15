@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TestMapper">
+
+
+    <sql id="selectTestVo">
+        select id,name,age from test
+    </sql>
+    <!--列表-->
+    <select id="selectTestlistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectTestVo"/>
+        WHERE 1 =1
+
+        <if test="pd.name != null  and pd.name != ''  ">
+            AND name like '%' #{pd.name} '%'
+        </if>
+        <if test="pd.age != null  and pd.age != ''  ">
+            AND age like '%' #{pd.age} '%'
+        </if>
+        <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+    <!--id-->
+    <select id="selectTestById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectTestVo"/>
+        where id = #{id}
+    </select>
+    <!--保存-->
+    <insert id="insertTest">
+        insert into test
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="name != null  and name != ''">name,
+            </if>
+
+            <if test="age != null  and age != ''">age,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != '' ">#{name},
+            </if>
+            <if test="age != null and age != '' ">#{age},
+            </if>
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateTest">
+        update test
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null  and name != ''">name =
+                #{name},
+            </if>
+            <if test="age != null  and age != ''">age =
+                #{age},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
+    <!--删除-->
+    <delete id="deleteTestById">
+        delete from test where id = #{id}
+    </delete>
+    <!--删除-->
+    <delete id="deleteTestByIds">
+        delete from test where id in
+        <foreach item="id" collection="list" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CkZclxJcMapper">
+
+    <sql id="selectCkZclxJcVo">
+        select ID,InOrder,Code,Name,ParentID,KZBM,HasChild,HasDev,Memo,DelFlag,expanded,is_leaf,level,loaded from xt_ck_zclx_jc
+    </sql>
+    <!--列表-->
+    <select id="selectCkZclxJclistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCkZclxJcVo"/>
+        WHERE 1 =1
+
+        <if test="pd.Name != null  and pd.Name != ''  ">
+            AND Name like    '%${pd.Name}%'
+
+        </if>
+        <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+    <!--id-->
+    <select id="selectCkZclxJcById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCkZclxJcVo"/>
+        where ID = #{ID}
+    </select>
+    <!--保存-->
+    <insert id="insertCkZclxJc" useGeneratedKeys="true" keyProperty="ID" >
+        insert into xt_ck_zclx_jc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="InOrder != null  and InOrder != ''">InOrder,
+            </if>
+
+            <if test="Code != null  and Code != ''">Code,
+            </if>
+
+            <if test="Name != null  and Name != ''">Name,
+            </if>
+
+            <if test="ParentID != null  and ParentID != ''">ParentID,
+            </if>
+
+            <if test="KZBM != null  and KZBM != ''">KZBM,
+            </if>
+
+            <if test="HasChild != null  and HasChild != ''">HasChild,
+            </if>
+
+            <if test="HasDev != null  and HasDev != ''">HasDev,
+            </if>
+
+            <if test="Memo != null  and Memo != ''">Memo,
+            </if>
+
+            <if test="DelFlag != null  and DelFlag != ''">DelFlag,
+            </if>
+
+            <if test="expanded != null  and expanded != ''">expanded,
+            </if>
+
+            <if test="is_leaf != null  and is_leaf != ''">is_leaf,
+            </if>
+
+            <if test="level != null  and level != ''">level,
+            </if>
+
+            <if test="loaded != null  and loaded != ''">loaded,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="InOrder != null and InOrder != '' ">#{InOrder},
+            </if>
+            <if test="Code != null and Code != '' ">#{Code},
+            </if>
+            <if test="Name != null and Name != '' ">#{Name},
+            </if>
+            <if test="ParentID != null and ParentID != '' ">#{ParentID},
+            </if>
+            <if test="KZBM != null and KZBM != '' ">#{KZBM},
+            </if>
+            <if test="HasChild != null and HasChild != '' ">#{HasChild},
+            </if>
+            <if test="HasDev != null and HasDev != '' ">#{HasDev},
+            </if>
+            <if test="Memo != null and Memo != '' ">#{Memo},
+            </if>
+            <if test="DelFlag != null and DelFlag != '' ">#{DelFlag},
+            </if>
+            <if test="expanded != null and expanded != '' ">#{expanded},
+            </if>
+            <if test="is_leaf != null and is_leaf != '' ">#{is_leaf},
+            </if>
+            <if test="level != null and level != '' ">#{level},
+            </if>
+            <if test="loaded != null and loaded != '' ">#{loaded},
+            </if>
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateCkZclxJc" >
+        update xt_ck_zclx_jc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="InOrder != null  and InOrder != ''">InOrder = #{InOrder},
+            </if>
+            <if test="Code != null  and Code != ''">Code = #{Code},
+            </if>
+            <if test="Name != null  and Name != ''">Name = #{Name},
+            </if>
+            <if test="ParentID != null  and ParentID != ''">ParentID = #{ParentID},
+            </if>
+            <if test="KZBM != null  and KZBM != ''">KZBM = #{KZBM},
+            </if>
+            <if test="HasChild != null  and HasChild != ''">HasChild = #{HasChild},
+            </if>
+            <if test="HasDev != null  and HasDev != ''">HasDev = #{HasDev},
+            </if>
+            <if test="Memo != null  and Memo != ''">Memo = #{Memo},
+            </if>
+            <if test="DelFlag != null  and DelFlag != ''">DelFlag = #{DelFlag},
+            </if>
+            <if test="expanded != null  and expanded != ''">expanded = #{expanded},
+            </if>
+            <if test="is_leaf != null  and is_leaf != ''">is_leaf = #{is_leaf},
+            </if>
+            <if test="level != null  and level != ''">level = #{level},
+            </if>
+            <if test="loaded != null  and loaded != ''">loaded = #{loaded},
+            </if>
+        </trim>
+        where ID = #{ID}
+    </update>
+    <!--删除-->
+    <delete id="deleteCkZclxJcById" >
+        delete from xt_ck_zclx_jc where ID = #{ID}
+    </delete>
+    <!--删除-->
+    <delete id="deleteCkZclxJcByIds">
+        delete from xt_ck_zclx_jc where ID in
+        <foreach item="ID" collection="list" index="index" open="(" separator="," close=")">
+            #{ID}
+        </foreach>
+    </delete>
+
+</mapper>
