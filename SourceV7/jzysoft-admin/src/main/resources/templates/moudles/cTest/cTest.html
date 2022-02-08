@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<!--<head th:include="include :: header"></head>-->
+<head th:include="includejqgrid :: includejqgrid">
+</head>
+<body>
+
+<div id="rrapp" class="layui-fluid" style="background-color: #F1F1F2">
+    <!--搜索-->
+    <div class="layui-row">
+
+        <div id="sera" class="col-sm-12 search-collapse">
+            <form id="gen-form">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            所属微课堂
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.mclassid"
+                                    placeholder="所属微课堂"/>
+                        </li>
+                        <li>
+                            创建时间
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.createtime"
+                                    placeholder="创建时间"/>
+                        </li>
+                        <li>
+                            是否审核通过
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.isexamine"
+                                    placeholder="是否审核通过"/>
+                        </li>
+                        <li>
+                            题干
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.teststem"
+                                    placeholder="题干"/>
+                        </li>
+                        <li>
+                            备注1
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.remarks1"
+                                    placeholder="备注1"/>
+                        </li>
+                        <li>
+                            备注2
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.remarks2"
+                                    placeholder="备注2"/>
+                        </li>
+                        <li>
+                            备注3
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.remarks3"
+                                    placeholder="备注3"/>
+                        </li>
+                        <!--普通下拉-->
+                        <li>
+                            <select class="btn-group" style="width:220px; height:35.23px;">
+                                <option v-for="dropdown in dropdown" :value="dropdown.id">{{dropdown.name}}</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+                <!--搜索下拉-->
+                <select style="width:220px; height:35.23px;" id="selectuserid" class="selectpicker"
+                        data-live-search="true">
+                </select>
+                <a class="btn btn-primary btn-rounded btn-sm" style="margin-top: 5px" @click="query"><i
+                        class="fa fa-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
+                <a class="btn btn-warning btn-rounded btn-sm" style="margin-top: 5px" @click="reset"><i
+                        class="fa fa-refresh"></i>&nbsp;重置</a>
+            </form>
+        </div>
+    </div>
+    <!--按钮-->
+    <div id="anniu" class="layui-row">
+        <div class="col-sm-12">
+            <a class="btn btn-success" @click="addPage()">
+                <i class="fa fa-plus"></i> 新增
+            </a>
+            <a class="btn btn-primary btn-edit" @click="editPage()">
+                <i class="fa fa-edit"></i> 修改
+            </a>
+            <a class="btn btn-danger btn-del " @click="del()">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+        </div>
+    </div>
+    <!--jqgrid-->
+    <div class="layui-row" style="background-color: white;">
+        <!--jqgrid表格-->
+        <div id="jq" class="col-sm-12">
+            <table id="jqGrid" data-mobile-responsive="true"></table>
+            <div id="jqGridPager" style="background-color: white"></div>
+        </div>
+    </div>
+
+    <!--表单-->
+    <form style="padding: 10px" hidden action="" id="editLayer">
+        <input type="hidden" name="id">
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 所属微课堂
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="mclassid" v-model="edit.mclassid" required
+                       lay-verify="mclassid" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 创建时间
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="createtime" v-model="edit.createtime" required
+                       lay-verify="createtime" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 是否审核通过
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="isexamine" v-model="edit.isexamine" required
+                       lay-verify="isexamine" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 题干
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="teststem" v-model="edit.teststem" required
+                       lay-verify="teststem" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 备注1
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="remarks1" v-model="edit.remarks1" required
+                       lay-verify="remarks1" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 备注2
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="remarks2" v-model="edit.remarks2" required
+                       lay-verify="remarks2" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 备注3
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="remarks3" v-model="edit.remarks3" required
+                       lay-verify="remarks3" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+    </form>
+    <script src="/js/cTest/cTest.js" type="text/javascript"></script>
+</div>
+</body>
+</html>

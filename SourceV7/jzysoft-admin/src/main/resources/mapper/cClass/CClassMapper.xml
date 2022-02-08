@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CClassMapper">
+
+
+    <sql id="selectCClassVo">
+        select id,classnum,teacherid,createtime,remarks1,remarks2,remarks3,greadid from c_class
+    </sql>
+    <!--列表-->
+    <select id="selectCClasslistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCClassVo"/>
+        WHERE 1 =1
+
+                                                        <if test="pd.classnum != null  and pd.classnum != ''  ">
+                    AND classnum like '%' #{pd.classnum} '%'
+                </if>
+                                                <if test="pd.teacherid != null  and pd.teacherid != ''  ">
+                    AND teacherid like '%' #{pd.teacherid} '%'
+                </if>
+                                                <if test="pd.createtime != null  and pd.createtime != ''  ">
+                    AND createtime like '%' #{pd.createtime} '%'
+                </if>
+                                                <if test="pd.remarks1 != null  and pd.remarks1 != ''  ">
+                    AND remarks1 like '%' #{pd.remarks1} '%'
+                </if>
+                                                <if test="pd.remarks2 != null  and pd.remarks2 != ''  ">
+                    AND remarks2 like '%' #{pd.remarks2} '%'
+                </if>
+                                                <if test="pd.remarks3 != null  and pd.remarks3 != ''  ">
+                    AND remarks3 like '%' #{pd.remarks3} '%'
+                </if>
+                                                <if test="pd.greadid != null  and pd.greadid != ''  ">
+                    AND greadid like '%' #{pd.greadid} '%'
+                </if>
+                            <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+    <!--id-->
+    <select id="selectCClassById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCClassVo"/>
+        where id = #{id}
+    </select>
+    <!--保存-->
+    <insert id="insertCClass"  >
+        insert into c_class
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                        
+                    <if test="classnum != null  and classnum != ''">classnum,
+                    </if>
+                                            
+                    <if test="teacherid != null  and teacherid != ''">teacherid,
+                    </if>
+                                            
+                    <if test="createtime != null  and createtime != ''">createtime,
+                    </if>
+                                            
+                    <if test="remarks1 != null  and remarks1 != ''">remarks1,
+                    </if>
+                                            
+                    <if test="remarks2 != null  and remarks2 != ''">remarks2,
+                    </if>
+                                            
+                    <if test="remarks3 != null  and remarks3 != ''">remarks3,
+                    </if>
+                                            
+                    <if test="greadid != null  and greadid != ''">greadid,
+                    </if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="classnum != null and classnum != '' ">#{classnum},
+                    </if>
+                                                                <if test="teacherid != null and teacherid != '' ">#{teacherid},
+                    </if>
+                                                                <if test="createtime != null and createtime != '' ">#{createtime},
+                    </if>
+                                                                <if test="remarks1 != null and remarks1 != '' ">#{remarks1},
+                    </if>
+                                                                <if test="remarks2 != null and remarks2 != '' ">#{remarks2},
+                    </if>
+                                                                <if test="remarks3 != null and remarks3 != '' ">#{remarks3},
+                    </if>
+                                                                <if test="greadid != null and greadid != '' ">#{greadid},
+                    </if>
+                                    </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateCClass">
+        update c_class
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="classnum != null  and classnum != ''">classnum =
+                        #{classnum},
+                    </if>
+                                                                <if test="teacherid != null  and teacherid != ''">teacherid =
+                        #{teacherid},
+                    </if>
+                                                                <if test="createtime != null  and createtime != ''">createtime =
+                        #{createtime},
+                    </if>
+                                                                <if test="remarks1 != null  and remarks1 != ''">remarks1 =
+                        #{remarks1},
+                    </if>
+                                                                <if test="remarks2 != null  and remarks2 != ''">remarks2 =
+                        #{remarks2},
+                    </if>
+                                                                <if test="remarks3 != null  and remarks3 != ''">remarks3 =
+                        #{remarks3},
+                    </if>
+                                                                <if test="greadid != null  and greadid != ''">greadid =
+                        #{greadid},
+                    </if>
+                                    </trim>
+        where id = #{id}
+    </update>
+    <!--删除-->
+    <delete id="deleteCClassById">
+        delete from c_class where id = #{id}
+    </delete>
+    <!--删除-->
+    <delete id="deleteCClassByIds">
+        delete from c_class where id in
+        <foreach item="id" collection="list" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

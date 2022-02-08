@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CMcurrMapper">
+
+
+    <sql id="selectCMcurrVo">
+        select id,mname,teacherid,createtime,isexamine,parentid,remarks1,remarks2,remarks3 from c_mcurr
+    </sql>
+    <!--列表-->
+    <select id="selectCMcurrlistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCMcurrVo"/>
+        WHERE 1 =1
+
+                                                        <if test="pd.mname != null  and pd.mname != ''  ">
+                    AND mname like '%' #{pd.mname} '%'
+                </if>
+                                                <if test="pd.teacherid != null  and pd.teacherid != ''  ">
+                    AND teacherid like '%' #{pd.teacherid} '%'
+                </if>
+                                                <if test="pd.createtime != null  and pd.createtime != ''  ">
+                    AND createtime like '%' #{pd.createtime} '%'
+                </if>
+                                                <if test="pd.isexamine != null  and pd.isexamine != ''  ">
+                    AND isexamine like '%' #{pd.isexamine} '%'
+                </if>
+                                                <if test="pd.parentid != null  and pd.parentid != ''  ">
+                    AND parentid like '%' #{pd.parentid} '%'
+                </if>
+                                                <if test="pd.remarks1 != null  and pd.remarks1 != ''  ">
+                    AND remarks1 like '%' #{pd.remarks1} '%'
+                </if>
+                                                <if test="pd.remarks2 != null  and pd.remarks2 != ''  ">
+                    AND remarks2 like '%' #{pd.remarks2} '%'
+                </if>
+                                                <if test="pd.remarks3 != null  and pd.remarks3 != ''  ">
+                    AND remarks3 like '%' #{pd.remarks3} '%'
+                </if>
+                            <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+    <!--id-->
+    <select id="selectCMcurrById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCMcurrVo"/>
+        where id = #{id}
+    </select>
+    <!--保存-->
+    <insert id="insertCMcurr"  >
+        insert into c_mcurr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                        
+                    <if test="mname != null  and mname != ''">mname,
+                    </if>
+                                            
+                    <if test="teacherid != null  and teacherid != ''">teacherid,
+                    </if>
+                                            
+                    <if test="createtime != null  and createtime != ''">createtime,
+                    </if>
+                                            
+                    <if test="isexamine != null  and isexamine != ''">isexamine,
+                    </if>
+                                            
+                    <if test="parentid != null  and parentid != ''">parentid,
+                    </if>
+                                            
+                    <if test="remarks1 != null  and remarks1 != ''">remarks1,
+                    </if>
+                                            
+                    <if test="remarks2 != null  and remarks2 != ''">remarks2,
+                    </if>
+                                            
+                    <if test="remarks3 != null  and remarks3 != ''">remarks3,
+                    </if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="mname != null and mname != '' ">#{mname},
+                    </if>
+                                                                <if test="teacherid != null and teacherid != '' ">#{teacherid},
+                    </if>
+                                                                <if test="createtime != null and createtime != '' ">#{createtime},
+                    </if>
+                                                                <if test="isexamine != null and isexamine != '' ">#{isexamine},
+                    </if>
+                                                                <if test="parentid != null and parentid != '' ">#{parentid},
+                    </if>
+                                                                <if test="remarks1 != null and remarks1 != '' ">#{remarks1},
+                    </if>
+                                                                <if test="remarks2 != null and remarks2 != '' ">#{remarks2},
+                    </if>
+                                                                <if test="remarks3 != null and remarks3 != '' ">#{remarks3},
+                    </if>
+                                    </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateCMcurr">
+        update c_mcurr
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="mname != null  and mname != ''">mname =
+                        #{mname},
+                    </if>
+                                                                <if test="teacherid != null  and teacherid != ''">teacherid =
+                        #{teacherid},
+                    </if>
+                                                                <if test="createtime != null  and createtime != ''">createtime =
+                        #{createtime},
+                    </if>
+                                                                <if test="isexamine != null  and isexamine != ''">isexamine =
+                        #{isexamine},
+                    </if>
+                                                                <if test="parentid != null  and parentid != ''">parentid =
+                        #{parentid},
+                    </if>
+                                                                <if test="remarks1 != null  and remarks1 != ''">remarks1 =
+                        #{remarks1},
+                    </if>
+                                                                <if test="remarks2 != null  and remarks2 != ''">remarks2 =
+                        #{remarks2},
+                    </if>
+                                                                <if test="remarks3 != null  and remarks3 != ''">remarks3 =
+                        #{remarks3},
+                    </if>
+                                    </trim>
+        where id = #{id}
+    </update>
+    <!--删除-->
+    <delete id="deleteCMcurrById">
+        delete from c_mcurr where id = #{id}
+    </delete>
+    <!--删除-->
+    <delete id="deleteCMcurrByIds">
+        delete from c_mcurr where id in
+        <foreach item="id" collection="list" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

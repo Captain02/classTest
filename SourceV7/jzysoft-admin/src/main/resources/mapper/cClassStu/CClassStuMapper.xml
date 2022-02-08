@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CClassStuMapper">
+
+
+    <sql id="selectCClassStuVo">
+        select id,classnum,studnum from c_class_stu
+    </sql>
+    <!--列表-->
+    <select id="selectCClassStulistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCClassStuVo"/>
+        WHERE 1 =1
+
+                                                        <if test="pd.classnum != null  and pd.classnum != ''  ">
+                    AND classnum like '%' #{pd.classnum} '%'
+                </if>
+                                                <if test="pd.studnum != null  and pd.studnum != ''  ">
+                    AND studnum like '%' #{pd.studnum} '%'
+                </if>
+                            <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+    <!--id-->
+    <select id="selectCClassStuById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCClassStuVo"/>
+        where id = #{id}
+    </select>
+    <!--保存-->
+    <insert id="insertCClassStu"  >
+        insert into c_class_stu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                        
+                    <if test="classnum != null  and classnum != ''">classnum,
+                    </if>
+                                            
+                    <if test="studnum != null  and studnum != ''">studnum,
+                    </if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="classnum != null and classnum != '' ">#{classnum},
+                    </if>
+                                                                <if test="studnum != null and studnum != '' ">#{studnum},
+                    </if>
+                                    </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateCClassStu">
+        update c_class_stu
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="classnum != null  and classnum != ''">classnum =
+                        #{classnum},
+                    </if>
+                                                                <if test="studnum != null  and studnum != ''">studnum =
+                        #{studnum},
+                    </if>
+                                    </trim>
+        where id = #{id}
+    </update>
+    <!--删除-->
+    <delete id="deleteCClassStuById">
+        delete from c_class_stu where id = #{id}
+    </delete>
+    <!--删除-->
+    <delete id="deleteCClassStuByIds">
+        delete from c_class_stu where id in
+        <foreach item="id" collection="list" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

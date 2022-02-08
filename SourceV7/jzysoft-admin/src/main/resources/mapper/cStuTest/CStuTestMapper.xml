@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CStuTestMapper">
+
+
+    <sql id="selectCStuTestVo">
+        select id,testid,stuid,stuanswer,createtime,remarks1,remarks2,remarks3 from c_stu_test
+    </sql>
+    <!--列表-->
+    <select id="selectCStuTestlistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCStuTestVo"/>
+        WHERE 1 =1
+
+                                                        <if test="pd.testid != null  and pd.testid != ''  ">
+                    AND testid like '%' #{pd.testid} '%'
+                </if>
+                                                <if test="pd.stuid != null  and pd.stuid != ''  ">
+                    AND stuid like '%' #{pd.stuid} '%'
+                </if>
+                                                <if test="pd.stuanswer != null  and pd.stuanswer != ''  ">
+                    AND stuanswer like '%' #{pd.stuanswer} '%'
+                </if>
+                                                <if test="pd.createtime != null  and pd.createtime != ''  ">
+                    AND createtime like '%' #{pd.createtime} '%'
+                </if>
+                                                <if test="pd.remarks1 != null  and pd.remarks1 != ''  ">
+                    AND remarks1 like '%' #{pd.remarks1} '%'
+                </if>
+                                                <if test="pd.remarks2 != null  and pd.remarks2 != ''  ">
+                    AND remarks2 like '%' #{pd.remarks2} '%'
+                </if>
+                                                <if test="pd.remarks3 != null  and pd.remarks3 != ''  ">
+                    AND remarks3 like '%' #{pd.remarks3} '%'
+                </if>
+                            <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+    <!--id-->
+    <select id="selectCStuTestById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCStuTestVo"/>
+        where id = #{id}
+    </select>
+    <!--保存-->
+    <insert id="insertCStuTest"  >
+        insert into c_stu_test
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                        
+                    <if test="testid != null  and testid != ''">testid,
+                    </if>
+                                            
+                    <if test="stuid != null  and stuid != ''">stuid,
+                    </if>
+                                            
+                    <if test="stuanswer != null  and stuanswer != ''">stuanswer,
+                    </if>
+                                            
+                    <if test="createtime != null  and createtime != ''">createtime,
+                    </if>
+                                            
+                    <if test="remarks1 != null  and remarks1 != ''">remarks1,
+                    </if>
+                                            
+                    <if test="remarks2 != null  and remarks2 != ''">remarks2,
+                    </if>
+                                            
+                    <if test="remarks3 != null  and remarks3 != ''">remarks3,
+                    </if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="testid != null and testid != '' ">#{testid},
+                    </if>
+                                                                <if test="stuid != null and stuid != '' ">#{stuid},
+                    </if>
+                                                                <if test="stuanswer != null and stuanswer != '' ">#{stuanswer},
+                    </if>
+                                                                <if test="createtime != null and createtime != '' ">#{createtime},
+                    </if>
+                                                                <if test="remarks1 != null and remarks1 != '' ">#{remarks1},
+                    </if>
+                                                                <if test="remarks2 != null and remarks2 != '' ">#{remarks2},
+                    </if>
+                                                                <if test="remarks3 != null and remarks3 != '' ">#{remarks3},
+                    </if>
+                                    </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateCStuTest">
+        update c_stu_test
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="testid != null  and testid != ''">testid =
+                        #{testid},
+                    </if>
+                                                                <if test="stuid != null  and stuid != ''">stuid =
+                        #{stuid},
+                    </if>
+                                                                <if test="stuanswer != null  and stuanswer != ''">stuanswer =
+                        #{stuanswer},
+                    </if>
+                                                                <if test="createtime != null  and createtime != ''">createtime =
+                        #{createtime},
+                    </if>
+                                                                <if test="remarks1 != null  and remarks1 != ''">remarks1 =
+                        #{remarks1},
+                    </if>
+                                                                <if test="remarks2 != null  and remarks2 != ''">remarks2 =
+                        #{remarks2},
+                    </if>
+                                                                <if test="remarks3 != null  and remarks3 != ''">remarks3 =
+                        #{remarks3},
+                    </if>
+                                    </trim>
+        where id = #{id}
+    </update>
+    <!--删除-->
+    <delete id="deleteCStuTestById">
+        delete from c_stu_test where id = #{id}
+    </delete>
+    <!--删除-->
+    <delete id="deleteCStuTestByIds">
+        delete from c_stu_test where id in
+        <foreach item="id" collection="list" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

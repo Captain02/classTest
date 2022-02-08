@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CCurrMapper">
+
+
+    <sql id="selectCCurrVo">
+        select id,currname,currtime,teacherid,isexamine,ordernum,mcurr,videopath,createtime,remarks1,remarks2,remarks3 from c_curr
+    </sql>
+    <!--列表-->
+    <select id="selectCCurrlistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCCurrVo"/>
+        WHERE 1 =1
+
+                                                        <if test="pd.currname != null  and pd.currname != ''  ">
+                    AND currname like '%' #{pd.currname} '%'
+                </if>
+                                                <if test="pd.currtime != null  and pd.currtime != ''  ">
+                    AND currtime like '%' #{pd.currtime} '%'
+                </if>
+                                                <if test="pd.teacherid != null  and pd.teacherid != ''  ">
+                    AND teacherid like '%' #{pd.teacherid} '%'
+                </if>
+                                                <if test="pd.isexamine != null  and pd.isexamine != ''  ">
+                    AND isexamine like '%' #{pd.isexamine} '%'
+                </if>
+                                                <if test="pd.ordernum != null  and pd.ordernum != ''  ">
+                    AND ordernum like '%' #{pd.ordernum} '%'
+                </if>
+                                                <if test="pd.mcurr != null  and pd.mcurr != ''  ">
+                    AND mcurr like '%' #{pd.mcurr} '%'
+                </if>
+                                                <if test="pd.videopath != null  and pd.videopath != ''  ">
+                    AND videopath like '%' #{pd.videopath} '%'
+                </if>
+                                                <if test="pd.createtime != null  and pd.createtime != ''  ">
+                    AND createtime like '%' #{pd.createtime} '%'
+                </if>
+                                                <if test="pd.remarks1 != null  and pd.remarks1 != ''  ">
+                    AND remarks1 like '%' #{pd.remarks1} '%'
+                </if>
+                                                <if test="pd.remarks2 != null  and pd.remarks2 != ''  ">
+                    AND remarks2 like '%' #{pd.remarks2} '%'
+                </if>
+                                                <if test="pd.remarks3 != null  and pd.remarks3 != ''  ">
+                    AND remarks3 like '%' #{pd.remarks3} '%'
+                </if>
+                            <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+    <!--id-->
+    <select id="selectCCurrById" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <include refid="selectCCurrVo"/>
+        where id = #{id}
+    </select>
+    <!--保存-->
+    <insert id="insertCCurr"  >
+        insert into c_curr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                                                        
+                    <if test="currname != null  and currname != ''">currname,
+                    </if>
+                                            
+                    <if test="currtime != null  and currtime != ''">currtime,
+                    </if>
+                                            
+                    <if test="teacherid != null  and teacherid != ''">teacherid,
+                    </if>
+                                            
+                    <if test="isexamine != null  and isexamine != ''">isexamine,
+                    </if>
+                                            
+                    <if test="ordernum != null  and ordernum != ''">ordernum,
+                    </if>
+                                            
+                    <if test="mcurr != null  and mcurr != ''">mcurr,
+                    </if>
+                                            
+                    <if test="videopath != null  and videopath != ''">videopath,
+                    </if>
+                                            
+                    <if test="createtime != null  and createtime != ''">createtime,
+                    </if>
+                                            
+                    <if test="remarks1 != null  and remarks1 != ''">remarks1,
+                    </if>
+                                            
+                    <if test="remarks2 != null  and remarks2 != ''">remarks2,
+                    </if>
+                                            
+                    <if test="remarks3 != null  and remarks3 != ''">remarks3,
+                    </if>
+                                    </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                                                                            <if test="currname != null and currname != '' ">#{currname},
+                    </if>
+                                                                <if test="currtime != null and currtime != '' ">#{currtime},
+                    </if>
+                                                                <if test="teacherid != null and teacherid != '' ">#{teacherid},
+                    </if>
+                                                                <if test="isexamine != null and isexamine != '' ">#{isexamine},
+                    </if>
+                                                                <if test="ordernum != null and ordernum != '' ">#{ordernum},
+                    </if>
+                                                                <if test="mcurr != null and mcurr != '' ">#{mcurr},
+                    </if>
+                                                                <if test="videopath != null and videopath != '' ">#{videopath},
+                    </if>
+                                                                <if test="createtime != null and createtime != '' ">#{createtime},
+                    </if>
+                                                                <if test="remarks1 != null and remarks1 != '' ">#{remarks1},
+                    </if>
+                                                                <if test="remarks2 != null and remarks2 != '' ">#{remarks2},
+                    </if>
+                                                                <if test="remarks3 != null and remarks3 != '' ">#{remarks3},
+                    </if>
+                                    </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateCCurr">
+        update c_curr
+        <trim prefix="SET" suffixOverrides=",">
+                                                                            <if test="currname != null  and currname != ''">currname =
+                        #{currname},
+                    </if>
+                                                                <if test="currtime != null  and currtime != ''">currtime =
+                        #{currtime},
+                    </if>
+                                                                <if test="teacherid != null  and teacherid != ''">teacherid =
+                        #{teacherid},
+                    </if>
+                                                                <if test="isexamine != null  and isexamine != ''">isexamine =
+                        #{isexamine},
+                    </if>
+                                                                <if test="ordernum != null  and ordernum != ''">ordernum =
+                        #{ordernum},
+                    </if>
+                                                                <if test="mcurr != null  and mcurr != ''">mcurr =
+                        #{mcurr},
+                    </if>
+                                                                <if test="videopath != null  and videopath != ''">videopath =
+                        #{videopath},
+                    </if>
+                                                                <if test="createtime != null  and createtime != ''">createtime =
+                        #{createtime},
+                    </if>
+                                                                <if test="remarks1 != null  and remarks1 != ''">remarks1 =
+                        #{remarks1},
+                    </if>
+                                                                <if test="remarks2 != null  and remarks2 != ''">remarks2 =
+                        #{remarks2},
+                    </if>
+                                                                <if test="remarks3 != null  and remarks3 != ''">remarks3 =
+                        #{remarks3},
+                    </if>
+                                    </trim>
+        where id = #{id}
+    </update>
+    <!--删除-->
+    <delete id="deleteCCurrById">
+        delete from c_curr where id = #{id}
+    </delete>
+    <!--删除-->
+    <delete id="deleteCCurrByIds">
+        delete from c_curr where id in
+        <foreach item="id" collection="list" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
