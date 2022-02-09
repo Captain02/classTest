@@ -204,4 +204,8 @@ public interface ISysUserService
      * @return 结果
      */
     public int changeStatus(SysUser user);
+
+    List<SysUser> selectByRoleId(Long roleId);
+
+    List<SysUser> getStudentByClass(Integer id);
 }

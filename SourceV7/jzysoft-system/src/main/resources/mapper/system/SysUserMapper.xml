@@ -219,5 +219,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			sysdate()
  		)
 	</insert>
-	
+	<!--List<SysUser> selectByRoleId(Long roleId);-->
+	<select id="selectByRoleId" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+		SELECT u.user_id, u.dept_id, u.login_name, u.user_name, u.user_type, u.email, u.avatar, u.phonenumber, u.password, u.sex,
+			   u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark
+		FROM
+			sys_user
+				LEFT JOIN sys_user_role ON sys_user_role.user_id = sys_user.user_id
+				LEFT JOIN sys_role ON sys_role.role_id = sys_user_role.role_id
+		WHERE sys_role.role_name = #{rolename}
+	</select>
+
+	<!--List<SysUser> getStudentByClass(Integer id);-->
+	<select id="getStudentByClass" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+		select u.user_id, u.dept_id, u.login_name, u.user_name, u.user_type, u.email, u.avatar, u.phonenumber, u.password, u.sex,
+		       u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark
+		from sys_user u
+				 LEFT JOIN c_class_stu ON c_class_stu.studnum = u.user_id
+				 LEFT JOIN c_class ON c_class.id = c_class_stu.classnum
+		WHERE c_class.id = #{id}
+	</select>
 </mapper> 

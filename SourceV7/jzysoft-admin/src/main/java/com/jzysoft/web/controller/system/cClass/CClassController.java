@@ -4,10 +4,15 @@ import com.jzysoft.commonmoudle.lib.config.page.Page;
 import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,6 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/cClass/cClass")
+@Api(value = "/cClass/cClass", description = "班级中心")
 public class CClassController extends BaseJQController {
     private String prefix = "moudles/cClass";
     @Autowired
@@ -90,5 +96,19 @@ public class CClassController extends BaseJQController {
         return RJQ.ok();
     }
 
-
+    @ResponseBody
+    @ApiOperation( value = "/joiSntu", httpMethod = "POST" )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageData", value = "id,班级ID"),
+             @ApiImplicitParam(name = "pageData", value = "ids,学生id,如1-2-3")
+    })
+    @PostMapping("/joiSntu")
+    public RJQ joiSntu(@RequestBody PageData pageData) throws Exception {
+        String ids = pageData.getString("ids");
+        String[] split = ids.split("-");
+        List<String> strings = Arrays.asList(split);
+        pageData.put("ids",strings);
+        cClassService.joinStu(pageData);
+        return RJQ.ok();
+    }
 }

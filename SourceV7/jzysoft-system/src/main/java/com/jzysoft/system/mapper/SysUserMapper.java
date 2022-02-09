@@ -121,4 +121,8 @@ public interface SysUserMapper
      * @return 结果
      */
     public SysUser checkEmailUnique(String email);
+
+    List<SysUser> selectByRoleId(Long roleId);
+
+    List<SysUser> getStudentByClass(Integer id);
 }

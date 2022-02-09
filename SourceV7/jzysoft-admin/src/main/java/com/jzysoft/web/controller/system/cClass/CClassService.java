@@ -27,4 +27,6 @@ public interface CClassService
 
     //    删除
     void deleteCClassByIds(PageData pageData) throws Exception;
+
+    void joinStu(PageData pageData) throws Exception;
 }

@@ -47,4 +47,11 @@ public class CClassServiceImpl implements CClassService
     public void deleteCClassByIds(PageData pageData) throws Exception {
         daoSupport.delete("CClassMapper.deleteCClassById", pageData);
     }
+
+    @Override
+    public void joinStu(PageData pageData) throws Exception {
+        daoSupport.save("CClassMapper.joinStu",pageData);
+    }
+
+
 }
