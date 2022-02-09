@@ -258,14 +258,14 @@ public class SysUserController extends BaseController {
     }
 
     @ApiOperation(
-            value = "/getAllStudent",
-            httpMethod = "GET"
+            value = "按照角色名查询学生",
+            httpMethod = "POST"
     )
     @ResponseBody
     @ApiImplicitParams(
             @ApiImplicitParam(name = "pageData", value = "rolename,角色名")
     )
-    @GetMapping("/getAllStudent")
+    @PostMapping("/getAllStudent")
     public RJQ getAllStudent(@RequestBody PageData pageData) {
         List<SysRole> sysRoles = roleService.selectRoleAll();
         SysRole stuRoll = null;
@@ -279,11 +279,11 @@ public class SysUserController extends BaseController {
     }
 
     @ResponseBody
-    @ApiOperation( value = "/getStudentByClass", httpMethod = "GET" )
+    @ApiOperation( value = "查询某班级学生", httpMethod = "POST" )
     @ApiImplicitParams(
             @ApiImplicitParam(name = "pageData", value = "id,班级ID")
     )
-    @GetMapping("/getStudentByClass")
+    @PostMapping("/getStudentByClass")
     public RJQ getStudentByClass(@RequestBody PageData pageData) {
         List<SysUser> students = userService.getStudentByClass(pageData.getInteger("id"));
         return RJQ.ok().put("data", students);

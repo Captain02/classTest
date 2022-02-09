@@ -97,17 +97,12 @@ public class CClassController extends BaseJQController {
     }
 
     @ResponseBody
-    @ApiOperation( value = "/joiSntu", httpMethod = "POST" )
+    @ApiOperation( value = "给班级加入学生", httpMethod = "POST" )
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageData", value = "id,班级ID"),
-             @ApiImplicitParam(name = "pageData", value = "ids,学生id,如1-2-3")
+            @ApiImplicitParam(name = "pageData", value = "id,班级ID。ids,学生id,如[1,2,3]"),
     })
     @PostMapping("/joiSntu")
     public RJQ joiSntu(@RequestBody PageData pageData) throws Exception {
-        String ids = pageData.getString("ids");
-        String[] split = ids.split("-");
-        List<String> strings = Arrays.asList(split);
-        pageData.put("ids",strings);
         cClassService.joinStu(pageData);
         return RJQ.ok();
     }
