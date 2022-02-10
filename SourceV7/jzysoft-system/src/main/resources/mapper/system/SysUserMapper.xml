@@ -220,8 +220,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		)
 	</insert>
 	<!--List<SysUser> selectByRoleId(Long roleId);-->
-	<select id="selectByRoleId" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
-		SELECT u.user_id, u.dept_id, u.login_name, u.user_name, u.user_type, u.email, u.avatar, u.phonenumber, u.password, u.sex,
+	<select id="selectByRoleId" resultType="com.jzysoft.system.domain.SysUser">
+		SELECT u.user_id userId, u.dept_id, u.login_name, u.user_name userName, u.user_type, u.email, u.avatar, u.phonenumber, u.password, u.sex,
 			   u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark
 		FROM
 			sys_user u
@@ -230,7 +230,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!--List<SysUser> getStudentByClass(Integer id);-->
-	<select id="getStudentByClass" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+	<select id="getStudentByClass" resultType="com.jzysoft.system.domain.SysUser">
 		select u.user_id, u.dept_id, u.login_name, u.user_name, u.user_type, u.email, u.avatar, u.phonenumber, u.password, u.sex,
 		       u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark
 		from sys_user u

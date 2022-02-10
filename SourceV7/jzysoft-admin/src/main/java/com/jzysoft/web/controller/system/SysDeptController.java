@@ -1,6 +1,10 @@
 package com.jzysoft.web.controller.system;
 
 import java.util.List;
+
+import com.jzysoft.system.domain.SysUser;
+import com.jzysoft.system.service.ISysRoleService;
+import com.jzysoft.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +40,10 @@ public class SysDeptController extends BaseController
 
     @Autowired
     private ISysDeptService deptService;
-
+    @Autowired
+    private ISysRoleService roleService;
+    @Autowired
+    private ISysUserService userService;
     @RequiresPermissions("system:dept:view")
     @GetMapping()
     public String dept()
@@ -59,7 +66,16 @@ public class SysDeptController extends BaseController
     @GetMapping("/add/{parentId}")
     public String add(@PathVariable("parentId") Long parentId, ModelMap mmap)
     {
+        List<SysRole> sysRoles = roleService.selectRoleAll();
+        SysRole stuRoll = null;
+        for (SysRole sysRole : sysRoles) {
+            if (sysRole.getRoleName().equals("教师")) {
+                stuRoll = sysRole;
+            }
+        }
+        List<SysUser> students = userService.selectByRoleId(stuRoll.getRoleId());
         mmap.put("dept", deptService.selectDeptById(parentId));
+        mmap.put("teachers", students);
         return prefix + "/add";
     }
 
@@ -86,12 +102,21 @@ public class SysDeptController extends BaseController
     @GetMapping("/edit/{deptId}")
     public String edit(@PathVariable("deptId") Long deptId, ModelMap mmap)
     {
+        List<SysRole> sysRoles = roleService.selectRoleAll();
+        SysRole stuRoll = null;
+        for (SysRole sysRole : sysRoles) {
+            if (sysRole.getRoleName().equals("教师")) {
+                stuRoll = sysRole;
+            }
+        }
+        List<SysUser> students = userService.selectByRoleId(stuRoll.getRoleId());
         SysDept dept = deptService.selectDeptById(deptId);
         if (StringUtils.isNotNull(dept) && 100L == deptId)
         {
             dept.setParentName("无");
         }
         mmap.put("dept", dept);
+        mmap.put("teachers", students);
         return prefix + "/edit";
     }
 

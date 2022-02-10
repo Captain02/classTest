@@ -3,14 +3,12 @@ $(function () {
         url: baseURL + 'cClass/cClass/list',
         datatype: "json",
         colModel: [
-            {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
+            {label: 'id', name: 'id', index: 'id', width: 0, key: true, hidden: true},
             {label: '班级名', name: 'classnum', index: 'classnum', width: 80},
             {label: '负责老师', name: 'teacherid', index: 'teacherid', width: 80},
             {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
-            {label: '备注一', name: 'remarks1', index: 'remarks1', width: 80},
-            {label: '备注二', name: 'remarks2', index: 'remarks2', width: 80},
-            {label: '备注三', name: 'remarks3', index: 'remarks3', width: 80},
-            {label: '${column.columnComment}', name: 'greadid', index: 'greadid', width: 80}
+
+
 
         ],
         viewrecords: true,
