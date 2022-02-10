@@ -47,6 +47,16 @@ public class SysDept extends BaseEntity
     /** 父部门名称 */
     private String parentName;
 
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public Long getDeptId()
     {
         return deptId;
