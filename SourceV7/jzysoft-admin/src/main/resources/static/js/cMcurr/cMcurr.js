@@ -8,11 +8,11 @@ $(function () {
             {label: '任教老师', name: 'teacherid', index: 'teacherid', width: 80},
             {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
             // {label: '是否审核通过', name: 'isexamine', index: 'isexamine', width: 80},
-            {label: '父课程', name: 'parentid', index: 'parentid', width: 80},
+            // {label: '父课程', name: 'parentid', index: 'parentid', width: 80},
             {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80},
-            {label: '备注1', name: 'remarks1', index: 'remarks1', width: 80},
-            {label: '备注2', name: 'remarks2', index: 'remarks2', width: 80},
-            {label: '备注3', name: 'remarks3', index: 'remarks3', width: 80}
+            // {label: '备注1', name: 'remarks1', index: 'remarks1', width: 80},
+            // {label: '备注2', name: 'remarks2', index: 'remarks2', width: 80},
+            // {label: '备注3', name: 'remarks3', index: 'remarks3', width: 80}
 
         ],
         viewrecords: true,

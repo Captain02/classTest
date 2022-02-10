@@ -3,7 +3,10 @@
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
 <!--<head th:include="include :: header"></head>-->
-<head th:include="includejqgrid :: includejqgrid">
+<head>
+    <th:block th:include="include :: header('文件上传')"/>
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
+    <th:block th:include="includejqgrid :: includejqgrid"/>
 </head>
 <body>
 
@@ -15,98 +18,51 @@
             <form id="gen-form">
                 <div class="select-list">
                     <ul>
-                                                                                                                                        <li>
-                                      课程名
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.currname"
-                                                placeholder="课程名"/>
-                                </li>
-                                                                                                                <li>
-                                      课程时长
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.currtime"
-                                                placeholder="课程时长"/>
-                                </li>
-                                                                                                                <li>
-                                      任教老师
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.teacherid"
-                                                placeholder="任教老师"/>
-                                </li>
-                                                                                                                <li>
-                                      是否审核通过
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.isexamine"
-                                                placeholder="是否审核通过"/>
-                                </li>
-                                                                                                                <li>
-                                      课程顺序
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.ordernum"
-                                                placeholder="课程顺序"/>
-                                </li>
-                                                                                                                <li>
-                                      属于哪个微课堂
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.mcurr"
-                                                placeholder="属于哪个微课堂"/>
-                                </li>
-                                                                                                                <li>
-                                      视频地址
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.videopath"
-                                                placeholder="视频地址"/>
-                                </li>
-                                                                                                                <li>
-                                      创建时间
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.createtime"
-                                                placeholder="创建时间"/>
-                                </li>
-                                                                                                                <li>
-                                      备注一
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.remarks1"
-                                                placeholder="备注一"/>
-                                </li>
-                                                                                                                <li>
-                                      备注二
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.remarks2"
-                                                placeholder="备注二"/>
-                                </li>
-                                                                                                                <li>
-                                      备注三
-
-                                    :<input style="width:220px; height:35.23px  " type="text"
-                                                v-model="q.remarks3"
-                                                placeholder="备注三"/>
-                                </li>
-                                                                            <!--普通下拉-->
                         <li>
-                            <select class="btn-group" style="width:220px; height:35.23px;">
-                                <option v-for="dropdown in dropdown" :value="dropdown.id">{{dropdown.name}}</option>
-                            </select>
+                            课程名
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.currname"
+                                    placeholder="课程名"/>
                         </li>
+                        <li>
+                            课程时长
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.currtime"
+                                    placeholder="课程时长"/>
+                        </li>
+                        <li>
+                            任教老师
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.teacherid"
+                                    placeholder="任教老师"/>
+                        </li>
+                        <li>
+                            是否审核通过
+
+                            :<input style="width:220px; height:35.23px  " type="text"
+                                    v-model="q.isexamine"
+                                    placeholder="是否审核通过"/>
+                        </li>
+
+
+                        <!--普通下拉-->
+                        <!--                        <li>-->
+                        <!--                            <select class="btn-group" style="width:220px; height:35.23px;">-->
+                        <!--                                <option v-for="dropdown in dropdown" :value="dropdown.id">{{dropdown.name}}</option>-->
+                        <!--                            </select>-->
+                        <!--                        </li>-->
                     </ul>
                 </div>
                 <!--搜索下拉-->
-                <select style="width:220px; height:35.23px;" id="selectuserid" class="selectpicker"
-                        data-live-search="true">
-                </select>
-                <a class="btn btn-primary btn-rounded btn-sm"style="margin-top: 5px" @click="query"><i
+                <!--                <select style="width:220px; height:35.23px;" id="selectuserid" class="selectpicker"-->
+                <!--                        data-live-search="true">-->
+                <!--                </select>-->
+                <a class="btn btn-primary btn-rounded btn-sm" style="margin-top: 5px" @click="query"><i
                         class="fa fa-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
-                <a class="btn btn-warning btn-rounded btn-sm"style="margin-top: 5px" @click="reset"><i
+                <a class="btn btn-warning btn-rounded btn-sm" style="margin-top: 5px" @click="reset"><i
                         class="fa fa-refresh"></i>&nbsp;重置</a>
             </form>
         </div>
@@ -137,96 +93,103 @@
     <!--表单-->
     <form style="padding: 10px" hidden action="" id="editLayer">
         <input type="hidden" name="id">
-                                                        <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         课程名
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="currname" v-model="edit.currname" required
-                               lay-verify="currname" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         课程时长
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="currtime" v-model="edit.currtime" required
-                               lay-verify="currtime" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         任教老师
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="teacherid" v-model="edit.teacherid" required
-                               lay-verify="teacherid" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         是否审核通过
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="isexamine" v-model="edit.isexamine" required
-                               lay-verify="isexamine" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         课程顺序
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="ordernum" v-model="edit.ordernum" required
-                               lay-verify="ordernum" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         属于哪个微课堂
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="mcurr" v-model="edit.mcurr" required
-                               lay-verify="mcurr" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         视频地址
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="videopath" v-model="edit.videopath" required
-                               lay-verify="videopath" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         创建时间
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="createtime" v-model="edit.createtime" required
-                               lay-verify="createtime" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         备注一
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="remarks1" v-model="edit.remarks1" required
-                               lay-verify="remarks1" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         备注二
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="remarks2" v-model="edit.remarks2" required
-                               lay-verify="remarks2" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                                                <div class="layui-form-item layui-form-text">
-                    <label style="width: 100px" class="layui-form-label">                         备注三
-                    </label>
-                    <div style="margin-right: 20px" class="layui-input-block">
-                        <input type="text" name="remarks3" v-model="edit.remarks3" required
-                               lay-verify="remarks3" placeholder="请输入" class="layui-input">
-                    </div>
-                </div>
-                        </form>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 课程名
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="currname" id="currname" v-model="edit.currname" required
+                       lay-verify="currname" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 课程时长
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="currtime" id="currtime" v-model="edit.currtime" required
+                       lay-verify="currtime" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 任教老师
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="teacherid" id="teacherid" v-model="edit.teacherid" required
+                       lay-verify="teacherid" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 是否审核通过
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="isexamine" id="isexamine" v-model="edit.isexamine" required
+                       lay-verify="isexamine" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 课程顺序
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="ordernum" id="ordernum" v-model="edit.ordernum" required
+                       lay-verify="ordernum" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 属于哪个微课堂
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="mcurr" id="mcurr" v-model="edit.mcurr" required
+                       lay-verify="mcurr" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 上传视频
+            </label>
+            <div style="margin-right: 100px;display: flex" class="layui-input-block">
+                <input type="text" name="videopath" id="videopath" v-model="edit.videopath" required
+                       lay-verify="videopath" placeholder="请输入" class="layui-input">
+                <button type="button" class="layui-btn" id="test1">
+
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+            </div>
+        </div>
+<!--        <div class="layui-form-item layui-form-text">-->
+            <!--            <label style="width: 100px" class="layui-form-label"> 创建时间-->
+            <!--            </label>-->
+            <!--            <div style="margin-right: 20px" class="layui-input-block">-->
+            <!--                <input type="text" name="createtime" v-model="edit.createtime" required-->
+            <!--                       lay-verify="createtime" placeholder="请输入" class="layui-input">-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <div class="layui-form-item layui-form-text">-->
+            <!--            <label style="width: 100px" class="layui-form-label"> 备注一-->
+            <!--            </label>-->
+            <!--            <div style="margin-right: 20px" class="layui-input-block">-->
+            <!--                <input type="text" name="remarks1" v-model="edit.remarks1" required-->
+            <!--                       lay-verify="remarks1" placeholder="请输入" class="layui-input">-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <div class="layui-form-item layui-form-text">-->
+            <!--            <label style="width: 100px" class="layui-form-label"> 备注二-->
+            <!--            </label>-->
+            <!--            <div style="margin-right: 20px" class="layui-input-block">-->
+            <!--                <input type="text" name="remarks2" v-model="edit.remarks2" required-->
+            <!--                       lay-verify="remarks2" placeholder="请输入" class="layui-input">-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--        <div class="layui-form-item layui-form-text">-->
+            <!--            <label style="width: 100px" class="layui-form-label"> 备注三-->
+            <!--            </label>-->
+            <!--            <div style="margin-right: 20px" class="layui-input-block">-->
+            <!--                <input type="text" name="remarks3" v-model="edit.remarks3" required-->
+            <!--                       lay-verify="remarks3" placeholder="请输入" class="layui-input">-->
+            <!--            </div>-->
+            <!--        </div>-->
+    </form>
+
     <script src="/js/cCurr/cCurr.js" type="text/javascript"></script>
 </div>
+<!--<th:block th:include="include :: footer" />-->
+<!--<th:block th:include="include :: bootstrap-fileinput-js" />-->
 </body>
 </html>
