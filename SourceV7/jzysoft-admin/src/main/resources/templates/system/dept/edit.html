@@ -33,8 +33,8 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">负责人：</label>
 				<div class="col-sm-8">
-					<select id="teacher" class="form-control select2-multiple">
-						<option th:each="teacher:${teachers}" th:value="${teacher.userId}" th:text="${teacher.userName}" th:disabled="${teacher.status == '1'}"></option>
+					<select name="leader" id="leader" class="form-control select2-multiple">
+						<option th:each="teacher:${teachers}" th:value="${teacher.userId}" th:text="${teacher.userName}" th:selected="*{leader}" th:disabled="${teacher.status == '1'}"></option>
 					</select>
 				</div>
 			</div>
@@ -140,7 +140,7 @@
 			}
 		}
 		$(function() {
-			$('#teacher').select2({
+			$('#leader').select2({
 				placeholder: "请选择负责人",
 				allowClear: true
 			});
