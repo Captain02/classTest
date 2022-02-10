@@ -34,7 +34,7 @@
 				<label class="col-sm-3 control-label">负责人：</label>
 				<div class="col-sm-8">
 					<select name="leader" id="leader" class="form-control select2-multiple">
-						<option th:each="teacher:${teachers}" th:value="${teacher.userId}" th:text="${teacher.userName}" th:selected="*{leader}" th:disabled="${teacher.status == '1'}"></option>
+						<option th:each="teacher:${teachers}" th:value="${teacher.userId}" th:text="${teacher.userName}" th:selected="*{leader}==${teacher.userId}" th:disabled="${teacher.status == '1'}"></option>
 					</select>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">部门状态：</label>
+				<label class="col-sm-3 control-label">年级/班级状态：</label>
 				<div class="col-sm-8">
 					<div class="radio-box" th:each="dict : ${@dict.getType('sys_normal_disable')}">
 						<input type="radio" th:id="${dict.dictCode}" name="status" th:value="${dict.dictValue}" th:field="*{status}">
