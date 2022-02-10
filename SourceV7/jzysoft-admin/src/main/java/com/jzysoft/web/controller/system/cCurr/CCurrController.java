@@ -8,6 +8,10 @@ import com.jzysoft.commonmoudle.lib.config.page.Page;
 import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +27,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/cCurr/cCurr")
+@Api(value = "/cCurr/cCurr", description = "课程管理")
 public class CCurrController extends BaseJQController {
     private String prefix = "moudles/cCurr";
     @Autowired
@@ -64,9 +69,19 @@ public class CCurrController extends BaseJQController {
      * 新增${tableComment}
      * sxd
      */
+
+    @ApiOperation(
+            value = "添加课程",
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageData", value = "currname,teacherid,ordernum,mcurr,currtime"),
+            @ApiImplicitParam(name = "file", value = "上传文件",type = "file")
+    })
     @ResponseBody
     @PostMapping("/adddata")
-    public RJQ saveCCurrData(@RequestBody PageData pageData,MultipartFile file) throws Exception {
+    public RJQ saveCCurrData(MultipartFile file) throws Exception {
+        PageData pageData = this.getPageData();
         try
         {
             // 上传文件路径
