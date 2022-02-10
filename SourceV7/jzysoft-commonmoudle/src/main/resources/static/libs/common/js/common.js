@@ -99,7 +99,6 @@ function getRowsDatas(rowid) {
 /*----------------------------------------------------------jqgrid操作函数---------------------------------------------------------*/
 /*-------------------------------------------------下拉框操作函数--------------------------------------------------------------*/
 function BindDropDownControlData(controlid, data) {
-    debugger
     var str = '<option value="null" style="margin-left: 20px" selected="selected">      全部</option> ';
     // 循环
     // for (var i = vm.dropdown.length - 1; i >= 0; i--) {
@@ -114,7 +113,6 @@ function BindDropDownControlData(controlid, data) {
 }
 
 function BindDropDownControl(controlid, tablename, valuefieldname, namefieldname) {
-    debugger
     $.ajax({
         url: baseURL + "/common/GetCommonDropDownData/" + tablename + "/" + valuefieldname + "/" + namefieldname,
         type: "GET",
@@ -127,7 +125,6 @@ function BindDropDownControl(controlid, tablename, valuefieldname, namefieldname
 }
 
 function BindDropDownControlJZ(controlid, tablename, valuefieldname, namefieldname) {
-    debugger
     $.ajax({
         url: baseURL + "/common/GetCommonDropDownDatas/" + tablename + "/" + valuefieldname + "/" + namefieldname,
         type: "GET",
