@@ -25,6 +25,8 @@ public class MimeTypeUtils
             "asf", "rm", "rmvb" };
 
     public static final String[] DEFAULT_ALLOWED_EXTENSION = {
+            // 视频
+            "mp4",
             // 图片
             "bmp", "gif", "jpg", "jpeg", "png",
             // word excel powerpoint

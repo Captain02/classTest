@@ -99,6 +99,7 @@ public class CCurrController extends BaseJQController {
         }
         catch (Exception e)
         {
+            System.out.println(e);
             return RJQ.error();
         }
     }
