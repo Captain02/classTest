@@ -75,7 +75,7 @@ public class CommonController
         try
         {
             // 上传文件路径
-            String filePath = Global.getUploadPath();
+            String filePath = Global.getDownloadPath();
             // 上传并返回新文件名称
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + fileName;

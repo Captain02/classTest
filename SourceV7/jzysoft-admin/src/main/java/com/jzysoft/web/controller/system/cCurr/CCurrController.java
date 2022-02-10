@@ -1,5 +1,9 @@
 package com.jzysoft.web.controller.system.cCurr;
 
+import com.jzysoft.common.config.Global;
+import com.jzysoft.common.config.ServerConfig;
+import com.jzysoft.common.core.domain.AjaxResult;
+import com.jzysoft.common.utils.file.FileUploadUtils;
 import com.jzysoft.commonmoudle.lib.config.page.Page;
 import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
@@ -7,6 +11,7 @@ import com.jzysoft.commonmoudle.lib.util.RJQ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -53,15 +58,33 @@ public class CCurrController extends BaseJQController {
         return RJQ.ok().put("data", data);
     }
 
+    @Autowired
+    private ServerConfig serverConfig;
     /**
      * 新增${tableComment}
      * sxd
      */
     @ResponseBody
     @PostMapping("/adddata")
-    public RJQ saveCCurrData(@RequestBody PageData pageData) throws Exception {
+    public RJQ saveCCurrData(@RequestBody PageData pageData,MultipartFile file) throws Exception {
+        try
+        {
+            // 上传文件路径
+            String filePath = Global.getDownloadPath();
+            // 上传并返回新文件名称
+            String fileName = FileUploadUtils.upload(filePath, file);
+            String url = serverConfig.getUrl() + fileName;
+            AjaxResult ajax = AjaxResult.success();
+            ajax.put("fileName", fileName);
+            ajax.put("url", url);
+            pageData.put("videopath",url);
             cCurrService.insertCCurr(pageData);
-        return RJQ.ok();
+            return RJQ.ok();
+        }
+        catch (Exception e)
+        {
+            return RJQ.error();
+        }
     }
 
     /**
