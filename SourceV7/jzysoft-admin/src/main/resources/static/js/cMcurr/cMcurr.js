@@ -71,7 +71,7 @@ function showName( cellvalue, options, cell ) {
     return  checkbox ;
 }
 function clickCheckbox(rowid,obj){
-    console.log(rowid,obj)
+    alert(rowid)
 }
 var vm = new Vue({
     el: '#rrapp',
