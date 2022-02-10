@@ -7,6 +7,7 @@ import com.jzysoft.common.utils.file.FileUploadUtils;
 import com.jzysoft.commonmoudle.lib.config.page.Page;
 import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
+import com.jzysoft.commonmoudle.lib.util.R;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -106,11 +107,43 @@ public class CCurrController extends BaseJQController {
      * 修改${tableComment}
      * sxd
      */
+    @ApiOperation(
+            value = "修改课程",
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageData", value = "id,currname,teacherid,ordernum,mcurr,currtime"),
+            @ApiImplicitParam(name = "file", value = "上传文件",type = "file")
+    })
     @ResponseBody
     @PostMapping("/updatedata")
-    public RJQ editCCurrData(@RequestBody PageData pageData) throws Exception {
+    public RJQ editCCurrData(MultipartFile file) throws Exception {
+        PageData pageData = this.getPageData();
+        if (file.isEmpty()){
             cCurrService.updateCCurr(pageData);
-        return RJQ.ok();
+            return RJQ.ok();
+        }else{
+            try
+            {
+                // 上传文件路径
+                String filePath = Global.getDownloadPath();
+                // 上传并返回新文件名称
+                String fileName = FileUploadUtils.upload(filePath, file);
+                String url = serverConfig.getUrl() + fileName;
+                AjaxResult ajax = AjaxResult.success();
+                ajax.put("fileName", fileName);
+                ajax.put("url", url);
+                pageData.put("videopath",url);
+                cCurrService.updateCCurr(pageData);
+                return RJQ.ok();
+            }
+            catch (Exception e)
+            {
+                return RJQ.error();
+            }
+        }
+
+
     }
 
     /**
