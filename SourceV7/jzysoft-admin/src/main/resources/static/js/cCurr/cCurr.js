@@ -82,7 +82,7 @@ function upload(){
 
             },
             done: function(res){
-                //上传完毕回调
+                console.log(res)
             }
             ,error: function(){
                 //请求异常回调
@@ -141,6 +141,7 @@ var vm = new Vue({
     created: function () {
         // this.bindsearchdropdown();
         // this.binddropdown();
+        upload()
     },
     methods: {
         binddropdown: function () {
@@ -160,9 +161,9 @@ var vm = new Vue({
                 type: 1,
                 area: ['95%', '95%'],
                 content: $('#editLayer'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
-                btn: ['确定', '取消'],
+                // btn: ['确定', '取消'],
                 yes: function () {
-                    vm.saveOrUpdate();
+                    // vm.saveOrUpdate();
                 },
                 btn2: function () {
                     vm.reload();
