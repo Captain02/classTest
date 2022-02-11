@@ -54,8 +54,15 @@ function showName( cellvalue, options, cell ) {
 }
 
 function showVideo(val,object){
+    debugger
     var ob = JSON.parse(decodeURI(object))
-
+    var videopath = ob.videopath
+    var loadVideo = "<video width='100%' height='100%' autoplay='autoplay' controls='controls' src=/"+videopath+">"
+    layer.open({
+        type:1,
+        content:loadVideo,
+        area:["90%","90%"]
+    })
 }
 
 var vm = new Vue({
@@ -138,7 +145,7 @@ var vm = new Vue({
                 return;
             }
             $.ajax({
-                url: baseURL + 'cMcurr/cMcurr/findByid',
+                url: baseURL + 'video/video/findByid',
                 type: "GET",
                 data: {
                     id: id,
@@ -164,7 +171,7 @@ var vm = new Vue({
         },
         <!--新增修改-->
         saveOrUpdate: function (id) {
-            var url = id == null ? "cMcurr/cMcurr/adddata" : "cMcurr/cMcurr/updatedata";
+            var url = id == null ? "video/video/adddata" : "video/video/updatedata";
             $.ajax({
                 url: baseURL + url,
                 type: "POST",
