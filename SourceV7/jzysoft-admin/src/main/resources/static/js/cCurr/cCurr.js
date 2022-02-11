@@ -1,5 +1,3 @@
-
-
 $(function () {
     $("#jqGrid").jqGrid({
         url: baseURL + 'cCurr/cCurr/list',
@@ -51,45 +49,9 @@ $(function () {
             noneSelectedText: '请选择'
         });
     });
-    upload()
+
 });
 
-function upload(){
-    layui.use('upload', function(){
-        var upload = layui.upload;
-
-        //执行实例
-        var uploadInst = upload.render({
-            elem: '#test1', //绑定元素
-            url: baseURL + 'cCurr/cCurr/adddata', //上传接口
-            bindAction: '#testListAction',
-            auto: false,//选择文件后不自动上传
-            accept: 'video',
-            data:{
-
-            },
-
-            choose: function(obj){
-                debugger
-                console.log("---"+JSON.stringify(obj))
-                //将每次选择的文件追加到文件队列
-                var files = obj.pushFile();
-                obj.preview(function(index, file, result){
-                    console.log(index); //得到文件索引
-                    console.log(file); //得到文件对象
-                    $('#videopath').val(file.name)
-                })
-
-            },
-            done: function(res){
-                console.log(res)
-            }
-            ,error: function(){
-                //请求异常回调
-            }
-        });
-    });
-}
 
 var vm = new Vue({
     el: '#rrapp',
@@ -131,6 +93,13 @@ var vm = new Vue({
                 name: null,
             }
         ],
+        teacherDropdown:[],
+        mcurrDropdown: [
+            {
+                id: null,
+                name: null,
+            }
+        ],
         dropdown1: [
             {
                 id: null,
@@ -140,8 +109,9 @@ var vm = new Vue({
     },
     created: function () {
         // this.bindsearchdropdown();
-        // this.binddropdown();
-        upload()
+        this.binddropdown();
+        this.teacherList()
+        this.upload()
     },
     methods: {
         binddropdown: function () {
@@ -149,6 +119,7 @@ var vm = new Vue({
             // this.dropdown1 = BindDropDownControlsdy('sys_dict_data', 'dict_', 'dict_label', '起重机类型管理')
             // 普通下拉框
             // this.dropdown = BindDropDownControls('customer', 'customer_id', 'username');
+            this.mcurrDropdown = BindDropDownControls('c_mcurr', 'id', 'mname');
         },
         // 搜索下拉
         // bindsearchdropdown: function () {
@@ -156,6 +127,7 @@ var vm = new Vue({
         // },
         // 添加页面
         addPage: function () {
+            // this.teacherList()
             vm.reload();
             vm.index = layer.open({
                 type: 1,
@@ -172,6 +144,7 @@ var vm = new Vue({
         },
         <!--修改页面-->
         editPage: function (x) {
+            // this.teacherList()
             var id = getSelectedRow();
             if (id == null) {
                 return;
@@ -303,6 +276,64 @@ var vm = new Vue({
             layer.closeAll();
             $("#jqGrid").trigger("reloadGrid");
         },
+        upload: function () {
+            layui.use('upload', function () {
+                var upload = layui.upload;
 
+                //执行实例
+                var uploadInst = upload.render({
+                    elem: '#test1', //绑定元素
+                    url: baseURL + 'cCurr/cCurr/adddata', //上传接口
+                    bindAction: '#confirm',
+                    auto: false,//选择文件后不自动上传
+                    accept: 'video',
+                    acceptMime: 'video/*',
+                    data: vm.edit,
+                    before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                        layer.load(); //上传loading
+                    },
+                    choose: function (obj) {
+
+                        //将每次选择的文件追加到文件队列
+                        var files = obj.pushFile();
+                        obj.preview(function (index, file, result) {
+                            console.log(index); //得到文件索引
+                            console.log(file); //得到文件对象
+                            $('#videopath').val(file.name)
+                        })
+
+                    },
+                    done: function (res) {
+                        console.log(res)
+                        layer.closeAll('loading'); //关闭loading
+                    }
+                    , error: function (res) {
+                        console.log(res)
+                        layer.closeAll('loading'); //关闭loading
+                        //请求异常回调
+                    }
+                });
+            });
+        },
+        teacherList: function (){
+            $.ajax({
+                type: "POST",
+                url:  "/system/user/getAllStudent",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    rolename: '教师'
+                }),
+                success: function (r) {
+
+                    console.log(JSON.stringify(r.data))
+                    if (r.code == 0) {
+                        vm.teacherDropdown = r.data
+                    } else {
+
+                    }
+
+                }
+            });
+        }
     }
 });

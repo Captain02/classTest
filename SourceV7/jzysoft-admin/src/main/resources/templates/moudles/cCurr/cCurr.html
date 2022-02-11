@@ -113,18 +113,21 @@
             <label style="width: 100px" class="layui-form-label"> 任教老师
             </label>
             <div style="margin-right: 20px" class="layui-input-block">
-                <input type="text" name="teacherid" id="teacherid" v-model="edit.teacherid" required
-                       lay-verify="teacherid" placeholder="请输入" class="layui-input">
+<!--                <input type="text" name="teacherid" id="teacherid" v-model="edit.teacherid" required-->
+<!--                       lay-verify="teacherid" placeholder="请输入" class="layui-input">-->
+                <select class="btn-group" name="teacherid" id="teacherid" style="width:220px; height:35.23px;">
+                    <option v-for="dropdown in teacherDropdown" :value="dropdown.userId">{{dropdown.userName}}</option>
+                </select>
             </div>
         </div>
-        <div class="layui-form-item layui-form-text">
-            <label style="width: 100px" class="layui-form-label"> 是否审核通过
-            </label>
-            <div style="margin-right: 20px" class="layui-input-block">
-                <input type="text" name="isexamine" id="isexamine" v-model="edit.isexamine" required
-                       lay-verify="isexamine" placeholder="请输入" class="layui-input">
-            </div>
-        </div>
+<!--        <div class="layui-form-item layui-form-text">-->
+<!--            <label style="width: 100px" class="layui-form-label"> 是否审核通过-->
+<!--            </label>-->
+<!--            <div style="margin-right: 20px" class="layui-input-block">-->
+<!--                <input type="text" name="isexamine" id="isexamine" v-model="edit.isexamine" required-->
+<!--                       lay-verify="isexamine" placeholder="请输入" class="layui-input">-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="layui-form-item layui-form-text">
             <label style="width: 100px" class="layui-form-label"> 课程顺序
             </label>
@@ -134,11 +137,14 @@
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
-            <label style="width: 100px" class="layui-form-label"> 属于哪个微课堂
+            <label style="width: 100px" class="layui-form-label"> 微课堂
             </label>
             <div style="margin-right: 20px" class="layui-input-block">
-                <input type="text" name="mcurr" id="mcurr" v-model="edit.mcurr" required
-                       lay-verify="mcurr" placeholder="请输入" class="layui-input">
+<!--                <input type="text" name="mcurr" id="mcurr" v-model="edit.mcurr" required-->
+<!--                       lay-verify="mcurr" placeholder="请输入" class="layui-input">-->
+                <select name="mcurr" id="mcurr" class="btn-group" style="width:220px; height:35.23px;">
+                    <option v-for="dropdown in mcurrDropdown" :value="dropdown.id">{{dropdown.name}}</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
@@ -185,7 +191,11 @@
         <!--                       lay-verify="remarks3" placeholder="请输入" class="layui-input">-->
         <!--            </div>-->
         <!--        </div>-->
-        <button id="testListAction" type="button" class="layui-btn">一个标准的按钮</button>
+        <div style="margin-top: 200px;text-align: center">
+            <button id="confirm" type="button" class="layui-btn layui-btn-normal" >确定</button>
+            <button id="cancel" type="button" class="layui-btn layui-btn-primary">取消</button>
+        </div>
+
     </form>
 
     <script src="/js/cCurr/cCurr.js" type="text/javascript"></script>
