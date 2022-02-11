@@ -74,18 +74,18 @@ var vm = new Vue({
         title: null,
         index: null,
         edit: {
-            id: null,
-            currname: null,
-            currtime: null,
-            teacherid: null,
-            isexamine: null,
-            ordernum: null,
-            mcurr: null,
-            videopath: null,
-            createtime: null,
-            remarks1: null,
-            remarks2: null,
-            remarks3: null,
+            id: '',
+            currname: '',
+            currtime: '',
+            teacherid: '',
+            isexamine: '',
+            ordernum: '',
+            mcurr: '',
+            videopath: '',
+            createtime: '',
+            remarks1: '',
+            remarks2: '',
+            remarks3: '',
         },
         dropdown: [
             {
@@ -168,6 +168,8 @@ var vm = new Vue({
                     vm.edit.remarks1 = result.data.remarks1;
                     vm.edit.remarks2 = result.data.remarks2;
                     vm.edit.remarks3 = result.data.remarks3;
+                    $('#teacherid').val(result.data.teacherid)
+                    $('#mcurr').val(result.data.mcurr)
                 }
             })
             vm.index = layer.open({
@@ -261,17 +263,17 @@ var vm = new Vue({
             $("#gen-form")[0].reset();
         },
         reload: function () {
-            vm.edit.currname = null;
-            vm.edit.currtime = null;
-            vm.edit.teacherid = null;
-            vm.edit.isexamine = null;
-            vm.edit.ordernum = null;
-            vm.edit.mcurr = null;
-            vm.edit.videopath = null;
-            vm.edit.createtime = null;
-            vm.edit.remarks1 = null;
-            vm.edit.remarks2 = null;
-            vm.edit.remarks3 = null;
+            vm.edit.currname = '';
+            vm.edit.currtime = '';
+            vm.edit.teacherid = '';
+            vm.edit.isexamine = '';
+            vm.edit.ordernum = '';
+            vm.edit.mcurr = '';
+            vm.edit.videopath = '';
+            vm.edit.createtime = '';
+            vm.edit.remarks1 = '';
+            vm.edit.remarks2 = '';
+            vm.edit.remarks3 = '';
             $("#editLayer")[0].reset();
             layer.closeAll();
             $("#jqGrid").trigger("reloadGrid");
@@ -288,22 +290,23 @@ var vm = new Vue({
                     auto: false,//选择文件后不自动上传
                     accept: 'video',
                     acceptMime: 'video/*',
-                    data: {
-                        currname: $('#currname').val(),
-                        currtime: $('#currtime').val(),
-                        teacherid: $('#teacherid').val(),
-                        ordernum: $('#ordernum').val(),
-                        mcurr: $('#mcurr').val(),
-
-                    },
+                    // data: {
+                    //
+                    //     currtime: $('#currtime').val(),
+                    //     teacherid: $('#teacherid').val(),
+                    //     ordernum: $('#ordernum').val(),
+                    //     mcurr: $('#mcurr').val(),
+                    //     currname: $('#currname').val(),
+                    // },
+                    data: vm.edit,
                     before: function(obj){//obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                         layer.load(); //上传loading
-                        debugger
-                        console.log($('#currname').val())
-                        console.log($('#currtime').val())
-                        console.log($('#teacherid').val())
-                        console.log($('#ordernum').val())
-                        console.log($('#mcurr').val())
+                        // debugger
+                        // console.log($('#currname').val())
+                        // console.log($('#currtime').val())
+                        // console.log($('#teacherid').val())
+                        // console.log($('#ordernum').val())
+                        // console.log($('#mcurr').val())
                     },
                     choose: function (obj) {
 
@@ -319,6 +322,8 @@ var vm = new Vue({
                     done: function (res) {
                         console.log(res)
                         layer.closeAll('loading'); //关闭loading
+                        vm.reload();
+                        layer.close(vm.index)
                     }
                     , error: function (res) {
                         console.log(res)
@@ -347,6 +352,10 @@ var vm = new Vue({
 
                 }
             });
+        },
+        cancel: function (){
+            vm.reload();
+            layer.close(vm.index)
         }
     }
 });

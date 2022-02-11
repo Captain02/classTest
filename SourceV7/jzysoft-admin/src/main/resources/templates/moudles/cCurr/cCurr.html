@@ -105,7 +105,7 @@
             <label style="width: 100px" class="layui-form-label"> 课程时长
             </label>
             <div style="margin-right: 20px" class="layui-input-block">
-                <input type="text" name="currtime" id="currtime" v-model="edit.currtime" required
+                <input type="number" name="currtime" id="currtime" v-model="edit.currtime" required
                        lay-verify="currtime" placeholder="请输入" class="layui-input">
             </div>
         </div>
@@ -115,7 +115,7 @@
             <div style="margin-right: 20px" class="layui-input-block">
 <!--                <input type="text" name="teacherid" id="teacherid" v-model="edit.teacherid" required-->
 <!--                       lay-verify="teacherid" placeholder="请输入" class="layui-input">-->
-                <select class="btn-group" name="teacherid" id="teacherid" style="width:220px; height:35.23px;">
+                <select class="btn-group" name="teacherid" id="teacherid" v-model="edit.teacherid" style="width:220px; height:35.23px;">
                     <option v-for="dropdown in teacherDropdown" :value="dropdown.userId">{{dropdown.userName}}</option>
                 </select>
             </div>
@@ -132,8 +132,8 @@
             <label style="width: 100px" class="layui-form-label"> 课程顺序
             </label>
             <div style="margin-right: 20px" class="layui-input-block">
-                <input type="text" name="ordernum" id="ordernum" v-model="edit.ordernum" required
-                       lay-verify="ordernum" placeholder="请输入" class="layui-input">
+                <input type="number" name="ordernum" id="ordernum" v-model="edit.ordernum" required
+                       lay-verify="ordernum" placeholder="请输入"  class="layui-input">
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
@@ -142,7 +142,7 @@
             <div style="margin-right: 20px" class="layui-input-block">
 <!--                <input type="text" name="mcurr" id="mcurr" v-model="edit.mcurr" required-->
 <!--                       lay-verify="mcurr" placeholder="请输入" class="layui-input">-->
-                <select name="mcurr" id="mcurr" class="btn-group" style="width:220px; height:35.23px;">
+                <select name="mcurr" id="mcurr" class="btn-group" v-model="edit.mcurr" style="width:220px; height:35.23px;">
                     <option v-for="dropdown in mcurrDropdown" :value="dropdown.id">{{dropdown.name}}</option>
                 </select>
             </div>
@@ -193,7 +193,7 @@
         <!--        </div>-->
         <div style="margin-top: 200px;text-align: center">
             <button id="confirm" type="button" class="layui-btn layui-btn-normal" >确定</button>
-            <button id="cancel" type="button" class="layui-btn layui-btn-primary">取消</button>
+            <button id="cancel" type="button" @click="cancel()" class="layui-btn layui-btn-primary">取消</button>
         </div>
 
     </form>
