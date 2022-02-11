@@ -288,9 +288,22 @@ var vm = new Vue({
                     auto: false,//选择文件后不自动上传
                     accept: 'video',
                     acceptMime: 'video/*',
-                    data: vm.edit,
-                    before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                    data: {
+                        currname: $('#currname').val(),
+                        currtime: $('#currtime').val(),
+                        teacherid: $('#teacherid').val(),
+                        ordernum: $('#ordernum').val(),
+                        mcurr: $('#mcurr').val(),
+
+                    },
+                    before: function(obj){//obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                         layer.load(); //上传loading
+                        debugger
+                        console.log($('#currname').val())
+                        console.log($('#currtime').val())
+                        console.log($('#teacherid').val())
+                        console.log($('#ordernum').val())
+                        console.log($('#mcurr').val())
                     },
                     choose: function (obj) {
 
