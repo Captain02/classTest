@@ -34,6 +34,7 @@
         c_curr.remarks1,
         c_curr.remarks2,
         c_curr.remarks3,
+        c_mcurr.mname,
         sys_user.user_name teachername,
         (CASE
         WHEN c_curr.isexamine = 1 THEN "已通过"
@@ -96,6 +97,7 @@
         c_curr.remarks1,
         c_curr.remarks2,
         c_curr.remarks3,
+        c_mcurr.mname,
         sys_user.user_name teachername,
         (CASE
         WHEN c_curr.isexamine = 1 THEN "已通过"
