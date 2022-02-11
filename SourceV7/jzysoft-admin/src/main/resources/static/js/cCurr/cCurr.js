@@ -184,9 +184,9 @@ var vm = new Vue({
                 type: 1,
                 area: ['95%', '95%'],
                 content: $('#editLayer'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
-                btn: ['确定', '取消'],
+                // btn: ['确定', '取消'],
                 yes: function (id) {
-                    vm.saveOrUpdate(id);
+                    // vm.saveOrUpdate(id);
                 },
                 btn2: function () {
                     vm.reload();
