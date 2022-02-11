@@ -84,7 +84,7 @@
     </select>
 
 <!--selectCVideoListPage-->
-    <select id="selectCVideoListPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+    <select id="selectCVideolistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
         select c_curr.id,
         c_curr.currname,
         c_curr.currtime,
