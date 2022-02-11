@@ -147,6 +147,7 @@
                 </select>
             </div>
         </div>
+        <span v-if="issave == 1">
         <div class="layui-form-item layui-form-text">
             <label style="width: 100px" class="layui-form-label"> 上传视频
             </label>
@@ -159,6 +160,7 @@
                 </button>
             </div>
         </div>
+         </span>
         <!--        <div class="layui-form-item layui-form-text">-->
         <!--            <label style="width: 100px" class="layui-form-label"> 创建时间-->
         <!--            </label>-->
@@ -192,8 +194,9 @@
         <!--            </div>-->
         <!--        </div>-->
         <div style="margin-top: 200px;text-align: center">
-            <button id="confirm" type="button" class="layui-btn layui-btn-normal" >确定</button>
-            <button id="cancel" type="button" @click="cancel()" class="layui-btn layui-btn-primary">取消</button>
+            <button id="confirm" v-if="issave ==1" type="button" class="layui-btn layui-btn-normal" >确定</button>
+            <button id="confirm2" v-if="issave==2" @click="saveOrUpdate" type="button" class="layui-btn layui-btn-normal" >确定</button>
+            <button id="cancel"  type="button" @click="cancel()" class="layui-btn layui-btn-primary">取消</button>
         </div>
 
     </form>

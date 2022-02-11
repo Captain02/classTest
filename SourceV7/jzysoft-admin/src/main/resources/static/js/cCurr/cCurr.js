@@ -106,7 +106,8 @@ var vm = new Vue({
                 name: null,
             }
         ],
-        sendurl:null
+        sendurl:null,
+        issave:null
     },
     created: function () {
         // this.bindsearchdropdown();
@@ -128,6 +129,7 @@ var vm = new Vue({
         // },
         // 添加页面
         addPage: function () {
+            vm.issave =1
             vm.sendurl ="cCurr/cCurr/adddata"
             this.upload()
             // this.teacherList()
@@ -148,6 +150,7 @@ var vm = new Vue({
         <!--修改页面-->
         editPage: function (x) {
             vm.sendurl ="cCurr/cCurr/updatedata"
+            vm.issave =2
             this.upload()
             // this.teacherList()
             var id = getSelectedRow();
@@ -192,7 +195,7 @@ var vm = new Vue({
         },
         <!--新增修改-->
         saveOrUpdate: function (id) {
-            var url = id == null ? "cCurr/cCurr/adddata" : "cCurr/cCurr/updatedata";
+            var url =  "cCurr/cCurr/updatedata";
             $.ajax({
                 url: baseURL + url,
                 type: "POST",

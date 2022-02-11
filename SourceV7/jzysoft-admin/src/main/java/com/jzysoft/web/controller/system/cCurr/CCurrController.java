@@ -118,34 +118,9 @@ public class CCurrController extends BaseJQController {
     })
     @ResponseBody
     @PostMapping("/updatedata")
-    public RJQ editCCurrData(MultipartFile file) throws Exception {
-        PageData pageData = this.getPageData();
-        if (file.isEmpty()){
-            cCurrService.updateCCurr(pageData);
-            return RJQ.ok();
-        }else{
-            try
-            {
-                // 上传文件路径
-                String filePath = Global.getDownloadPath();
-                // 上传并返回新文件名称
-                String fileName = FileUploadUtils.upload(filePath, file);
-                String url = serverConfig.getUrl() + fileName;
-                AjaxResult ajax = AjaxResult.success();
-                ajax.put("fileName", fileName);
-                ajax.put("url", url);
-                pageData.put("videopath",url);
-                pageData.remove("createtime");
-                cCurrService.updateCCurr(pageData);
-                return RJQ.ok();
-            }
-            catch (Exception e)
-            {
-                System.out.println(e);
-                return RJQ.error();
-            }
-        }
-
+    public RJQ editCCurrData(@RequestBody PageData pageData) throws Exception {
+        cCurrService.updateCCurr(pageData);
+        return RJQ.ok();
 
     }
 
