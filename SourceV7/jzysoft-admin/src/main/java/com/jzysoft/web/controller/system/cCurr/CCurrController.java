@@ -135,11 +135,13 @@ public class CCurrController extends BaseJQController {
                 ajax.put("fileName", fileName);
                 ajax.put("url", url);
                 pageData.put("videopath",url);
+                pageData.remove("createtime");
                 cCurrService.updateCCurr(pageData);
                 return RJQ.ok();
             }
             catch (Exception e)
             {
+                System.out.println(e);
                 return RJQ.error();
             }
         }
