@@ -105,13 +105,14 @@ var vm = new Vue({
                 id: null,
                 name: null,
             }
-        ]
+        ],
+        sendurl:null
     },
     created: function () {
         // this.bindsearchdropdown();
         this.binddropdown();
         this.teacherList()
-        this.upload()
+
     },
     methods: {
         binddropdown: function () {
@@ -127,6 +128,8 @@ var vm = new Vue({
         // },
         // 添加页面
         addPage: function () {
+            vm.sendurl ="cCurr/cCurr/adddata"
+            this.upload()
             // this.teacherList()
             vm.reload();
             vm.index = layer.open({
@@ -144,6 +147,8 @@ var vm = new Vue({
         },
         <!--修改页面-->
         editPage: function (x) {
+            vm.sendurl ="cCurr/cCurr/updatedata"
+            this.upload()
             // this.teacherList()
             var id = getSelectedRow();
             if (id == null) {
@@ -285,7 +290,7 @@ var vm = new Vue({
                 //执行实例
                 var uploadInst = upload.render({
                     elem: '#test1', //绑定元素
-                    url: baseURL + 'cCurr/cCurr/adddata', //上传接口
+                    url: baseURL + vm.sendurl, //上传接口
                     bindAction: '#confirm',
                     auto: false,//选择文件后不自动上传
                     accept: 'video',
