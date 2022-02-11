@@ -52,7 +52,7 @@ public class CVideoController extends BaseJQController {
     public RJQ selCCurrPage(Page page) throws Exception {
         PageData pageData = this.getPageData();
         page.setPd(pageData);
-        List<PageData> list = cVideoService.selectCCurrList(page);
+        List<PageData> list = cVideoService.selectCVideoListPage(page);
         return RJQ.ok().put("page", page).put("data", list);
     }
 

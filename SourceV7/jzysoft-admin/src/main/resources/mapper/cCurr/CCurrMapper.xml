@@ -22,26 +22,107 @@
     </sql>
     <!--列表-->
     <select id="selectCCurrlistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
-        <include refid="selectCCurrVo"/>
+        select c_curr.id,
+        c_curr.currname,
+        c_curr.currtime,
+        c_curr.teacherid,
+        c_curr.isexamine,
+        c_curr.ordernum,
+        c_curr.mcurr,
+        c_curr.videopath,
+        c_curr.createtime,
+        c_curr.remarks1,
+        c_curr.remarks2,
+        c_curr.remarks3,
+        sys_user.user_name teachername,
+        (CASE
+        WHEN c_curr.isexamine = 1 THEN "已通过"
+        WHEN c_curr.isexamine = 2 THEN "未通过"
+        END
+        ) AS isexaminestr
+        from c_curr
+        LEFT JOIN sys_user ON sys_user.user_id = c_curr.teacherid
+        LEFT JOIN c_mcurr ON c_mcurr.id = c_curr.mcurr
         WHERE 1 =1
-
         <if test="pd.currname != null  and pd.currname != ''  ">
-            AND currname like '%' #{pd.currname} '%'
+            AND c_curr.currname like '%' #{pd.currname} '%'
         </if>
         <if test="pd.currtime != null  and pd.currtime != ''  ">
-            AND currtime like '%' #{pd.currtime} '%'
+            AND c_curr.currtime like '%' #{pd.currtime} '%'
         </if>
         <if test="pd.teacherid != null  and pd.teacherid != ''  ">
-            AND teacherid like '%' #{pd.teacherid} '%'
+            AND c_curr.teacherid like '%' #{pd.teacherid} '%'
         </if>
         <if test="pd.isexamine != null  and pd.isexamine != ''  ">
-            AND isexamine like '%' #{pd.isexamine} '%'
+            AND c_curr.isexamine like '%' #{pd.isexamine} '%'
         </if>
         <if test="pd.ordernum != null  and pd.ordernum != ''  ">
-            AND ordernum like '%' #{pd.ordernum} '%'
+            AND c_curr.ordernum like '%' #{pd.ordernum} '%'
         </if>
         <if test="pd.mcurr != null  and pd.mcurr != ''  ">
-            AND mcurr like '%' #{pd.mcurr} '%'
+            AND c_curr.mcurr like '%' #{pd.mcurr} '%'
+        </if>
+        <if test="pd.videopath != null  and pd.videopath != ''  ">
+            AND videopath like '%' #{pd.videopath} '%'
+        </if>
+        <if test="pd.createtime != null  and pd.createtime != ''  ">
+            AND createtime like '%' #{pd.createtime} '%'
+        </if>
+        <if test="pd.remarks1 != null  and pd.remarks1 != ''  ">
+            AND remarks1 like '%' #{pd.remarks1} '%'
+        </if>
+        <if test="pd.remarks2 != null  and pd.remarks2 != ''  ">
+            AND remarks2 like '%' #{pd.remarks2} '%'
+        </if>
+        <if test="pd.remarks3 != null  and pd.remarks3 != ''  ">
+            AND remarks3 like '%' #{pd.remarks3} '%'
+        </if>
+        <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
+
+<!--selectCVideoListPage-->
+    <select id="selectCVideoListPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select c_curr.id,
+        c_curr.currname,
+        c_curr.currtime,
+        c_curr.teacherid,
+        c_curr.isexamine,
+        c_curr.ordernum,
+        c_curr.mcurr,
+        c_curr.videopath,
+        c_curr.createtime,
+        c_curr.remarks1,
+        c_curr.remarks2,
+        c_curr.remarks3,
+        sys_user.user_name teachername,
+        (CASE
+        WHEN c_curr.isexamine = 1 THEN "已通过"
+        WHEN c_curr.isexamine = 2 THEN "未通过"
+        END
+        ) AS isexaminestr
+        from c_curr
+        LEFT JOIN sys_user ON sys_user.user_id = c_curr.teacherid
+        LEFT JOIN c_mcurr ON c_mcurr.id = c_curr.mcurr
+        WHERE 1 =1
+        <if test="pd.currname != null  and pd.currname != ''  ">
+            AND c_curr.currname like '%' #{pd.currname} '%'
+        </if>
+        <if test="pd.currtime != null  and pd.currtime != ''  ">
+            AND c_curr.currtime like '%' #{pd.currtime} '%'
+        </if>
+        <if test="pd.teacherid != null  and pd.teacherid != ''  ">
+            AND c_curr.teacherid like '%' #{pd.teacherid} '%'
+        </if>
+        <if test="pd.isexamine != null  and pd.isexamine != ''  ">
+            AND c_curr.isexamine like '%' #{pd.isexamine} '%'
+        </if>
+        <if test="pd.ordernum != null  and pd.ordernum != ''  ">
+            AND c_curr.ordernum like '%' #{pd.ordernum} '%'
+        </if>
+        <if test="pd.mcurr != null  and pd.mcurr != ''  ">
+            AND c_curr.mcurr like '%' #{pd.mcurr} '%'
         </if>
         <if test="pd.videopath != null  and pd.videopath != ''  ">
             AND videopath like '%' #{pd.videopath} '%'

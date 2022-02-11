@@ -47,4 +47,9 @@ public class CVideoServiceImpl implements CVideoService
     public void deleteCCurrByIds(PageData pageData) throws Exception {
         daoSupport.delete("CCurrMapper.deleteCCurrById", pageData);
     }
+
+    @Override
+    public List<PageData> selectCVideoListPage(Page page) throws Exception {
+        return (List<PageData>) daoSupport.findForList("CCurrMapper.selectCVideoListPage", page);
+    }
 }

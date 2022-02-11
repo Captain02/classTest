@@ -27,4 +27,6 @@ public interface CVideoService
 
     //    删除
     void deleteCCurrByIds(PageData pageData) throws Exception;
+
+    List<PageData> selectCVideoListPage(Page page) throws Exception;
 }
