@@ -70,29 +70,29 @@ var vm = new Vue({
 
     data: {
         q: {
-            mcurr: null,
-            currname: null,
-            createtime: null,
-            teacherid: null,
-            isexamine: null,
-            ordernum: null,
-            id: null,
-            currtime: null,
-            videopath: null,
+            mcurr: '',
+            currname: '',
+            createtime: '',
+            teacherid: '',
+            isexamine: '',
+            ordernum: '',
+            id: '',
+            currtime: '',
+            videopath: '',
         },
         showList: true,
         title: null,
         index: null,
         edit: {
-            mcurr: null,
-            currname: null,
-            createtime: null,
-            teacherid: null,
-            isexamine: null,
-            ordernum: null,
-            id: null,
-            currtime: null,
-            videopath: null,
+            mcurr: '',
+            currname: '',
+            createtime: '',
+            teacherid: '',
+            isexamine: '',
+            ordernum: '',
+            id: '',
+            currtime: '',
+            videopath: '',
         },
         dropdown: [
             {
@@ -141,6 +141,7 @@ var vm = new Vue({
         <!--修改页面-->
         editPage: function (x) {
             var id = getSelectedRow();
+            vm.upload();
             if (id == null) {
                 return;
             }
@@ -160,9 +161,9 @@ var vm = new Vue({
                 type: 1,
                 area: ['95%', '95%'],
                 content: $('#editLayer'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
-                btn: ['确定', '取消'],
+                // btn: ['确定', '取消'],
                 yes: function (id) {
-                    vm.saveOrUpdate(id);
+                    // vm.saveOrUpdate(id);
                 },
                 btn2: function () {
                     vm.reload();
@@ -224,30 +225,89 @@ var vm = new Vue({
         },
         // 重置
         reset: function () {
-            vm.q.mcurr = null;
-            vm.q.currname = null;
-            vm.q.createtime = null;
-            vm.q.teacherid = null;
-            vm.q.isexamine = null;
-            vm.q.ordernum = null;
-            vm.q.id = null;
-            vm.q.currtime = null;
-            vm.q.videopath = null;
+            vm.q.mcurr = '';
+            vm.q.currname = '';
+            vm.q.createtime = '';
+            vm.q.teacherid = '';
+            vm.q.isexamine = '';
+            vm.q.ordernum = '';
+            vm.q.id = '';
+            vm.q.currtime = '';
+            vm.q.videopath = '';
             $("#gen-form")[0].reset();
         },
         reload: function () {
-            vm.edit.mcurr = null;
-            vm.edit.currname = null;
-            vm.edit.createtime = null;
-            vm.edit.teacherid = null;
-            vm.edit.isexamine = null;
-            vm.edit.ordernum = null;
-            vm.edit.id = null;
-            vm.edit.currtime = null;
-            vm.edit.videopath = null;
+            vm.edit.mcurr = '';
+            vm.edit.currname = '';
+            vm.edit.createtime = '';
+            vm.edit.teacherid = '';
+            vm.edit.isexamine = '';
+            vm.edit.ordernum = '';
+            vm.edit.id = '';
+            vm.edit.currtime = '';
+            vm.edit.videopath = '';
             $("#editLayer")[0].reset();
             layer.closeAll();
             $("#jqGrid").trigger("reloadGrid");
+        },
+        upload: function () {
+            layui.use('upload', function () {
+                var upload = layui.upload;
+
+                //执行实例
+                var uploadInst = upload.render({
+                    elem: '#test1', //绑定元素
+                    url: baseURL + 'video/video/updatedata', //上传接口
+                    bindAction: '#confirm',
+                    auto: false,//选择文件后不自动上传
+                    accept: 'video',
+                    acceptMime: 'video/*',
+                    // data: {
+                    //
+                    //     currtime: $('#currtime').val(),
+                    //     teacherid: $('#teacherid').val(),
+                    //     ordernum: $('#ordernum').val(),
+                    //     mcurr: $('#mcurr').val(),
+                    //     currname: $('#currname').val(),
+                    // },
+                    data: vm.edit,
+                    before: function(obj){//obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                        layer.load(); //上传loading
+                        // debugger
+                        // console.log($('#currname').val())
+                        // console.log($('#currtime').val())
+                        // console.log($('#teacherid').val())
+                        // console.log($('#ordernum').val())
+                        // console.log($('#mcurr').val())
+                    },
+                    choose: function (obj) {
+
+                        //将每次选择的文件追加到文件队列
+                        var files = obj.pushFile();
+                        obj.preview(function (index, file, result) {
+                            console.log(index); //得到文件索引
+                            console.log(file); //得到文件对象
+                            $('#videopath').val(file.name)
+                        })
+
+                    },
+                    done: function (res) {
+                        console.log(res)
+                        layer.closeAll('loading'); //关闭loading
+                        vm.reload();
+                        layer.close(vm.index)
+                    }
+                    , error: function (res) {
+                        console.log(res)
+                        layer.closeAll('loading'); //关闭loading
+                        //请求异常回调
+                    }
+                });
+            });
+        },
+        cancel: function (){
+            vm.reload();
+            layer.close(vm.index)
         }
     }
 });

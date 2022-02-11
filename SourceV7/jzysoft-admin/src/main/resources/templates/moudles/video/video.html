@@ -3,7 +3,10 @@
       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
 <!--<head th:include="include :: header"></head>-->
-<head th:include="includejqgrid :: includejqgrid">
+<head >
+    <th:block th:include="include :: header('文件上传')"/>
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
+    <th:block th:include="includejqgrid :: includejqgrid"/>
 </head>
 <body>
 
@@ -46,9 +49,9 @@
             <a class="btn btn-primary btn-edit" @click="editPage()">
                 <i class="fa fa-edit"></i> 修改
             </a>
-            <a class="btn btn-danger btn-del " @click="del()">
-                <i class="fa fa-remove"></i> 删除
-            </a>
+<!--            <a class="btn btn-danger btn-del " @click="del()">-->
+<!--                <i class="fa fa-remove"></i> 删除-->
+<!--            </a>-->
         </div>
     </div>
     <!--jqgrid-->
@@ -75,7 +78,10 @@
                 </button>
             </div>
         </div>
-
+        <div style="margin-top: 200px;text-align: center">
+            <button id="confirm"  type="button" class="layui-btn layui-btn-normal" >确定</button>
+            <button id="cancel"  type="button" @click="cancel()" class="layui-btn layui-btn-primary">取消</button>
+        </div>
     </form>
     <div style="padding: 10px" hidden id="videoShow">
 
