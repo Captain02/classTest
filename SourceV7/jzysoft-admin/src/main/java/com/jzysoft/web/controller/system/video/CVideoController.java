@@ -93,4 +93,18 @@ public class CVideoController extends BaseJQController {
 
     }
 
+    @ApiOperation(
+            value = "按照id查询视频",
+            httpMethod = "GET"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageData", value = "id"),
+    })
+    @ResponseBody
+    @GetMapping("/findByid")
+    public RJQ getCCurrInfo() throws Exception {
+        PageData pageData = this.getPageData();
+        PageData data = cVideoService.selectCCurrById(pageData);
+        return RJQ.ok().put("data", data);
+    }
 }
