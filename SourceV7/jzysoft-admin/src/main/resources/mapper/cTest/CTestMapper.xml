@@ -32,7 +32,8 @@
         WHEN c_mcurr.isexamine = 2 THEN '未通过'
         END
         ) AS isexaminestr,
-        c_mcurr.mname
+        c_mcurr.mname,
+        c_test.id testid
         from c_test
         LEFT JOIN c_mcurr ON c_test.mclassid = c_mcurr.id
         WHERE 1 =1
