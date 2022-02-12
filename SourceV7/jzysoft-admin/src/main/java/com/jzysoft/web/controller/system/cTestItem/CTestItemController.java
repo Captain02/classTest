@@ -26,7 +26,7 @@ public class CTestItemController extends BaseJQController {
 
     @RequestMapping(value = "/{testid}")
     public String CTestItem(@PathVariable("testid") Long testid, ModelMap mmap) {
-        mmap.put("user", testid);
+        mmap.put("testid", testid);
         return prefix + "/cTestItem";
     }
 

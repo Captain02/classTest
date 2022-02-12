@@ -4,9 +4,9 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
-            {label: '微课堂', name: 'mname', index: 'mclassid', width: 80},
+            {label: '微课堂', name: 'mname', index: 'mname', width: 80},
             {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
-            {label: '是否审核通过', name: 'isexaminestr', index: 'isexamine', width: 80},
+            {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80},
             {label: '题干', name: 'teststem', index: 'teststem', width: 80, formatter:showItem},
 
 
@@ -48,28 +48,15 @@ $(function () {
 function showItem(cellvalue, options, cell){
     var id = cell.testid
 
-    var a = '<a href="" onclick="openItem('+id+')">'+cell.teststem+'</a>'
+    var a = '<a href="javascript:void(0)" onclick="openItem('+id+')">'+cell.teststem+'</a>'
 
     return a
 }
 
 function openItem(id){
-    debugger
-    layer.open({
-        type: 2,
-        title: '选项管理',
-        maxmin: true,
-        shadeClose: false, // 点击遮罩关闭层
-        area: ['100%', '100%'],
-        content: baseURL + 'cTestItem/cTestItem/'+id, //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
 
-        // yes: function () {
-        //     vm.saveOrUpdate();
-        // },
-        // btn2: function () {
-        //     vm.reload();
-        // }
-    });
+    var url = baseURL + 'cTestItem/cTestItem/'+id
+    $.modal.openTab("选项管理", url);
 }
 var vm = new Vue({
     el: '#rrapp',
@@ -108,18 +95,21 @@ var vm = new Vue({
                 id: null,
                 name: null,
             }
-        ]
+        ],
+        mcurrDropdown: []
     },
     created: function () {
         // this.bindsearchdropdown();
-        // this.binddropdown();
+        this.binddropdown();
+
     },
     methods: {
         binddropdown: function () {
             //字典表下拉框
-            this.dropdown1 = BindDropDownControlsdy('sys_dict_data', 'dict_', 'dict_label', '起重机类型管理')
-            // 普通下拉框
-            this.dropdown = BindDropDownControls('customer', 'customer_id', 'username');
+            // this.dropdown1 = BindDropDownControlsdy('sys_dict_data', 'dict_', 'dict_label', '起重机类型管理')
+            // // 普通下拉框
+            // this.dropdown = BindDropDownControls('customer', 'customer_id', 'username');
+            this.mcurrDropdown = BindDropDownControls('c_mcurr', 'id', 'mname');
         },
         // 搜索下拉
         bindsearchdropdown: function () {

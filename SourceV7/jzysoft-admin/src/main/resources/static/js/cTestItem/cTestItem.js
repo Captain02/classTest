@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + 'cTestItem/cTestItem/list',
+        url: baseURL + 'cTestItem/cTestItem/list?testid='+$('#testid').val(),
         datatype: "json",
         colModel: [
             {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
@@ -28,7 +28,7 @@ $(function () {
         prmNames: {
             page: "currentPage",
             rows: "showCount",
-            order: "order"
+            order: "order",
         },
         gridComplete: function () {
             //隐藏grid底部滚动条
@@ -48,6 +48,7 @@ var vm = new Vue({
     el: '#rrapp',
 
     data: {
+        testId: '',
         q: {
             testid: null,
             testitem: null,

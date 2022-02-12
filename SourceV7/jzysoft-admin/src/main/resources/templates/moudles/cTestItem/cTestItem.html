@@ -10,32 +10,33 @@
 <div id="rrapp" class="layui-fluid" style="background-color: #F1F1F2">
     <!--搜索-->
     <div class="layui-row">
-
+        <input hidden id="testid" name="testid" th:value="${testid}">
+<!--        <input style="" id="testid" hidden type="text" th:value="${testid}" v-model="testId" placeholder="题目id"/>-->
         <div id="sera" class="col-sm-12 search-collapse">
             <form id="gen-form">
                 <div class="select-list">
                     <ul>
-                        <li>
-                            题目id
+<!--                        <li>-->
+<!--                            题目id-->
 
-                            :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.testid"
-                                    placeholder="题目id"/>
-                        </li>
-                        <li>
-                            选项
+<!--                            :<input style="width:220px; height:35.23px  " type="text"-->
+<!--                                    v-model="q.testid"-->
+<!--                                    placeholder="题目id"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            选项-->
 
-                            :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.testitem"
-                                    placeholder="选项"/>
-                        </li>
-                        <li>
-                            是否正确选项1正确2错误
+<!--                            :<input style="width:220px; height:35.23px  " type="text"-->
+<!--                                    v-model="q.testitem"-->
+<!--                                    placeholder="选项"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            是否正确选项1正确2错误-->
 
-                            :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.isture"
-                                    placeholder="是否正确"/>
-                        </li>
+<!--                            :<input style="width:220px; height:35.23px  " type="text"-->
+<!--                                    v-model="q.isture"-->
+<!--                                    placeholder="是否正确"/>-->
+<!--                        </li>-->
 
                         <!--普通下拉-->
 <!--                        <li>-->
@@ -49,10 +50,10 @@
 <!--                <select style="width:220px; height:35.23px;" id="selectuserid" class="selectpicker"-->
 <!--                        data-live-search="true">-->
 <!--                </select>-->
-                <a class="btn btn-primary btn-rounded btn-sm" style="margin-top: 5px" @click="query"><i
-                        class="fa fa-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
-                <a class="btn btn-warning btn-rounded btn-sm" style="margin-top: 5px" @click="reset"><i
-                        class="fa fa-refresh"></i>&nbsp;重置</a>
+<!--                <a class="btn btn-primary btn-rounded btn-sm" style="margin-top: 5px" @click="query"><i-->
+<!--                        class="fa fa-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;-->
+<!--                <a class="btn btn-warning btn-rounded btn-sm" style="margin-top: 5px" @click="reset"><i-->
+<!--                        class="fa fa-refresh"></i>&nbsp;重置</a>-->
             </form>
         </div>
     </div>
