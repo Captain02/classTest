@@ -6,6 +6,7 @@ import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,9 @@ public class CTestItemController extends BaseJQController {
     @Autowired
         CTestItemService cTestItemService;
 
-    @RequestMapping(value = "")
-    public String CTestItem() {
+    @RequestMapping(value = "/{testid}")
+    public String CTestItem(@PathVariable("testid") Long testid, ModelMap mmap) {
+        mmap.put("user", testid);
         return prefix + "/cTestItem";
     }
 
