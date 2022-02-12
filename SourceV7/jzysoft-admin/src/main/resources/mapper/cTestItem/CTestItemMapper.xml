@@ -15,7 +15,7 @@
         (
             CASE
             WHEN isture = 1 THEN '正确'
-            WHEN isture = 1 THEN '错误'
+            WHEN isture = 2 THEN '错误'
             END
         ) AS isturestr
         from c_test_item

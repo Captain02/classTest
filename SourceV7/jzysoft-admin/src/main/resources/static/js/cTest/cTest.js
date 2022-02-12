@@ -3,7 +3,7 @@ $(function () {
         url: baseURL + 'cTest/cTest/list',
         datatype: "json",
         colModel: [
-            {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
+            {label: '${column.columnComment}', name: 'testid', index: 'testid', width: 0, key: true, hidden: true},
             {label: '微课堂', name: 'mname', index: 'mname', width: 80},
             {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
             {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80},

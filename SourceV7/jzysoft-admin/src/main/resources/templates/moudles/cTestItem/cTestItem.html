@@ -83,14 +83,14 @@
     <!--表单-->
     <form style="padding: 10px" hidden action="" id="editLayer">
         <input type="hidden" name="id">
-        <div class="layui-form-item layui-form-text">
-            <label style="width: 100px" class="layui-form-label"> 题目id
-            </label>
-            <div style="margin-right: 20px" class="layui-input-block">
-                <input type="text" name="testid" v-model="edit.testid" required
-                       lay-verify="testid" placeholder="请输入" class="layui-input">
-            </div>
-        </div>
+<!--        <div class="layui-form-item layui-form-text">-->
+<!--            <label style="width: 100px" class="layui-form-label"> 题目id-->
+<!--            </label>-->
+<!--            <div style="margin-right: 20px" class="layui-input-block">-->
+<!--                <input type="text" name="testid" v-model="edit.testid" required-->
+<!--                       lay-verify="testid" placeholder="请输入" class="layui-input">-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="layui-form-item layui-form-text">
             <label style="width: 100px" class="layui-form-label"> 选项
             </label>
@@ -103,8 +103,13 @@
             <label style="width: 100px" class="layui-form-label"> 是否正确
             </label>
             <div style="margin-right: 20px" class="layui-input-block">
-                <input type="text" name="isture" v-model="edit.isture" required
-                       lay-verify="isture" placeholder="请输入" class="layui-input">
+<!--                <input type="text" name="isture" v-model="edit.isture" required-->
+<!--                       lay-verify="isture" placeholder="请输入" class="layui-input">-->
+                <select name="isture" id="isture" class="btn-group" v-model="edit.isture" style="width:220px; height:35.23px;">
+                    <option value="">请选择是否正确</option>
+                    <option value="1" th:selected="">正确</option>
+                    <option value="2">错误</option>
+                </select>
             </div>
         </div>
 

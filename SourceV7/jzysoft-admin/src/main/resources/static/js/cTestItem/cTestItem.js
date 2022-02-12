@@ -6,7 +6,7 @@ $(function () {
             {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
             {label: '题目id', name: 'testid', index: 'testid', width: 80},
             {label: '选项', name: 'testitem', index: 'testitem', width: 80},
-            {label: '是否正确', name: 'isture', index: 'isture', width: 80},
+            {label: '是否正确', name: 'isturestr', index: 'isturestr', width: 80},
 
 
         ],
