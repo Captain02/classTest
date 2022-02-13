@@ -22,7 +22,7 @@
         WHERE 1 =1
 
         <if test="pd.testid != null  and pd.testid != ''  ">
-            AND testid = #{pd.testid} 
+            AND testid = #{pd.testid}
         </if>
         <if test="pd.testitem != null  and pd.testitem != ''  ">
             AND testitem like '%' #{pd.testitem} '%'
