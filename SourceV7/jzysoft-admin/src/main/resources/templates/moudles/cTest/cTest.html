@@ -19,26 +19,27 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            微课堂
-
-                            :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.mname"
-                                    placeholder="微课堂"/>
+                            微课堂:
+<!--                            <input style="width:220px; height:35.23px  " type="text"-->
+<!--                                    v-model="q.mname"-->
+<!--                                    placeholder="微课堂"/>-->
+                            <select  class="btn-group" v-model="q.mclassid" style="width:220px; height:35.23px;">
+                                <option v-for="dropdown in mcurrDropdown" :value="dropdown.id">{{dropdown.name}}</option>
+                            </select>
                         </li>
+
                         <li>
-                            创建时间
-
-                            :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.createtime"
-                                    placeholder="创建时间"/>
+                            是否审核通过:
+<!--                            <input style="width:220px; height:35.23px  " type="text"-->
+<!--                                    v-model="q.isexaminestr"-->
+<!--                                    placeholder="是否审核通过"/>-->
+                            <select  class="btn-group" v-model="q.isexamine" style="width:220px; height:35.23px;">
+                                <option value="">请选择是否审核通过</option>
+                                <option value="1">已通过</option>
+                                <option value="2">未通过</option>
+                            </select>
                         </li>
-                        <li>
-                            是否审核通过
 
-                            :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.isexaminestr"
-                                    placeholder="是否审核通过"/>
-                        </li>
                         <li>
                             题干
 
