@@ -62,7 +62,7 @@ var vm = new Vue({
         index: null,
         edit: {
             id: null,
-            testid: null,
+            testid: $('#testid').val(),
             testitem: null,
             isture: null,
             remarks1: null,
@@ -150,6 +150,7 @@ var vm = new Vue({
         },
         <!--新增修改-->
         saveOrUpdate: function (id) {
+            vm.edit.testid = $('#testid').val();
             var url = id == null ? "cTestItem/cTestItem/adddata" : "cTestItem/cTestItem/updatedata";
             $.ajax({
                 url: baseURL + url,
