@@ -45,7 +45,7 @@
             AND createtime like '%' #{pd.createtime} '%'
         </if>
         <if test="pd.isexamine != null  and pd.isexamine != ''  ">
-            AND isexamine = #{pd.isexamine}
+            AND c_test.isexamine = #{pd.isexamine}
         </if>
         <if test="pd.teststem != null  and pd.teststem != ''  ">
             AND teststem like '%' #{pd.teststem} '%'
