@@ -55,7 +55,7 @@
             AND c_curr.teacherid like '%' #{pd.teacherid} '%'
         </if>
         <if test="pd.isexamine != null  and pd.isexamine != ''  ">
-            AND c_curr.isexamine like '%' #{pd.isexamine} '%'
+            AND c_curr.isexamine = #{pd.isexamine}
         </if>
         <if test="pd.ordernum != null  and pd.ordernum != ''  ">
             AND c_curr.ordernum like '%' #{pd.ordernum} '%'

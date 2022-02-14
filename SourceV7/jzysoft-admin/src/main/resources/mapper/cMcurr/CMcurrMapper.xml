@@ -38,7 +38,7 @@
             AND createtime like '%' #{pd.createtime} '%'
         </if>
         <if test="pd.isexamine != null  and pd.isexamine != ''  ">
-            AND isexamine like '%' #{pd.isexamine} '%'
+            AND isexamine = #{pd.isexamine}
         </if>
         <if test="pd.parentid != null  and pd.parentid != ''  ">
             AND parentid like '%' #{pd.parentid} '%'
