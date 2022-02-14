@@ -6,22 +6,23 @@
 
 
     <sql id="selectCMcurrVo">
-        select id,
-               mname,
-               teacherid,
-               createtime,
-               isexamine,
-               parentid,
-               remarks1,
-               remarks2,
-               remarks3,
+        select c_mcurr.id,
+               c_mcurr.mname,
+               c_mcurr.teacherid,
+               c_mcurr.createtime,
+               c_mcurr.isexamine,
+               c_mcurr.parentid,
+               c_mcurr.remarks1,
+               c_mcurr.remarks2,
+               c_mcurr.remarks3,
+               sys_user.user_name teachername,
                ( CASE
                      WHEN isexamine = 2 THEN '未通过'
                      WHEN isexamine = 1 THEN '已通过'
                    END
                    ) AS isexaminestr
-
         from c_mcurr
+                 LEFT JOIN sys_user ON sys_user.user_id = c_mcurr.teacherid
     </sql>
     <!--列表-->
     <select id="selectCMcurrlistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
