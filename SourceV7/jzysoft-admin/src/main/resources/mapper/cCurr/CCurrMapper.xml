@@ -82,6 +82,36 @@
             order by ${pd.sidx} ${pd.order}
         </if>
     </select>
+    <select id="selectCurrByMCurrIdlistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select c_curr.id,
+        c_curr.currname,
+        c_curr.currtime,
+        c_curr.teacherid,
+        c_curr.isexamine,
+        c_curr.ordernum,
+        c_curr.mcurr,
+        c_curr.videopath,
+        c_curr.createtime,
+        c_curr.remarks1,
+        c_curr.remarks2,
+        c_curr.remarks3,
+        c_mcurr.mname mname,
+        sys_user.user_name teachername,
+        (CASE
+        WHEN c_curr.isexamine = 1 THEN "已通过"
+        WHEN c_curr.isexamine = 2 THEN "未通过"
+        END
+        ) AS isexaminestr
+        from c_curr
+        LEFT JOIN sys_user ON sys_user.user_id = c_curr.teacherid
+        LEFT JOIN c_mcurr ON c_mcurr.id = c_curr.mcurr
+        WHERE 1 =1
+        AND c_curr.isexamine = 1
+        AND c_curr.mcurr like '%' #{pd.mcurrid} '%'
+        <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+            order by ${pd.sidx} ${pd.order}
+        </if>
+    </select>
 
 <!--selectCVideoListPage-->
     <select id="selectCVideolistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">

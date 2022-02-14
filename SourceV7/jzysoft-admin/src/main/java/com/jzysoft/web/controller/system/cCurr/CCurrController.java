@@ -143,5 +143,21 @@ public class CCurrController extends BaseJQController {
         return RJQ.ok();
     }
 
+    @ApiOperation(
+            value = "根据微课堂查询课程",
+            httpMethod = "Get"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageData", value = "mcurrid"),
+    })
+    @ResponseBody
+    @GetMapping("/selectCurrByMCurrId")
+    public RJQ selectCurrByMCurrId(Page page) throws Exception {
+        PageData pageData = this.getPageData();
+        page.setPd(pageData);
+        List<PageData> list = cCurrService.selectCurrByMCurrIdList(page);
+        return RJQ.ok().put("page", page).put("data", list);
+    }
+
 
 }

@@ -47,4 +47,9 @@ public class CCurrServiceImpl implements CCurrService
     public void deleteCCurrByIds(PageData pageData) throws Exception {
         daoSupport.delete("CCurrMapper.deleteCCurrById", pageData);
     }
+
+    @Override
+    public List<PageData> selectCurrByMCurrIdList(Page page) throws Exception {
+        return (List<PageData>) daoSupport.findForList("CCurrMapper.selectCurrByMCurrIdlistPage", page);
+    }
 }

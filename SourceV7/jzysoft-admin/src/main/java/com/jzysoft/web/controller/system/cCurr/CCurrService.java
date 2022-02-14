@@ -27,4 +27,6 @@ public interface CCurrService
 
     //    删除
     void deleteCCurrByIds(PageData pageData) throws Exception;
+
+    List<PageData> selectCurrByMCurrIdList(Page page) throws Exception;
 }
