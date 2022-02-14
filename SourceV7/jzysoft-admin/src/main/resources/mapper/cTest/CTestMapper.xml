@@ -20,16 +20,16 @@
     <select id="selectCTestlistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
         select c_mcurr.id,
         mclassid,
-        c_mcurr.createtime,
-        c_mcurr.isexamine,
+        c_test.createtime,
+        c_test.isexamine,
         teststem,
-        c_mcurr.remarks1,
-        c_mcurr.remarks2,
-        c_mcurr.remarks3,
+        c_test.remarks1,
+        c_test.remarks2,
+        c_test.remarks3,
         (
         CASE
-        WHEN c_mcurr.isexamine = 1 THEN '已通过'
-        WHEN c_mcurr.isexamine = 2 THEN '未通过'
+        WHEN c_test.isexamine = 1 THEN '已通过'
+        WHEN c_test.isexamine = 2 THEN '未通过'
         END
         ) AS isexaminestr,
         c_mcurr.mname,
