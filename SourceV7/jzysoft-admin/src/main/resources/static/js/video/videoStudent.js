@@ -6,8 +6,8 @@ $(function () {
             {label: '', name: 'id', index: 'id', width: 0, key: true, hidden: true},
             {label: '微课堂名称', name: 'mname', index: 'mname', width: 80},
             {label: '课堂名称', name: 'currname', index: 'currname', width: 80},
-            {label: '视频地址', name: 'videopath', index: 'videopath', width: 80},
-
+            // {label: '视频地址', name: 'videopath', index: 'videopath', width: 80},
+            {label: '任教老师', name: 'teachername', index: 'teachername', width: 80},
             {label: '操作', name: '', index: '', width: 80,formatter: showName},
 
 
