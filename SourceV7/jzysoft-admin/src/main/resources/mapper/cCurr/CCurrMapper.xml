@@ -107,7 +107,7 @@
         LEFT JOIN c_mcurr ON c_mcurr.id = c_curr.mcurr
         WHERE 1 =1
         AND c_curr.isexamine = 1
-        AND c_curr.mcurr like '%' #{pd.mcurrid} '%'
+        AND c_curr.mcurr = #{pd.mcurrid} 
         <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
             order by ${pd.sidx} ${pd.order}
         </if>
