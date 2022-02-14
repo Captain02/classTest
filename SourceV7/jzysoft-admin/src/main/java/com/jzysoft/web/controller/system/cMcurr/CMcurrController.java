@@ -112,14 +112,14 @@ public class CMcurrController extends BaseJQController {
     @Autowired
     CCurrService cCurrService;
     @ApiOperation(
-            value = "按照id查询视频",
+            value = "修改状态",
             httpMethod = "POST"
     )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageData", value = "id,type={微课堂,题目,课程},isexamine"),
     })
     @ResponseBody
-    @GetMapping("/changestatus")
+    @PostMapping("/changestatus")
     public RJQ getCCurrInfo() throws Exception {
         PageData pageData = this.getPageData();
         Integer isexamine = pageData.getInteger("isexamine");
