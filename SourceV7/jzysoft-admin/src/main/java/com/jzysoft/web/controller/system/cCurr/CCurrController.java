@@ -38,6 +38,10 @@ public class CCurrController extends BaseJQController {
     public String CCurr() {
         return prefix + "/cCurr";
     }
+    @RequestMapping(value = "cCurrCheck")
+    public String CCurrCheck() {
+        return prefix + "/cCurrCheck";
+    }
 
     /**
      * 列表

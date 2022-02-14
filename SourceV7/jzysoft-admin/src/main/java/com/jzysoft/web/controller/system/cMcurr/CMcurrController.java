@@ -35,6 +35,10 @@ public class CMcurrController extends BaseJQController {
     public String CMcurr() {
         return prefix + "/cMcurr";
     }
+    @RequestMapping(value = "cMcurrCheck")
+    public String CMcurrCheck() {
+        return prefix + "/cMcurrCheck";
+    }
 
     /**
      * 列表
