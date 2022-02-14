@@ -39,7 +39,10 @@ public class CMcurrController extends BaseJQController {
     public String CMcurrCheck() {
         return prefix + "/cMcurrCheck";
     }
-
+    @RequestMapping(value = "cMcurrStudent")
+    public String CMcurrStudent() {
+        return prefix + "/cMcurrStudent";
+    }
     /**
      * 列表
      * sxd

@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,6 +38,12 @@ public class CVideoController extends BaseJQController {
     @RequestMapping(value = "")
     public String CCurr() {
         return prefix + "/video";
+    }
+
+    @RequestMapping(value = "/{id}")
+    public String CTestItem(@PathVariable("id") Long id, ModelMap mmap) {
+        mmap.put("mcurrId", id);
+        return prefix + "/videoStudent";
     }
 
     /**
