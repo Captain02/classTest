@@ -122,6 +122,12 @@ public class CMcurrController extends BaseJQController {
     @GetMapping("/changestatus")
     public RJQ getCCurrInfo() throws Exception {
         PageData pageData = this.getPageData();
+        Integer isexamine = pageData.getInteger("isexamine");
+        if (isexamine == 1){
+            pageData.put("isexamine",2);
+        }else {
+            pageData.put("isexamine",1);
+        }
         String type = pageData.getString("type");
         if (type.equals("微课堂")){
             cMcurrService.updateCMcurr(pageData);
