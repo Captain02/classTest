@@ -108,6 +108,9 @@
         WHERE 1 =1
         AND c_curr.isexamine = 1
         AND c_curr.mcurr = #{pd.mcurrid}
+        <if test="pd.currname != null  and pd.currname != ''  ">
+            AND c_curr.currname like '%' #{pd.currname} '%'
+        </if>
         <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
             order by ${pd.sidx} ${pd.order}
         </if>
