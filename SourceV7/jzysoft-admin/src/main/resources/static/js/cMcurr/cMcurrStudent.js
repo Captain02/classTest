@@ -127,8 +127,8 @@ var vm = new Vue({
         ]
     },
     created: function () {
-        this.bindsearchdropdown();
-        this.binddropdown();
+        // this.bindsearchdropdown();
+        // this.binddropdown();
     },
     methods: {
         binddropdown: function () {
