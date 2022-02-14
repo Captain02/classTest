@@ -6,6 +6,7 @@ import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
 import com.jzysoft.commonmoudle.moudles.test.TestService;
 import com.jzysoft.web.controller.system.cCurr.CCurrService;
+import com.jzysoft.web.controller.system.cTest.CTestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -108,7 +109,7 @@ public class CMcurrController extends BaseJQController {
     }
 
     @Autowired
-    TestService testService;
+    CTestService ctestService;
     @Autowired
     CCurrService cCurrService;
     @ApiOperation(
@@ -132,7 +133,7 @@ public class CMcurrController extends BaseJQController {
         if (type.equals("微课堂")){
             cMcurrService.updateCMcurr(pageData);
         }else if (type.equals("题目")){
-            testService.updateTest(pageData);
+            ctestService.updateCTest(pageData);
         }else if(type.equals("课程")){
             cCurrService.updateCCurr(pageData);
         }
