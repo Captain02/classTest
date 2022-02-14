@@ -138,7 +138,7 @@
                 #{remarks3},
             </if>
         </trim>
-        where id = #{id}
+        where c_mcurr.id = #{id}
     </update>
     <!--删除-->
     <delete id="deleteCMcurrById">

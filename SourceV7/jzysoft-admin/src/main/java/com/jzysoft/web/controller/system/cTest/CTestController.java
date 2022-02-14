@@ -28,6 +28,10 @@ public class CTestController extends BaseJQController {
     public String CTest() {
         return prefix + "/cTest";
     }
+    @RequestMapping(value = "cTestCheck")
+    public String CTestCheck() {
+        return prefix + "/cTestCheck";
+    }
 
     /**
      * 列表

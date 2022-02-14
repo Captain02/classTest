@@ -6,7 +6,7 @@ $(function () {
             {label: '${column.columnComment}', name: 'testid', index: 'testid', width: 0, key: true, hidden: true},
             {label: '微课堂', name: 'mname', index: 'mname', width: 80},
             {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
-            {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80},
+            {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80,formatter:statusTools},
             {label: '题干', name: 'teststem', index: 'teststem', width: 80, formatter:showItem},
 
 
@@ -57,6 +57,55 @@ function openItem(id){
 
     var url = baseURL + 'cTestItem/cTestItem/'+id
     $.modal.openTab("选项管理", url);
+}
+
+/* 用户状态显示 */
+function statusTools(cellvalue, options, row) {
+
+    if (row.isexamine == 2) {
+        return '<i class=\"fa fa-toggle-off text-info fa-2x\" onclick="enable(\'' + row.testid + '\')"></i> ';
+    } else {
+        return '<i class=\"fa fa-toggle-on text-info fa-2x\" onclick="disable(\'' + row.testid + '\')"></i> ';
+    }
+}
+/* 用户管理-停用 */
+function disable(testid) {
+    $.modal.confirm("确认要停用吗？", function() {
+
+        $.ajax({
+            url: baseURL + 'cMcurr/cMcurr/changestatus',
+            type: "POST",
+            data: {
+                id: testid,
+                isexamine: 1,
+                type: '题目'
+            },
+            success: function (result) {
+
+            }
+        })
+        // $.operate.post( baseURL + "/cMcurr/cMcurr/changestatus", { "id": testid, "status": 1 });
+    })
+}
+
+/* 用户管理启用 */
+function enable(testid) {
+    $.modal.confirm("确认要通过吗？", function () {
+        debugger
+        $.ajax({
+            url: baseURL + 'cMcurr/cMcurr/changestatus',
+            type: "POST",
+            data: {
+                id: testid,
+                isexamine: 2,
+                type: '题目'
+            },
+            success: function (result) {
+
+            }
+            // $.operate.post(baseURL + "/cMcurr/cMcurr/changestatus", { "id": testid, "status": 2 });
+        })
+    })
 }
 var vm = new Vue({
     el: '#rrapp',
