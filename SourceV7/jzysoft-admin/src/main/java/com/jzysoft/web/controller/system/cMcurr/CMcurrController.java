@@ -4,6 +4,12 @@ import com.jzysoft.commonmoudle.lib.config.page.Page;
 import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
+import com.jzysoft.commonmoudle.moudles.test.TestService;
+import com.jzysoft.web.controller.system.cCurr.CCurrService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +24,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/cMcurr/cMcurr")
+@Api(value = "/cMcurr/cMcurr", description = "视频")
 public class CMcurrController extends BaseJQController {
     private String prefix = "moudles/cMcurr";
     @Autowired
@@ -100,5 +107,29 @@ public class CMcurrController extends BaseJQController {
         return RJQ.ok();
     }
 
-
+    @Autowired
+    TestService testService;
+    @Autowired
+    CCurrService cCurrService;
+    @ApiOperation(
+            value = "按照id查询视频",
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageData", value = "id,type={微课堂,题目,课程},isexamine"),
+    })
+    @ResponseBody
+    @GetMapping("/changestatus")
+    public RJQ getCCurrInfo() throws Exception {
+        PageData pageData = this.getPageData();
+        String type = pageData.getString("type");
+        if (type.equals("微课堂")){
+            cMcurrService.updateCMcurr(pageData);
+        }else if (type.equals("题目")){
+            testService.updateTest(pageData);
+        }else if(type.equals("课程")){
+            cCurrService.updateCCurr(pageData);
+        }
+        return RJQ.ok();
+    }
 }
