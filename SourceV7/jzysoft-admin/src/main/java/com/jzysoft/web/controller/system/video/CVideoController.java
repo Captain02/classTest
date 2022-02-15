@@ -8,6 +8,7 @@ import com.jzysoft.commonmoudle.lib.config.page.Page;
 import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
+import com.jzysoft.framework.util.ShiroUtils;
 import com.jzysoft.web.controller.system.cCurr.CCurrService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -113,5 +114,23 @@ public class CVideoController extends BaseJQController {
         PageData pageData = this.getPageData();
         PageData data = cVideoService.selectCCurrById(pageData);
         return RJQ.ok().put("data", data);
+    }
+
+
+    @ApiOperation(
+            value = "记录访问视频",
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageData", value = "currid"),
+    })
+    @ResponseBody
+    @PostMapping("/visitVideo")
+    public RJQ visitVideo() throws Exception {
+        PageData pageData = this.getPageData();
+        Long userId = ShiroUtils.getUserId();
+        pageData.put("userid",userId);
+        cVideoService.visitVideo(pageData);
+        return RJQ.ok();
     }
 }

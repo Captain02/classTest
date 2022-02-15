@@ -52,4 +52,9 @@ public class CCurrServiceImpl implements CCurrService
     public List<PageData> selectCurrByMCurrIdList(Page page) throws Exception {
         return (List<PageData>) daoSupport.findForList("CCurrMapper.selectCurrByMCurrIdlistPage", page);
     }
+
+    @Override
+    public void mcurrvist(PageData pageData1) throws Exception {
+        daoSupport.save("CCurrMapper.mcurrvist",pageData1);
+    }
 }

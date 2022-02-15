@@ -9,6 +9,7 @@ import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.R;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
+import com.jzysoft.framework.util.ShiroUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -145,7 +146,7 @@ public class CCurrController extends BaseJQController {
 
     @ApiOperation(
             value = "根据微课堂查询课程",
-            httpMethod = "Get"
+            httpMethod = "GET"
     )
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageData", value = "mcurrid"),
@@ -156,6 +157,11 @@ public class CCurrController extends BaseJQController {
         PageData pageData = this.getPageData();
         page.setPd(pageData);
         List<PageData> list = cCurrService.selectCurrByMCurrIdList(page);
+        Long userId = ShiroUtils.getUserId();
+        PageData pageData1 = new PageData();
+        pageData1.put("userid",userId);
+        pageData1.put("userid",pageData.getString("mcurrid"));
+        cCurrService.mcurrvist(pageData1);
         return RJQ.ok().put("page", page).put("data", list);
     }
 

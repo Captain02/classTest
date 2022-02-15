@@ -299,4 +299,11 @@
             #{id}
         </foreach>
     </delete>
+
+    <insert id="visitVideo">
+        INSERT INTO c_videoreporte (userid, currid) VALUES (#{userid}, #{currid})
+    </insert>
+    <insert id="mcurrvist">
+        INSERT INTO c_mcurrreporte (userid, mcurrid) VALUES (#{userid}, #{mcurrid})
+    </insert>
 </mapper>

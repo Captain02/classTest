@@ -52,4 +52,9 @@ public class CVideoServiceImpl implements CVideoService
     public List<PageData> selectCVideoListPage(Page page) throws Exception {
         return (List<PageData>) daoSupport.findForList("CCurrMapper.selectCVideolistPage", page);
     }
+
+    @Override
+    public void visitVideo(PageData pageData) throws Exception {
+        daoSupport.save("CCurrMapper.visitVideo",pageData);
+    }
 }
