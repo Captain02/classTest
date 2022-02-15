@@ -54,7 +54,6 @@ function showName( cellvalue, options, cell ) {
 }
 
 function showVideo(val,object){
-    debugger
     var ob = JSON.parse(decodeURI(object))
     var videopath = ob.videopath
     var loadVideo = "<video width='100%' height='100%' autoplay='autoplay' controls='controls' src="+videopath+">"
