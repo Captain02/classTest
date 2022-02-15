@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CAnswerMapper">
+
+    <resultMap id="testAndOption" type="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <id property="id" column="id"></id>
+        <result property="teststem" column="teststem"></result>
+        <collection property="optionlist"
+                    ofType="com.jzysoft.commonmoudle.lib.config.page.PageData"
+                    select="selectOption"
+                    javaType="java.util.ArrayList"
+                    column="{testid=id}">
+
+        </collection>
+    </resultMap>
+
+    <select id="selectOption" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select  c_test_item.id,c_test_item.isture,c_test_item.testitem,c_test_item.testid
+        FROM c_test_item
+        where c_test_item.testid = #{testid}
+    </select>
+    <select id="selectTestByMcurrId" resultMap="testAndOption">
+        SELECT c_test.id,c_test.teststem
+        FROM c_test
+        WHERE c_test.mclassid = #{mclassid}
+    </select>
+
+</mapper>
