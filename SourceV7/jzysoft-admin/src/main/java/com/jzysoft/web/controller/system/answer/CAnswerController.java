@@ -24,6 +24,7 @@ public class CAnswerController extends BaseJQController{
     @Autowired
     CAnswerService cAnswerService;
 
+    @ApiOperation( value = "跳转答题界面", httpMethod = "GET" )
     @RequestMapping(value = "")
     public String CClass() {
         return prefix + "/canswer";
