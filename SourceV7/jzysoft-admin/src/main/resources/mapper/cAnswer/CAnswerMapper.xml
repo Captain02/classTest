@@ -25,6 +25,7 @@
         SELECT c_test.id,c_test.teststem
         FROM c_test
         WHERE c_test.mclassid = #{mclassid}
+        AND c_test.isexamine = 1
     </select>
 
 </mapper>
