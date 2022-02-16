@@ -45,39 +45,15 @@ $(function () {
             noneSelectedText: '请选择'
         });
     });
-    layui.use('form',function(){undefined
-        var form = layui.form;
+    // layui.use('form',function(){undefined
+    //     var form = layui.form;
+    //
+    //     //刷新界面 所有元素
+    //
+    //     form.render();
+    //
+    // });
 
-        //刷新界面 所有元素
-
-        form.render();
-
-    });
-    layui.use(['layer', 'element','form','jquery'], function() {
-        var $ = layui.jquery,
-            layer = layui.layer,
-            element = layui.element,
-            form = layui.form;
-        form.on('radio(wh1)', function(data){
-
-            console.log(JSON.stringify(data))
-            if (data.value == 'a'){
-                layer.open({
-                    title:'回答正确',
-                    btn:'下一题',
-                    content:"7月底，中共一大代表毛泽东、董必武、陈潭秋、王尽美、邓恩铭、李达等，由李达夫人王会悟做向导，从上海乘火车转移到嘉兴，再从狮子汇渡口登上渡船到湖心岛，最后转登王会悟预订的游船，并在游船中庄严宣告中国共产党的诞生。在船上，中共一大通过了党的第一个纲领和决议，正式宣告中国共产党庄严诞生。",
-                    yes: function (index,layero){
-                        $('#list1').hide();
-                        $('#list2').show();
-                        layer.close(index);
-                        element.progress('demo', '6%');
-                    }
-                })
-            }
-
-        });
-        form.render();
-    })
 
 });
 
@@ -125,6 +101,21 @@ var vm = new Vue({
         // this.bindsearchdropdown();
         // this.binddropdown();
         this.getAnswerList()
+
+    },
+    watch:{
+        answerList:function(){//获取到值后
+            this.$nextTick(function(){//节点更新后
+                layui.use('form',function(){undefined
+                    var form = layui.form;
+
+                    //刷新界面 所有元素
+
+                    form.render();
+                    vm.answerClick()
+                });
+            })
+        }
     },
     methods: {
         binddropdown: function () {
@@ -283,6 +274,56 @@ var vm = new Vue({
                         console.log(JSON.stringify(vm.answerList))
                     } else {
                         alert("删除失败")
+                    }
+
+                }
+            });
+
+        },
+        answerClick: function (){
+            layui.use(['layer', 'element','form','jquery'], function() {
+                var $ = layui.jquery,
+                    layer = layui.layer,
+                    element = layui.element,
+                    form = layui.form;
+                var answerList = vm.answerList;
+                for (let i = 0; i < answerList.length; i++) {
+                    // console.log(answerList[i]);
+                    form.on('radio(wh'+(i+1)+')', function(data){
+
+                        console.log(JSON.stringify(data))
+                        vm.answerList[i].checkedval = data.value
+                        console.log(JSON.stringify(answerList[i]))
+
+                    });
+                }
+
+                form.render();
+            })
+        },
+        confirm: function (){
+
+            console.log(JSON.stringify(vm.answerList))
+            // form.render('radio');
+            debugger
+            $.ajax({
+                type: "POST",
+                url: baseURL + "canswer/canswer/canswer",
+                data: vm.answerList,
+                success: function (r) {
+                    if (r.code == 1) {
+                        layer.alert('酷毙了', {icon: 1});
+                        layui.use('form',function(){undefined
+                            var form = layui.form;
+                            $('input[type=radio]').prop('checked', false);
+                            //刷新界面 所有元素
+
+                            form.render();
+                            layer.alert('提交成功', {icon: 1});
+                        });
+
+                    } else {
+                        layer.alert('提交失败', {icon: 5});
                     }
 
                 }

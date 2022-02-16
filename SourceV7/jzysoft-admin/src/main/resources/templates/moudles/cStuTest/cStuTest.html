@@ -46,52 +46,39 @@
     <!--搜索-->
     <div class="layui-row">
 
-        <div id="sera" class="col-sm-12 search-collapse" style="display: block;text-align: center">
-            <!--            <div class="list" v-for="answer in answerList" >-->
-            <!--&lt;!&ndash;                <div class="layui-form-item">&ndash;&gt;-->
-            <!--&lt;!&ndash;                    <label class="layui-form-label">消息通知</label>&ndash;&gt;-->
-            <!--&lt;!&ndash;                    <div class="layui-input-block">&ndash;&gt;-->
-            <!--&lt;!&ndash;                        <input name="is_notice" value="1" type="radio" title="通知" checked="">&ndash;&gt;-->
-            <!--&lt;!&ndash;                        <input name="is_notice" value="0" type="radio" title="不通知">&ndash;&gt;-->
-            <!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-            <!--&lt;!&ndash;                </div>&ndash;&gt;-->
-            <!--                <label class="layui-font-20" >{{answer.teststem}}</label>-->
-            <!--                <div class="layui-form">-->
-            <!--                    <div class="layui-form-item">-->
-            <!--                        <div class="layui-input-block" v-for="option in answer.optionlist">-->
-            <!--                            <input type="radio" lay-filter="wh1" name="wh1"  :value="option.id" :title="option.testitem">-->
-            <!--                        </div>-->
-            <!--&lt;!&ndash;                        <div class="layui-input-block">&ndash;&gt;-->
-            <!--&lt;!&ndash;                            <input type="radio" lay-filter="wh1" name="wh1" value="b" title="B:浙江嘉兴南湖会景园">&ndash;&gt;-->
-            <!--&lt;!&ndash;                        </div>&ndash;&gt;-->
-            <!--&lt;!&ndash;                        <div class="layui-input-block">&ndash;&gt;-->
-            <!--&lt;!&ndash;                            <input type="radio" lay-filter="wh1" name="wh1" value="c" title="C:浙江嘉兴南湖勺园">&ndash;&gt;-->
-            <!--&lt;!&ndash;                        </div>&ndash;&gt;-->
-            <!--&lt;!&ndash;                        <div class="layui-input-block">&ndash;&gt;-->
-            <!--&lt;!&ndash;                            <input type="radio" lay-filter="wh1" name="wh1" value="d" title="D:浙江嘉兴南湖英雄园">&ndash;&gt;-->
-            <!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+        <div id="sera" class="col-sm-12 search-collapse" style="display: block;">
+                        <div class="list" style="margin-left: 35%">
+            <!--                <div class="layui-form-item">-->
+            <!--                    <label class="layui-form-label">消息通知</label>-->
+            <!--                    <div class="layui-input-block">-->
+            <!--                        <input name="is_notice" value="1" type="radio" title="通知" checked="">-->
+            <!--                        <input name="is_notice" value="0" type="radio" title="不通知">-->
             <!--                    </div>-->
             <!--                </div>-->
-            <!--            </div>-->
-            <div class="list">
-                <label class="layui-font-20">1:中国共产党宣布成立的地方是哪里?</label>
-                <div class="layui-form">
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <input type="radio" lay-filter="wh1" name="wh1" value="a" title="A:浙江嘉兴南湖红船">
+
+                            <div class="layui-form" >
+                                <div class="layui-form-item" v-for="(answer,index) in answerList">
+                                    <label class="layui-font-20" >{{index+1}}.{{answer.teststem}}</label>
+                                    <div class="layui-input-block" v-for="option in answer.optionlist">
+                                        <input type="radio" :lay-filter="`wh${index+1}`" :name="`wh${index+1}`" :value="option.id" :title="option.testitem">
+<!--                                        <div class="layui-unselect layui-form-radio"><i class="layui-anim layui-icon"></i><div>{{option.testitem}}</div></div>-->
+                                    </div>
+<!--                                    <div class="layui-input-block">-->
+<!--                                        <input type="radio" lay-filter="wh1" name="wh1" value="a" title="A:浙江嘉兴南湖红船">-->
+<!--                                    </div>-->
+
+            <!--                        <div class="layui-input-block">-->
+            <!--                            <input type="radio" lay-filter="wh1" name="wh1" value="b" title="B:浙江嘉兴南湖会景园">-->
+            <!--                        </div>-->
+            <!--                        <div class="layui-input-block">-->
+            <!--                            <input type="radio" lay-filter="wh1" name="wh1" value="c" title="C:浙江嘉兴南湖勺园">-->
+            <!--                        </div>-->
+            <!--                        <div class="layui-input-block">-->
+            <!--                            <input type="radio" lay-filter="wh1" name="wh1" value="d" title="D:浙江嘉兴南湖英雄园">-->
+            <!--                        </div>-->
+                                </div>
+                            </div>
                         </div>
-                        <div class="layui-input-block">
-                            <input type="radio" lay-filter="wh1" name="wh1" value="b" title="B:浙江嘉兴南湖会景园">
-                        </div>
-                        <div class="layui-input-block">
-                            <input type="radio" lay-filter="wh1" name="wh1" value="c" title="C:浙江嘉兴南湖勺园">
-                        </div>
-                        <div class="layui-input-block">
-                            <input type="radio" lay-filter="wh1" name="wh1" value="d" title="D:浙江嘉兴南湖英雄园">
-                        </div>
-                    </div>
-                </div>
-            </div>
 <!--            <div class="list">-->
 <!--                <label class="layui-font-20">1:中国共产党宣布成立的地方是哪里?</label>-->
 <!--                <div class="layui-form">-->
@@ -111,7 +98,29 @@
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
-
+<!--            <div class="list">-->
+<!--                <label class="layui-font-20">1:中国共产党宣布成立的地方是哪里?</label>-->
+<!--                <div class="layui-form">-->
+<!--                    <div class="layui-form-item">-->
+<!--                        <div class="layui-input-block">-->
+<!--                            <input type="radio" lay-filter="wh1" name="wh1" value="a" title="A:浙江嘉兴南湖红船">-->
+<!--                        </div>-->
+<!--                        <div class="layui-input-block">-->
+<!--                            <input type="radio" lay-filter="wh1" name="wh1" value="b" title="B:浙江嘉兴南湖会景园">-->
+<!--                        </div>-->
+<!--                        <div class="layui-input-block">-->
+<!--                            <input type="radio" lay-filter="wh1" name="wh1" value="c" title="C:浙江嘉兴南湖勺园">-->
+<!--                        </div>-->
+<!--                        <div class="layui-input-block">-->
+<!--                            <input type="radio" lay-filter="wh1" name="wh1" value="d" title="D:浙江嘉兴南湖英雄园">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div style="margin-top: 200px;text-align: center">
+                <button id="confirm" @click="confirm" type="button" class="layui-btn layui-btn-normal" >提交</button>
+<!--                <button id="cancel"  type="button" @click="cancel()" class="layui-btn layui-btn-primary">取消</button>-->
+            </div>
 
         </div>
     </div>
