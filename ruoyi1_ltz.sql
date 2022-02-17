@@ -11,7 +11,7 @@
  Target Server Version : 50736
  File Encoding         : 65001
 
- Date: 08/02/2022 14:50:17
+ Date: 17/02/2022 16:48:33
 */
 
 SET NAMES utf8mb4;
@@ -398,7 +398,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('jzysoftScheduler', 'ltz1644298845362', 1644303003240, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('jzysoftScheduler', 'ltz1644298845362', 1644303078244, 15000);
 INSERT INTO `qrtz_scheduler_state` VALUES ('RuoyiScheduler', 'WIN-U4PMKK1CH581594346919867', 1594355211769, 15000);
 
 -- ----------------------------
