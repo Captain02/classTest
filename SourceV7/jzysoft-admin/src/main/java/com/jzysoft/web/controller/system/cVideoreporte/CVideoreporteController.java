@@ -98,7 +98,7 @@ public class CVideoreporteController extends BaseJQController {
 
     @PostMapping("/exportReport")
     @ResponseBody
-    public AjaxResult exportReport(SysUser user) {
+    public AjaxResult exportReport() throws Exception {
         List<VideoEntity> list = cVideoreporteService.exportReport();
         ExcelUtil<VideoEntity> util = new ExcelUtil<VideoEntity>(VideoEntity.class);
         return util.exportExcel(list, "食品报表");

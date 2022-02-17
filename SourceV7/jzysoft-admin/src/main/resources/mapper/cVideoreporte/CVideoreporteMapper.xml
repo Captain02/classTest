@@ -90,7 +90,7 @@
         </foreach>
     </delete>
 
-    <select id="exportReport" resultType="com.jzysoft.web.controller.system.cVideoreporte.VideoEntity">
+    <select id="exportReport" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
         select c_videoreporte.id, c_videoreporte.userid, c_videoreporte.currid,
                c_videoreporte.createtime,sys_user.user_name username,c_mcurr.mname
         from c_videoreporte
