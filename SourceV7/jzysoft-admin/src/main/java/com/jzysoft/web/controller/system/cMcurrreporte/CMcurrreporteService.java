@@ -27,4 +27,6 @@ public interface CMcurrreporteService
 
     //    删除
     void deleteCMcurrreporteByIds(PageData pageData) throws Exception;
+
+    List<MCurrEntity> exportReport() throws Exception;
 }

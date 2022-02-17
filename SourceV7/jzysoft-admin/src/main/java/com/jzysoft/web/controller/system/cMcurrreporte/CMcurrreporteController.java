@@ -1,9 +1,14 @@
 package com.jzysoft.web.controller.system.cMcurrreporte;
 
+import com.jzysoft.common.core.domain.AjaxResult;
+import com.jzysoft.common.utils.poi.ExcelUtil;
 import com.jzysoft.commonmoudle.lib.config.page.Page;
 import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
+import com.jzysoft.web.controller.system.cVideoreporte.VideoEntity;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/cMcurrreporte/cMcurrreporte")
+@Api(value = "/cMcurrreporte/cMcurrreporte", description = "微课堂报表")
 public class CMcurrreporteController extends BaseJQController {
     private String prefix = "moudles/cMcurrreporte";
     @Autowired
@@ -90,5 +96,12 @@ public class CMcurrreporteController extends BaseJQController {
         return RJQ.ok();
     }
 
-
+    @ApiOperation( value = "微课堂报表", httpMethod = "POST" )
+    @PostMapping("/exportReport")
+    @ResponseBody
+    public AjaxResult exportReport() throws Exception {
+        List<MCurrEntity> list = cMcurrreporteService.exportReport();
+        ExcelUtil<MCurrEntity> util = new ExcelUtil<MCurrEntity>(MCurrEntity.class);
+        return util.exportExcel(list, "微课堂报表");
+    }
 }

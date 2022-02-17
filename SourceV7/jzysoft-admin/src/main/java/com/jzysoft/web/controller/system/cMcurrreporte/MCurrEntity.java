@@ -1,15 +1,14 @@
-package com.jzysoft.web.controller.system.cVideoreporte;
+package com.jzysoft.web.controller.system.cMcurrreporte;
 
 import com.jzysoft.common.annotation.Excel;
 
 import java.util.Date;
 
-public class VideoEntity {
-
+public class MCurrEntity {
     @Excel(name = "姓名")
     private String username;
 
-    @Excel(name = "课程堂名")
+    @Excel(name = "微课堂名")
     private String mname;
 
     @Excel(name = "最后登陆时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Excel.Type.EXPORT)

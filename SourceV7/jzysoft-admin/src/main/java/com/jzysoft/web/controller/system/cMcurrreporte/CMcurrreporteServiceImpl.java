@@ -47,4 +47,9 @@ public class CMcurrreporteServiceImpl implements CMcurrreporteService
     public void deleteCMcurrreporteByIds(PageData pageData) throws Exception {
         daoSupport.delete("CMcurrreporteMapper.deleteCMcurrreporteById", pageData);
     }
+
+    @Override
+    public List<MCurrEntity> exportReport() throws Exception {
+        return (List<MCurrEntity>) daoSupport.findForList("CMcurrreporteMapper.exportReport",new PageData());
+    }
 }

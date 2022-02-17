@@ -9,6 +9,8 @@ import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
 import com.jzysoft.system.domain.SysUser;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/cVideoreporte/cVideoreporte")
+@Api(value = "/cVideoreporte/cVideoreporte", description = "视频报表")
 public class CVideoreporteController extends BaseJQController {
     private String prefix = "moudles/cVideoreporte";
     @Autowired
@@ -96,12 +99,13 @@ public class CVideoreporteController extends BaseJQController {
         return RJQ.ok();
     }
 
+    @ApiOperation( value = "视频报表", httpMethod = "POST" )
     @PostMapping("/exportReport")
     @ResponseBody
     public AjaxResult exportReport() throws Exception {
         List<VideoEntity> list = cVideoreporteService.exportReport();
         ExcelUtil<VideoEntity> util = new ExcelUtil<VideoEntity>(VideoEntity.class);
-        return util.exportExcel(list, "食品报表");
+        return util.exportExcel(list, "视频报表");
     }
 
 
