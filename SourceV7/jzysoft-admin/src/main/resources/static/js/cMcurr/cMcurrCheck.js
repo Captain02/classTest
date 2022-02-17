@@ -4,7 +4,7 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
-            {label: '微课堂名称', name: 'mname', index: 'mname', width: 80,formatter:showName},
+            {label: '微课堂名称', name: 'mname', index: 'mname', width: 80,},
             {label: '任教老师', name: 'teacherid', index: 'teacherid', width: 80},
             {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
             // {label: '是否审核通过', name: 'isexamine', index: 'isexamine', width: 80},

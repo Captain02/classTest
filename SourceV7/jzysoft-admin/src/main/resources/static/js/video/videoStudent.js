@@ -62,6 +62,17 @@ function showVideo(val,object){
         content:loadVideo,
         area:["90%","90%"]
     })
+    $.ajax({
+        url: baseURL + 'video/video/visitVideo',
+        type: "POST",
+        data: {
+            currid: ob.id,
+        },
+        success: function (result) {
+
+        }
+    })
+
 }
 
 var vm = new Vue({

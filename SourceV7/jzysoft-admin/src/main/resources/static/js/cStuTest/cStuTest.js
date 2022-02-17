@@ -315,7 +315,7 @@ var vm = new Vue({
         },
         confirm: function (){
 
-            console.log(JSON.stringify(vm.answerList))
+
             if (vm.answerList.length==0){
                 layer.alert('题目为空');
                 return;
