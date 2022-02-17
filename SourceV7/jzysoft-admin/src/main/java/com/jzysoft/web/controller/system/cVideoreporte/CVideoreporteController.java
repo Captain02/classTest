@@ -1,9 +1,15 @@
 package com.jzysoft.web.controller.system.cVideoreporte;
 
+import com.jzysoft.common.annotation.Log;
+import com.jzysoft.common.core.domain.AjaxResult;
+import com.jzysoft.common.enums.BusinessType;
+import com.jzysoft.common.utils.poi.ExcelUtil;
 import com.jzysoft.commonmoudle.lib.config.page.Page;
 import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
+import com.jzysoft.system.domain.SysUser;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -88,6 +94,14 @@ public class CVideoreporteController extends BaseJQController {
                 cVideoreporteService.deleteCVideoreporteByIds(pageData);
         }
         return RJQ.ok();
+    }
+
+    @PostMapping("/exportReport")
+    @ResponseBody
+    public AjaxResult exportReport(SysUser user) {
+        List<VideoEntity> list = cVideoreporteService.exportReport();
+        ExcelUtil<VideoEntity> util = new ExcelUtil<VideoEntity>(VideoEntity.class);
+        return util.exportExcel(list, "食品报表");
     }
 
 

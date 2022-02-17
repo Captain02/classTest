@@ -47,4 +47,9 @@ public class CVideoreporteServiceImpl implements CVideoreporteService
     public void deleteCVideoreporteByIds(PageData pageData) throws Exception {
         daoSupport.delete("CVideoreporteMapper.deleteCVideoreporteById", pageData);
     }
+
+    @Override
+    public List<VideoEntity> exportReport() throws Exception {
+        return (List<VideoEntity>) daoSupport.findForList("CVideoreporteMapper.exportReport", new PageData());
+    }
 }

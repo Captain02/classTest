@@ -6,23 +6,28 @@
 
 
     <sql id="selectCMcurrreporteVo">
-        select id,userid,mcurrid,createtime from c_mcurrreporte
+        select id, userid, mcurrid, createtime
+        from c_mcurrreporte
     </sql>
     <!--列表-->
     <select id="selectCMcurrreportelistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
-        <include refid="selectCMcurrreporteVo"/>
+        select c_mcurrreporte.id, c_mcurrreporte.userid, c_mcurrreporte.mcurrid, c_mcurrreporte.createtime,
+        sys_user.user_name username,c_mcurr.mname
+        from c_mcurrreporte
+        LEFT JOIN sys_user ON sys_user.user_id = c_mcurrreporte.userid
+        LEFT JOIN c_mcurr ON c_mcurr.id = c_mcurrreporte.mcurrid
         WHERE 1 =1
 
-                                                        <if test="pd.userid != null  and pd.userid != ''  ">
-                    AND userid like '%' #{pd.userid} '%'
-                </if>
-                                                <if test="pd.mcurrid != null  and pd.mcurrid != ''  ">
-                    AND mcurrid like '%' #{pd.mcurrid} '%'
-                </if>
-                                                <if test="pd.createtime != null  and pd.createtime != ''  ">
-                    AND createtime like '%' #{pd.createtime} '%'
-                </if>
-                            <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+        <if test="pd.userid != null  and pd.userid != ''  ">
+            AND userid like '%' #{pd.userid} '%'
+        </if>
+        <if test="pd.mcurrid != null  and pd.mcurrid != ''  ">
+            AND mcurrid like '%' #{pd.mcurrid} '%'
+        </if>
+        <if test="pd.createtime != null  and pd.createtime != ''  ">
+            AND createtime like '%' #{pd.createtime} '%'
+        </if>
+        <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
             order by ${pd.sidx} ${pd.order}
         </if>
     </select>
@@ -32,47 +37,49 @@
         where id = #{id}
     </select>
     <!--保存-->
-    <insert id="insertCMcurrreporte"  >
+    <insert id="insertCMcurrreporte">
         insert into c_mcurrreporte
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                                                        
-                    <if test="userid != null  and userid != ''">userid,
-                    </if>
-                                            
-                    <if test="mcurrid != null  and mcurrid != ''">mcurrid,
-                    </if>
-                                            
-                    <if test="createtime != null  and createtime != ''">createtime,
-                    </if>
-                                    </trim>
+
+            <if test="userid != null  and userid != ''">userid,
+            </if>
+
+            <if test="mcurrid != null  and mcurrid != ''">mcurrid,
+            </if>
+
+            <if test="createtime != null  and createtime != ''">createtime,
+            </if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                                                                            <if test="userid != null and userid != '' ">#{userid},
-                    </if>
-                                                                <if test="mcurrid != null and mcurrid != '' ">#{mcurrid},
-                    </if>
-                                                                <if test="createtime != null and createtime != '' ">#{createtime},
-                    </if>
-                                    </trim>
+            <if test="userid != null and userid != '' ">#{userid},
+            </if>
+            <if test="mcurrid != null and mcurrid != '' ">#{mcurrid},
+            </if>
+            <if test="createtime != null and createtime != '' ">#{createtime},
+            </if>
+        </trim>
     </insert>
     <!--修改-->
     <update id="updateCMcurrreporte">
         update c_mcurrreporte
         <trim prefix="SET" suffixOverrides=",">
-                                                                            <if test="userid != null  and userid != ''">userid =
-                        #{userid},
-                    </if>
-                                                                <if test="mcurrid != null  and mcurrid != ''">mcurrid =
-                        #{mcurrid},
-                    </if>
-                                                                <if test="createtime != null  and createtime != ''">createtime =
-                        #{createtime},
-                    </if>
-                                    </trim>
+            <if test="userid != null  and userid != ''">userid =
+                #{userid},
+            </if>
+            <if test="mcurrid != null  and mcurrid != ''">mcurrid =
+                #{mcurrid},
+            </if>
+            <if test="createtime != null  and createtime != ''">createtime =
+                #{createtime},
+            </if>
+        </trim>
         where id = #{id}
     </update>
     <!--删除-->
     <delete id="deleteCMcurrreporteById">
-        delete from c_mcurrreporte where id = #{id}
+        delete
+        from c_mcurrreporte
+        where id = #{id}
     </delete>
     <!--删除-->
     <delete id="deleteCMcurrreporteByIds">

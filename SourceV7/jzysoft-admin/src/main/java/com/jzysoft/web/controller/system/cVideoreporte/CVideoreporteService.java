@@ -27,4 +27,6 @@ public interface CVideoreporteService
 
     //    删除
     void deleteCVideoreporteByIds(PageData pageData) throws Exception;
+
+    List<VideoEntity> exportReport() throws Exception;
 }

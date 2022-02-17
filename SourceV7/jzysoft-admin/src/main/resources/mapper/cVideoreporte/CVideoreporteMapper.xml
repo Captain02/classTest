@@ -11,11 +11,13 @@
     </sql>
     <!--列表-->
     <select id="selectCVideoreportelistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
-        select c_videoreporte.id, c_videoreporte.userid, c_videoreporte.currid, c_videoreporte.createtime,sys_user.user_name username,c_mcurr.mname
+        select c_videoreporte.id, c_videoreporte.userid, c_videoreporte.currid, c_videoreporte.createtime,sys_user.user_name username,c_curr.currname
         from c_videoreporte
         LEFT JOIN sys_user ON sys_user.user_id = c_videoreporte.userid
-        LEFT JOIN c_mcurr ON c_mcurr.id = c_videoreporte.currid
+        LEFT JOIN c_curr ON c_curr.id = c_videoreporte.currid
         WHERE 1 =1
+
+
 
         <if test="pd.userid != null  and pd.userid != ''  ">
             AND userid like '%' #{pd.userid} '%'
@@ -87,4 +89,12 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="exportReport" resultType="com.jzysoft.web.controller.system.cVideoreporte.VideoEntity">
+        select c_videoreporte.id, c_videoreporte.userid, c_videoreporte.currid,
+               c_videoreporte.createtime,sys_user.user_name username,c_mcurr.mname
+        from c_videoreporte
+         LEFT JOIN sys_user ON sys_user.user_id = c_videoreporte.userid
+         LEFT JOIN c_mcurr ON c_mcurr.id = c_videoreporte.currid
+    </select>
 </mapper>
