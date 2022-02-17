@@ -12,7 +12,7 @@ public class MCurrEntity {
     private String mname;
 
     @Excel(name = "最后登陆时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Excel.Type.EXPORT)
-    private Date loginDate;
+    private Date createtime;
 
     public String getUsername() {
         return username;
@@ -30,11 +30,11 @@ public class MCurrEntity {
         this.mname = mname;
     }
 
-    public Date getLoginDate() {
-        return loginDate;
+    public Date getCreatetime() {
+        return createtime;
     }
 
-    public void setLoginDate(Date loginDate) {
-        this.loginDate = loginDate;
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 }

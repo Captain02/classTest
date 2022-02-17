@@ -98,7 +98,7 @@ public class CVideoreporteController extends BaseJQController {
         }
         return RJQ.ok();
     }
-
+    @Log(title = "用户管理", businessType = BusinessType.EXPORT)
     @ApiOperation( value = "视频报表", httpMethod = "POST" )
     @PostMapping("/exportReport")
     @ResponseBody
