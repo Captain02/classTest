@@ -51,7 +51,7 @@
 
         WHERE 1 =1
         AND
-        stu.user_id = 1
+        stu.user_id = #{userid}
 
             <if test="pd.mname != null  and pd.mname != ''  ">
                 AND mname like '%' #{pd.mname} '%'
