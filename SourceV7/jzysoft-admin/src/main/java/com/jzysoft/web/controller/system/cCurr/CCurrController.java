@@ -160,7 +160,7 @@ public class CCurrController extends BaseJQController {
         Long userId = ShiroUtils.getUserId();
         PageData pageData1 = new PageData();
         pageData1.put("userid",userId);
-        pageData1.put("userid",pageData.getString("mcurrid"));
+        pageData1.put("mcurrid",pageData.getString("mcurrid"));
         cCurrService.mcurrvist(pageData1);
         return RJQ.ok().put("page", page).put("data", list);
     }
