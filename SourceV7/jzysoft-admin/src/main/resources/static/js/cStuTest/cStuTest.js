@@ -324,15 +324,17 @@ var vm = new Vue({
                 url: baseURL + "canswer/canswer/answer",
                 data: JSON.stringify(vm.answerList),
                 success: function (r) {
-                    if (r.code == 1) {
-                        layer.alert('酷毙了', {icon: 1});
+                    console.log(JSON.stringify(r))
+                    if (r.code == 0) {
+                        // layer.alert('酷毙了', {icon: 1});
+
                         layui.use('form',function(){undefined
                             var form = layui.form;
                             $('input[type=radio]').prop('checked', false);
                             //刷新界面 所有元素
 
                             form.render();
-                            layer.alert('提交成功', {icon: 1});
+                            layer.alert('提交成功,分数:'+r.data.mcurrscore+','+r.data.ispass, {icon: 1});
                         });
 
                     } else {
