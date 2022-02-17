@@ -18,4 +18,9 @@ public class CAwserServiceImpl implements CAnswerService{
     public List<PageData> selectTest(PageData pageData) throws Exception {
         return (List<PageData>) daoSupport.findForList("CAnswerMapper.selectTestByMcurrId",pageData);
     }
+
+    @Override
+    public void insertscore(PageData pageData1) throws Exception {
+        daoSupport.save("CAnswerMapper.insertscore",pageData1);
+    }
 }

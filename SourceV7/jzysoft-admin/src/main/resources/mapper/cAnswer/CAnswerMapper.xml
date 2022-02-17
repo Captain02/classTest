@@ -28,4 +28,8 @@
         AND c_test.isexamine = 1
     </select>
 
+    <insert id="insertscore">
+        INSERT INTO c_stuscore (userid, mcurrscore,ispass) VALUES (#{userid},#{mcurrscore},#{ispass})
+    </insert>
+
 </mapper>

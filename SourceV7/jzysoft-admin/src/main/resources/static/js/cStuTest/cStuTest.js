@@ -308,8 +308,9 @@ var vm = new Vue({
             debugger
             $.ajax({
                 type: "POST",
-                url: baseURL + "canswer/canswer/canswer",
-                data: vm.answerList,
+                contentType: "application/json",
+                url: baseURL + "canswer/canswer/answer",
+                data: JSON.stringify(vm.answerList),
                 success: function (r) {
                     if (r.code == 1) {
                         layer.alert('酷毙了', {icon: 1});
