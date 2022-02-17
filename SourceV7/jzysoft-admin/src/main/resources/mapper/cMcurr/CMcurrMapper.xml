@@ -86,7 +86,7 @@
             AND mname like '%' #{pd.mname} '%'
         </if>
         <if test="pd.teacherid != null  and pd.teacherid != ''  ">
-            AND teacherid like '%' #{pd.teacherid} '%'
+            AND teacherid = #{pd.teacherid}
         </if>
         <if test="pd.createtime != null  and pd.createtime != ''  ">
             AND createtime like '%' #{pd.createtime} '%'

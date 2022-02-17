@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + 'cMcurr/cMcurr/list?isexamine=1',
+        url: baseURL + 'cMcurr/cMcurr/listBystudentlistpage?isexamine=1',
         datatype: "json",
         colModel: [
             {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
