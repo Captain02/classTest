@@ -73,6 +73,7 @@ public class CAnswerController extends BaseJQController{
         PageData pageData1 = pageData;
         pageData1.put("mcurrscore",i);
         pageData1.put("userid", ShiroUtils.getUserId());
+        pageData1.put("TotalScore", size*10);
         if (v1 > i){
             pageData1.put("ispass","不及格");
         }else {
