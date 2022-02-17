@@ -92,7 +92,14 @@ public class CAnswerController extends BaseJQController{
             pageData1.put("ispass","及格");
         }
 
-        cAnswerService.insertscore(pageData1);
+        PageData pd = cAnswerService.selectByuserMcurrId(pageData1);
+        if (pd == null){
+            cAnswerService.insertscore(pageData1);
+        }else if (Integer.parseInt(pd.getString("mcurrscore")) < i){
+            pageData1.put("id",pd.get("id"));
+            cAnswerService.updateScore(pageData1);
+        }
+
 //        List<PageData> list = cAnswerService.selectTest(pageData);
         return RJQ.ok().put("data", pageData1);
     }

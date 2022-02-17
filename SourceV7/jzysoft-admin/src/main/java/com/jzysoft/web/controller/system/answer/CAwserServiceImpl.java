@@ -24,5 +24,15 @@ public class CAwserServiceImpl implements CAnswerService{
         daoSupport.save("CAnswerMapper.insertscore",pageData1);
     }
 
+    @Override
+    public PageData selectByuserMcurrId(PageData pageData1) throws Exception {
+        return (PageData) daoSupport.findForObject("CAnswerMapper.selectByuserMcurrId",pageData1);
+    }
+
+    @Override
+    public void updateScore(PageData pageData1) throws Exception {
+         daoSupport.update("CAnswerMapper.updateScore",pageData1);
+    }
+
 
 }

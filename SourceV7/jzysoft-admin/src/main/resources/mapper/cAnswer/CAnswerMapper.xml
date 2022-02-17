@@ -31,7 +31,12 @@
     <insert id="insertscore">
         INSERT INTO c_stuscore (userid, mcurrscore,ispass,mcrurrid) VALUES (#{userid},#{mcurrscore},#{ispass},#{mcrurrid})
     </insert>
+    <select id="selectByuserMcurrId" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        SELECT c_stuscore.id,c_stuscore.mcurrscore FROM `c_stuscore` where c_stuscore.mcrurrid = #{mcrurrid} AND c_stuscore.userid = #{userid}
+    </select>
 
-
-
+    <update id="updateScore">
+        UPDATE c_stuscore SET mcurrscore = #{mcurrscore},ispass = #{ispass}
+        WHERE id = #{id}
+    </update>
 </mapper>

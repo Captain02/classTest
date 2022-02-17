@@ -9,4 +9,7 @@ public interface CAnswerService {
 
     void insertscore(PageData pageData1) throws Exception;
 
+    PageData selectByuserMcurrId(PageData pageData1) throws Exception;
+
+    void updateScore(PageData pageData1) throws Exception;
 }
