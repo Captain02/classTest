@@ -36,9 +36,8 @@
         c_mcurr.remarks2,
         c_mcurr.remarks3,
         sys_user.user_name teachername,
-        c_stuscore.ispass,
-        c_stuscore.mcurrscore,
-        c_stuscore.userid,
+        (SELECT c_stuscore.ispass FROM c_stuscore WHERE c_stuscore.mcrurrid = c_mcurr.id AND c_stuscore.userid=1) ispass,
+        (SELECT c_stuscore.mcurrscore FROM c_stuscore WHERE c_stuscore.mcrurrid = c_mcurr.id AND c_stuscore.userid=1) mcurrscore,
         ( CASE
         WHEN isexamine = 2 THEN '未通过'
         WHEN isexamine = 1 THEN '已通过'
@@ -46,14 +45,9 @@
         ) AS isexaminestr
         from c_mcurr
         LEFT JOIN sys_user ON sys_user.user_id = c_mcurr.teacherid
-        LEFT JOIN c_stuscore ON c_stuscore.mcrurrid = c_mcurr.id
-        LEFT JOIN sys_user stu ON stu.user_id = c_stuscore.userid
 
-        WHERE 1 =1
-        AND
-        stu.user_id = #{pd.userid}
 
-            <if test="pd.mname != null  and pd.mname != ''  ">
+        <if test="pd.mname != null  and pd.mname != ''  ">
                 AND mname like '%' #{pd.mname} '%'
             </if>
             <if test="pd.createtime != null  and pd.createtime != ''  ">
