@@ -23,4 +23,6 @@ public class CAwserServiceImpl implements CAnswerService{
     public void insertscore(PageData pageData1) throws Exception {
         daoSupport.save("CAnswerMapper.insertscore",pageData1);
     }
+
+
 }

@@ -5,6 +5,7 @@ import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
 import com.jzysoft.commonmoudle.moudles.test.TestService;
+import com.jzysoft.framework.util.ShiroUtils;
 import com.jzysoft.web.controller.system.cCurr.CCurrService;
 import com.jzysoft.web.controller.system.cTest.CTestService;
 import io.swagger.annotations.Api;
@@ -51,8 +52,30 @@ public class CMcurrController extends BaseJQController {
     @GetMapping("/list")
     public RJQ selCMcurrPage(Page page) throws Exception {
         PageData pageData = this.getPageData();
+        Long userId = ShiroUtils.getUserId();
+        pageData.put("teacherid",userId);
         page.setPd(pageData);
         List<PageData> list = cMcurrService.selectCMcurrList(page);
+        int num = 0;
+        for (PageData data : list) {
+            data.put("leaf_field",false);
+            data.put("expanded",true);
+            data.put("level_field",num);
+            data.put("idstr",data.getString("id"));
+            if (num != 1){
+                num += 1;
+            }
+        }
+        return RJQ.ok().put("page", page).put("data", list);
+    }
+    @ResponseBody
+    @GetMapping("/listBystudentlistpage")
+    public RJQ listBystudentlistpage(Page page) throws Exception {
+        PageData pageData = this.getPageData();
+        Long userId = ShiroUtils.getUserId();
+        pageData.put("userid",userId);
+        page.setPd(pageData);
+        List<PageData> list = cMcurrService.listBystudentlistpage(page);
         int num = 0;
         for (PageData data : list) {
             data.put("leaf_field",false);

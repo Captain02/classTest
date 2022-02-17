@@ -47,4 +47,10 @@ public class CMcurrServiceImpl implements CMcurrService
     public void deleteCMcurrByIds(PageData pageData) throws Exception {
         daoSupport.delete("CMcurrMapper.deleteCMcurrById", pageData);
     }
+
+    @Override
+    public List<PageData> listBystudentlistpage(Page page) throws Exception {
+        return (List<PageData>) daoSupport.findForList("CMcurrMapper.listBystudentlistPage", page);
+
+    }
 }

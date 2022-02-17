@@ -29,7 +29,9 @@
     </select>
 
     <insert id="insertscore">
-        INSERT INTO c_stuscore (userid, mcurrscore,ispass) VALUES (#{userid},#{mcurrscore},#{ispass})
+        INSERT INTO c_stuscore (userid, mcurrscore,ispass,mcrurrid) VALUES (#{userid},#{mcurrscore},#{ispass},#{mcrurrid})
     </insert>
+
+
 
 </mapper>

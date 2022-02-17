@@ -27,4 +27,6 @@ public interface CMcurrService
 
     //    删除
     void deleteCMcurrByIds(PageData pageData) throws Exception;
+
+    List<PageData> listBystudentlistpage(Page page) throws Exception;
 }

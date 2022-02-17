@@ -25,6 +25,59 @@
                  LEFT JOIN sys_user ON sys_user.user_id = c_mcurr.teacherid
     </sql>
     <!--列表-->
+    <select id="listBystudentlistPage">
+        select c_mcurr.id,
+        c_mcurr.mname,
+        c_mcurr.teacherid,
+        c_mcurr.createtime,
+        c_mcurr.isexamine,
+        c_mcurr.parentid,
+        c_mcurr.remarks1,
+        c_mcurr.remarks2,
+        c_mcurr.remarks3,
+        sys_user.user_name teachername,
+        c_stuscore.ispass,
+        c_stuscore.mcurrscore,
+        c_stuscore.userid,
+        ( CASE
+        WHEN isexamine = 2 THEN '未通过'
+        WHEN isexamine = 1 THEN '已通过'
+        END
+        ) AS isexaminestr
+        from c_mcurr
+        LEFT JOIN sys_user ON sys_user.user_id = c_mcurr.teacherid
+        LEFT JOIN c_stuscore ON c_stuscore.mcrurrid = c_mcurr.id
+        LEFT JOIN sys_user stu ON stu.user_id = c_stuscore.userid
+
+        WHERE 1 =1
+        AND
+        stu.user_id = 1
+
+            <if test="pd.mname != null  and pd.mname != ''  ">
+                AND mname like '%' #{pd.mname} '%'
+            </if>
+            <if test="pd.createtime != null  and pd.createtime != ''  ">
+                AND createtime like '%' #{pd.createtime} '%'
+            </if>
+            <if test="pd.isexamine != null  and pd.isexamine != ''  ">
+                AND isexamine = #{pd.isexamine}
+            </if>
+            <if test="pd.parentid != null  and pd.parentid != ''  ">
+                AND parentid like '%' #{pd.parentid} '%'
+            </if>
+            <if test="pd.remarks1 != null  and pd.remarks1 != ''  ">
+                AND remarks1 like '%' #{pd.remarks1} '%'
+            </if>
+            <if test="pd.remarks2 != null  and pd.remarks2 != ''  ">
+                AND remarks2 like '%' #{pd.remarks2} '%'
+            </if>
+            <if test="pd.remarks3 != null  and pd.remarks3 != ''  ">
+                AND remarks3 like '%' #{pd.remarks3} '%'
+            </if>
+            <if test="pd.sidx != null  and pd.sidx != ''and pd.sidx != 'null' and pd.sidx != 'undefined' ">
+                order by ${pd.sidx} ${pd.order}
+            </if>
+    </select>
     <select id="selectCMcurrlistPage" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
         <include refid="selectCMcurrVo"/>
         WHERE 1 =1

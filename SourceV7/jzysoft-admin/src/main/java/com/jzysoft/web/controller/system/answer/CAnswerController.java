@@ -4,6 +4,8 @@ import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
 import com.jzysoft.framework.util.ShiroUtils;
+import com.jzysoft.web.controller.system.cMcurr.CMcurrService;
+import com.jzysoft.web.controller.system.cTest.CTestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -47,14 +49,18 @@ public class CAnswerController extends BaseJQController{
         return RJQ.ok().put("data", list);
     }
 
+    @Autowired
+    CTestService ctestService;
     @ResponseBody
     @ApiOperation( value = "答题", httpMethod = "POST" )
     @PostMapping("/answer")
     public RJQ answer(@RequestBody List<Map> list) throws Exception {
         PageData pageData = this.getPageData();
+        PageData pageData2 = new PageData();
         Integer score = 0;
         for (Map map : list) {
             String checkedval = map.get("checkedval").toString();
+            pageData2.put("id",map.get("id"));
             List<Map> optionlist = (List<Map>) map.get("optionlist");
             for (Map map1 : optionlist) {
                 if (Integer.parseInt(map1.get("isture").toString()) == 1){
@@ -76,6 +82,10 @@ public class CAnswerController extends BaseJQController{
         pageData1.put("mcurrscore",i);
         pageData1.put("userid", ShiroUtils.getUserId());
         pageData1.put("TotalScore", size*10);
+
+
+        PageData pageData3 = ctestService.selectCTestById(pageData2);
+        pageData1.put("mcrurrid", pageData3.get("mclassid"));
         if (v1 > i){
             pageData1.put("ispass","不及格");
         }else {
