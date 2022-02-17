@@ -45,7 +45,7 @@
         ) AS isexaminestr
         from c_mcurr
         LEFT JOIN sys_user ON sys_user.user_id = c_mcurr.teacherid
-        WHERE
+        WHERE 1 = 1
 
         <if test="pd.mname != null  and pd.mname != ''  ">
                 AND mname like '%' #{pd.mname} '%'
