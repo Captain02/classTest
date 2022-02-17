@@ -45,7 +45,7 @@
 <div id="rrapp" class="layui-fluid" style="background-color: #F1F1F2">
     <!--搜索-->
     <div class="layui-row">
-
+        <input hidden id="mcurrId" name="mcurrId" th:value="${mcurrId}">
         <div id="sera" class="col-sm-12 search-collapse" style="display: block;">
                         <div class="list" style="margin-left: 35%">
             <!--                <div class="layui-form-item">-->
@@ -176,7 +176,7 @@
             </div>
 
         </form>
-        <!--    <th:block th:include="include :: footer2" />-->
+<!--        <th:block th:include="include :: footer2" />-->
         <script src="/js/cStuTest/cStuTest.js" type="text/javascript"></script>
     </div>
 </body>

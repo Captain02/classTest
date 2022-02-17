@@ -53,7 +53,7 @@ $(function () {
     //     form.render();
     //
     // });
-
+    vm.getAnswerList()
 
 });
 
@@ -100,20 +100,37 @@ var vm = new Vue({
     created: function () {
         // this.bindsearchdropdown();
         // this.binddropdown();
-        this.getAnswerList()
+
+
+        layui.use('form',function(){undefined
+            var form = layui.form;
+
+            //刷新界面 所有元素
+
+            form.render();
+            // vm.answerClick()
+        });
+
 
     },
     watch:{
         answerList:function(){//获取到值后
+
             this.$nextTick(function(){//节点更新后
-                layui.use('form',function(){undefined
-                    var form = layui.form;
 
-                    //刷新界面 所有元素
+                // setTimeout(function (){
 
-                    form.render();
-                    vm.answerClick()
-                });
+                    layui.use('form',function(){
+                        var form = layui.form;
+
+                        //刷新界面 所有元素
+
+                        form.render();
+                        vm.answerClick()
+                    });
+
+                // }, 1000);
+
             })
         }
     },
@@ -266,12 +283,11 @@ var vm = new Vue({
                 type: "POST",
                 url: baseURL + "canswer/canswer/canswer",
                 data: {
-                    mclassid: 1
+                    mclassid: $('#mcurrId').val()
                 },
                 success: function (r) {
                     if (r.code == 0) {
                         vm.answerList = r.data
-                        console.log(JSON.stringify(vm.answerList))
                     } else {
                         alert("删除失败")
                     }
@@ -290,11 +306,7 @@ var vm = new Vue({
                 for (let i = 0; i < answerList.length; i++) {
                     // console.log(answerList[i]);
                     form.on('radio(wh'+(i+1)+')', function(data){
-
-                        console.log(JSON.stringify(data))
                         vm.answerList[i].checkedval = data.value
-                        console.log(JSON.stringify(answerList[i]))
-
                     });
                 }
 

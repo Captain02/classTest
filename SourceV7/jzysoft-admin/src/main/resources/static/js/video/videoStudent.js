@@ -307,6 +307,12 @@ var vm = new Vue({
         cancel: function (){
             vm.reload();
             layer.close(vm.index)
+        },
+        mcurrTest: function (){
+            let mcurrid = $('#mcurrId').val()
+            var url = baseURL + 'cStuTest/cStuTest/'+mcurrid
+            $.modal.openTab("课堂测试", url);
+
         }
     }
 });

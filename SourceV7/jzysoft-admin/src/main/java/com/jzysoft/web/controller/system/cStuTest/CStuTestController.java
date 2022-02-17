@@ -4,8 +4,10 @@ import com.jzysoft.commonmoudle.lib.config.page.Page;
 import com.jzysoft.commonmoudle.lib.config.page.PageData;
 import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +29,12 @@ public class CStuTestController extends BaseJQController {
     public String CStuTest() {
         return prefix + "/cStuTest";
     }
-
+    @ApiOperation( value = "跳转答题界面", httpMethod = "GET" )
+    @RequestMapping(value = "/{mcurrid}")
+    public String CClassStudent(@PathVariable("mcurrid") Long mcurrid, ModelMap mmap) {
+        mmap.put("mcurrId", mcurrid);
+        return prefix + "/cStuTest";
+    }
     /**
      * 列表
      * sxd
