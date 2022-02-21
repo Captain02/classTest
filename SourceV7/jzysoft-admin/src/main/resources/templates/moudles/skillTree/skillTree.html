@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<!--<head th:include="include :: header"></head>-->
+<head >
+    <th:block th:include="include :: header('题目管理')"/>
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
+    <th:block th:include="includejqgrid :: includejqgrid"/>
+</head>
+<body>
+<style  type="text/css">
+    .edge {
+        display: none;
+    }
+    .orgchart .nopass .title {
+        background-color: #a1a1a1;
+    }
+    .orgchart .nopass .content {
+        border-color: #a1a1a1;
+    }
+    .orgchart .pass .title {
+        background-color: #5dc73b;
+    }
+    .orgchart .pass .content {
+        border-color: #5dc73b;
+    }
+</style>
+<div id="rrapp" class="layui-fluid" style="background-color: #F1F1F2">
+    <!--搜索-->
+    <div class="layui-row">
+
+        <div id="sera" class="col-sm-12 search-collapse">
+<!--            <form id="gen-form">-->
+                <div id="chart-container">
+                </div>
+                <!--搜索下拉-->
+<!--                <select style="width:220px; height:35.23px;" id="selectuserid" class="selectpicker"-->
+<!--                        data-live-search="true">-->
+<!--                </select>-->
+<!--            </form>-->
+        </div>
+    </div>
+    <!--按钮-->
+<!--    <div id="anniu" class="layui-row">-->
+<!--&lt;!&ndash;        <div class="col-sm-12">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="btn btn-success" @click="addPage()">&ndash;&gt;-->
+<!--&lt;!&ndash;                <i class="fa fa-plus"></i> 新增&ndash;&gt;-->
+<!--&lt;!&ndash;            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="btn btn-primary btn-edit" @click="editPage()">&ndash;&gt;-->
+<!--&lt;!&ndash;                <i class="fa fa-edit"></i> 修改&ndash;&gt;-->
+<!--&lt;!&ndash;            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="btn btn-danger btn-del " @click="del()">&ndash;&gt;-->
+<!--&lt;!&ndash;                <i class="fa fa-remove"></i> 删除&ndash;&gt;-->
+<!--&lt;!&ndash;            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    </div>-->
+    <!--jqgrid-->
+    <div class="layui-row" style="background-color: white;">
+        <!--jqgrid表格-->
+        <div id="jq" class="col-sm-12">
+            <table id="jqGrid" data-mobile-responsive="true"></table>
+<!--            <div id="jqGridPager" style="background-color: white"></div>-->
+        </div>
+    </div>
+
+    <!--表单-->
+    <form style="padding: 10px" hidden action="" id="editLayer">
+        <input type="hidden" name="id">
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 微课堂
+            </label>
+            <select name="mclassid" id="mclassid" class="btn-group" v-model="edit.mclassid" style="width:220px; height:35.23px;">
+                <option v-for="dropdown in mcurrDropdown" :value="dropdown.id">{{dropdown.name}}</option>
+            </select>
+        </div>
+
+
+        <div class="layui-form-item layui-form-text">
+            <label style="width: 100px" class="layui-form-label"> 题干
+            </label>
+            <div style="margin-right: 20px" class="layui-input-block">
+                <input type="text" name="teststem" v-model="edit.teststem" required
+                       lay-verify="teststem" placeholder="请输入" class="layui-input">
+            </div>
+        </div>
+
+    </form>
+    <th:block th:include="include :: footer2" />
+    <script src="/js/skillTree/skillTree.js" type="text/javascript"></script>
+<!--    <script src="/jzysoft/js/ry-ui.js" type="text/javascript"></script>-->
+<!--    <script src="/jzysoft/js/common.js" type="text/javascript"></script>-->
+<!--    <script th:src="@{/jzysoft/js/common.js?v=4.2.0}"></script>-->
+<!--    <script th:src="@{/jzysoft/js/ry-ui.js?v=4.2.0}"></script>-->
+</div>
+</body>
+</html>

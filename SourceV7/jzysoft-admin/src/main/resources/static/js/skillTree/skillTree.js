@@ -1,65 +1,98 @@
 $(function () {
-    $("#jqGrid").jqGrid({
-        url: baseURL + 'cVideoreporte/cVideoreporte/list',
-        datatype: "json",
-        colModel: [
-            {label: '', name: 'id', index: 'id', width: 0, key: true, hidden: true},
-            {label: '课程名称', name: 'currname', index: 'currname', width: 80},
-            {label: '访问用户', name: 'username', index: 'username', width: 80},
-            {label: '访问时间', name: 'createtime', index: 'createtime', width: 80}
+    var datascource = {
+        'id': '1',
+        'name': '计算机',
+        'title': '',
+        'className': 'pass',
+        'children': [
+            {
+                'id': '2',
+                'name': '计算机操作系统',
+                'title': '',
+                'className': 'nopass'
+            },
 
-        ],
-        viewrecords: true,
-        height: "100%",
-        rowNum: 10,
-        rowList: [10, 30, 50],
-        rownumbers: true,
-        rownumWidth: 25,
-        autowidth: true,
-        // multiselect: true,
-        pager: "#jqGridPager"   ,
-        jsonReader: {
-            root: "data",
-            page: "page.currPage",
-            total: "page.totalPage",
-            records: "page.totalResult"
-        },
-        prmNames: {
-            page: "currentPage",
-            rows: "showCount",
-            order: "order"
-        },
-        gridComplete: function () {
-            //隐藏grid底部滚动条
-            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
+            {
+                'id': '8',
+                'name': '计算机组成原理',
+                'className': 'nopass'
+            },
+            {
+                'id': '9',
+                'name': '数据结构',
+
+                'className': 'pass',
+            },
+            {
+                'id': '10',
+                'name': '计算机网络',
+                'className': 'pass',
+            },
+           ]
+    };
+    $('#chart-container').orgchart({
+        'data': datascource,
+        'nodeContent': 'title',
+        'nodeID': 'id',
+        'toggleSiblingsResp': false,
+        'createNode': function ($node, data) {
+
+            // if (data.name=='数据结构'){
+            //     let id = data.id
+            //     $('#'+id+'_title').css("background-color","rgb(161 161 161 / 80%)");
+            // }
+            // var secondMenuIcon = $('<i>', {
+            //     'class': 'fa fa-info-circle second-menu-icon',
+            //     click: function () {
+            //         $(this).siblings('.second-menu').toggle();
+            //     }
+            // });
+            // // var secondMenu = '<div class="second-menu"><img class="avatar" src="../img/avatar/' + data.id + '.jpg"></div>';
+            // $node.append(secondMenuIcon);
         }
     });
-    $(window).on('load', function () {
 
-        $('.selectpicker').selectpicker({
-            'selectedText': 'cat',
-            noneSelectedText: '请选择'
-        });
-    });
 });
+
+function showItem(cellvalue, options, cell) {
+    var id = cell.testid
+
+    var a = '<a href="javascript:void(0)" onclick="openItem(' + id + ')">' + cell.teststem + '</a>'
+
+    return a
+}
+
+function openItem(id) {
+
+    var url = baseURL + 'cTestItem/cTestItem/' + id
+    $.modal.openTab("选项管理", url);
+}
 
 var vm = new Vue({
     el: '#rrapp',
 
     data: {
         q: {
-            userid: null,
-            currid: null,
+            mclassid: null,
             createtime: null,
+            isexamine: null,
+            teststem: null,
+            remarks1: null,
+            remarks2: null,
+            remarks3: null,
         },
         showList: true,
         title: null,
         index: null,
         edit: {
             id: null,
-            userid: null,
-            currid: null,
+            mclassid: null,
             createtime: null,
+            isexamine: null,
+            teststem: null,
+            remarks1: null,
+            remarks2: null,
+            remarks3: null,
         },
         dropdown: [
             {
@@ -72,18 +105,21 @@ var vm = new Vue({
                 id: null,
                 name: null,
             }
-        ]
+        ],
+        mcurrDropdown: []
     },
     created: function () {
         // this.bindsearchdropdown();
-        // this.binddropdown();
+        this.binddropdown();
+
     },
     methods: {
         binddropdown: function () {
             //字典表下拉框
-            this.dropdown1 = BindDropDownControlsdy('sys_dict_data', 'dict_', 'dict_label', '起重机类型管理')
-            // 普通下拉框
-            this.dropdown = BindDropDownControls('customer', 'customer_id', 'username');
+            // this.dropdown1 = BindDropDownControlsdy('sys_dict_data', 'dict_', 'dict_label', '起重机类型管理')
+            // // 普通下拉框
+            // this.dropdown = BindDropDownControls('customer', 'customer_id', 'username');
+            this.mcurrDropdown = BindDropDownControls('c_mcurr', 'id', 'mname');
         },
         // 搜索下拉
         bindsearchdropdown: function () {
@@ -112,16 +148,20 @@ var vm = new Vue({
                 return;
             }
             $.ajax({
-                url: baseURL + 'cVideoreporte/cVideoreporte/findByid',
+                url: baseURL + 'cTest/cTest/findByid',
                 type: "GET",
                 data: {
                     id: id,
                 },
                 success: function (result) {
                     vm.edit.id = result.data.id;
-                    vm.edit.userid = result.data.userid;
-                    vm.edit.currid = result.data.currid;
+                    vm.edit.mclassid = result.data.mclassid;
                     vm.edit.createtime = result.data.createtime;
+                    vm.edit.isexamine = result.data.isexamine;
+                    vm.edit.teststem = result.data.teststem;
+                    vm.edit.remarks1 = result.data.remarks1;
+                    vm.edit.remarks2 = result.data.remarks2;
+                    vm.edit.remarks3 = result.data.remarks3;
                 }
             })
             vm.index = layer.open({
@@ -137,9 +177,15 @@ var vm = new Vue({
                 }
             });
         },
+        editExamine: function () {
+            var id = getSelectedRow();
+            if (id == null) {
+                return;
+            }
+        },
         <!--新增修改-->
         saveOrUpdate: function (id) {
-            var url = id == null ? "cVideoreporte/cVideoreporte/adddata" : "cVideoreporte/cVideoreporte/updatedata";
+            var url = id == null ? "cTest/cTest/adddata" : "cTest/cTest/updatedata";
             $.ajax({
                 url: baseURL + url,
                 type: "POST",
@@ -159,9 +205,13 @@ var vm = new Vue({
             var page = $("#jqGrid").jqGrid('getGridParam', 'page');
             $("#jqGrid").jqGrid('setGridParam', {
                 postData: {
-                    'userid': vm.q.userid,
-                    'currid': vm.q.currid,
+                    'mclassid': vm.q.mclassid,
                     'createtime': vm.q.createtime,
+                    'isexamine': vm.q.isexamine,
+                    'teststem': vm.q.teststem,
+                    'remarks1': vm.q.remarks1,
+                    'remarks2': vm.q.remarks2,
+                    'remarks3': vm.q.remarks3,
                 },
                 page: page
             }).trigger("reloadGrid");
@@ -176,7 +226,7 @@ var vm = new Vue({
                 if (r) {
                     $.ajax({
                         type: "POST",
-                        url: baseURL + "/cVideoreporte/cVideoreporte/del",
+                        url: baseURL + "/cTest/cTest/del",
                         contentType: "application/json",
                         data: JSON.stringify(ids),
                         success: function (r) {
@@ -193,38 +243,26 @@ var vm = new Vue({
         },
         // 重置
         reset: function () {
-            vm.q.userid = null;
-            vm.q.currid = null;
+            vm.q.mclassid = null;
             vm.q.createtime = null;
+            vm.q.isexamine = null;
+            vm.q.teststem = null;
+            vm.q.remarks1 = null;
+            vm.q.remarks2 = null;
+            vm.q.remarks3 = null;
             $("#gen-form")[0].reset();
         },
         reload: function () {
-            vm.edit.userid = null;
-            vm.edit.currid = null;
+            vm.edit.mclassid = null;
             vm.edit.createtime = null;
+            vm.edit.isexamine = null;
+            vm.edit.teststem = null;
+            vm.edit.remarks1 = null;
+            vm.edit.remarks2 = null;
+            vm.edit.remarks3 = null;
             $("#editLayer")[0].reset();
             layer.closeAll();
             $("#jqGrid").trigger("reloadGrid");
-        },
-        excelExport: function (){
-            $.modal.confirm("确定导出所有课程报表吗？", function() {
-
-                $.ajax({
-                    type: "POST",
-                    url: baseURL + "/cVideoreporte/cVideoreporte/exportReport",
-                    // contentType: "application/json",
-                    // data: JSON.stringify(ids),
-                    success: function (r) {
-                        if (r.code == 0) {
-                            window.location.href = ctx + "common/download?fileName=" + encodeURI(r.msg) + "&delete=" + true;
-                        } else {
-                            $.modal.alertError("导出失败");
-                        }
-
-                    }
-                });
-
-            });
         }
     }
 });

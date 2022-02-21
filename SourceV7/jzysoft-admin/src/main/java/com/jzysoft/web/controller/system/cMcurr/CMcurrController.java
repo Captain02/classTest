@@ -44,6 +44,10 @@ public class CMcurrController extends BaseJQController {
     public String CMcurrStudent() {
         return prefix + "/cMcurrStudent";
     }
+    @RequestMapping(value = "skillTree")
+    public String skillTree() {
+        return  "moudles/skillTree/skillTree";
+    }
     /**
      * 列表
      * sxd
