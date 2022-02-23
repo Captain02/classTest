@@ -201,4 +201,29 @@
             #{id}
         </foreach>
     </delete>
+
+    <resultMap id="knowlegeTree" type="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="title" column="title"></result>
+        <collection property="children" column="{parentid=id}" select="lightKnowledgeTree"
+        ofType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        </collection>
+    </resultMap>
+    <select id="lightKnowledgeTreeChild" resultMap="knowlegeTree">
+        select c_mcurr.id, c_mcurr.mname AS `name`,c_mcurr.mname AS `title`,c_mcurr.parentid
+        FROM c_mcurr
+        WHERE  c_mcurr.`parentid` =  #{parentid} AND  c_mcurr.isexamine = 1
+    </select>
+
+    <select id="lightKnowledgeTree" resultMap="knowlegeTree">
+        select c_mcurr.id, c_mcurr.mname AS `name`,c_mcurr.mname AS `title`,c_mcurr.parentid
+        FROM c_mcurr
+        WHERE c_mcurr.isexamine = 1 AND c_mcurr.`parentid` =  #{parentid}
+    </select>
+
+    <select id="selectPassCurr" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
+        select c_stuscore.mcrurrid from c_stuscore
+        WHERE c_stuscore.userid = 1 AND ispass = "及格"
+    </select>
 </mapper>

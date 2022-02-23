@@ -53,4 +53,14 @@ public class CMcurrServiceImpl implements CMcurrService
         return (List<PageData>) daoSupport.findForList("CMcurrMapper.listBystudentlistPage", page);
 
     }
+
+    @Override
+    public List<PageData> lightKnowledgeTree(PageData pageData) throws Exception {
+        return (List<PageData>) daoSupport.findListAll("CMcurrMapper.lightKnowledgeTree", pageData);
+    }
+
+    @Override
+    public List<PageData> selectPassCurr(PageData pageData) throws Exception {
+        return (List<PageData>) daoSupport.findForList("CMcurrMapper.selectPassCurr", pageData);
+    }
 }

@@ -173,4 +173,44 @@ public class CMcurrController extends BaseJQController {
         }
         return RJQ.ok();
     }
+
+    @ApiOperation(
+            value = "点亮知识树",
+            httpMethod = "GET"
+    )
+    @ResponseBody
+    @GetMapping("/lightKnowledgeTree")
+    public RJQ lightKnowledgeTree() throws Exception {
+        PageData pageData = this.getPageData();
+        Long userId = ShiroUtils.getUserId();
+        pageData.put("userid",userId);
+        List<PageData> currids = cMcurrService.selectPassCurr(pageData);
+        pageData.put("mcrurrid",currids);
+        List<PageData> data = cMcurrService.lightKnowledgeTree(pageData);
+
+        List<PageData> recursion = recursion(data, currids);
+        return RJQ.ok().put("data",recursion);
+    }
+
+    private List<PageData> recursion(List<PageData> data,List<PageData> ids){
+        for (PageData datum : data) {
+            String id = datum.getString("id");
+            for (PageData pageData : ids) {
+                String id1 = pageData.getString("mcrurrid");
+                if (id1.equals(id)){
+                    datum.put("classname","pass");
+                }else if (!id1.equals(id)){
+                    datum.put("classname","nopass");
+                }
+            }
+            if (datum.get("children") != null){
+                List<PageData> childdata = (List<PageData>) datum.get("children");
+                recursion(childdata,ids);
+            }
+
+
+        }
+
+        return data;
+    }
 }

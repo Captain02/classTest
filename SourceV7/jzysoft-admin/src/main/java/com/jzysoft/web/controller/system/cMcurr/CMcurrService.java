@@ -29,4 +29,8 @@ public interface CMcurrService
     void deleteCMcurrByIds(PageData pageData) throws Exception;
 
     List<PageData> listBystudentlistpage(Page page) throws Exception;
+
+    List<PageData> lightKnowledgeTree(PageData pageData) throws Exception;
+
+    List<PageData> selectPassCurr(PageData pageData) throws Exception;
 }
