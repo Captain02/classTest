@@ -1,42 +1,46 @@
 $(function () {
-    var datascource = {
-        'id': '1',
-        'name': '计算机',
-        'title': '',
-        'className': 'pass',
-        'children': [
-            {
-                'id': '2',
-                'name': '计算机操作系统',
-                'title': '',
-                'className': 'nopass'
-            },
+    // var datascource ={
+    //     id: '1',
+    //     name: '计算机',
+    //     title: '',
+    //     className: 'pass',
+    //     children: [
+    //         {
+    //             id: '2',
+    //             name: '计算机操作系统',
+    //             title: '',
+    //             className: 'nopass'
+    //         },
+    //
+    //         {
+    //             id: '8',
+    //             name: '计算机组成原理',
+    //             className: 'nopass'
+    //         },
+    //         {
+    //             id: '9',
+    //             name: '数据结构',
+    //
+    //             className: 'pass',
+    //         },
+    //         {
+    //             id: '10',
+    //             name: '计算机网络',
+    //             className: 'pass',
+    //         },
+    //        ]
+    // };
 
-            {
-                'id': '8',
-                'name': '计算机组成原理',
-                'className': 'nopass'
-            },
-            {
-                'id': '9',
-                'name': '数据结构',
-
-                'className': 'pass',
-            },
-            {
-                'id': '10',
-                'name': '计算机网络',
-                'className': 'pass',
-            },
-           ]
-    };
+    
     $('#chart-container').orgchart({
-        'data': datascource,
+
+        'data': baseURL + '/cMcurr/cMcurr/lightKnowledgeTree?parentid=0',
+        // 'data': datascource,
         'nodeContent': 'title',
         'nodeID': 'id',
         'toggleSiblingsResp': false,
         'createNode': function ($node, data) {
-
+            console.log(JSON.stringify(data))
             // if (data.name=='数据结构'){
             //     let id = data.id
             //     $('#'+id+'_title').css("background-color","rgb(161 161 161 / 80%)");
