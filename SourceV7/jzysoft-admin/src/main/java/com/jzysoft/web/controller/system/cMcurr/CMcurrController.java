@@ -180,7 +180,7 @@ public class CMcurrController extends BaseJQController {
     )
     @ResponseBody
     @GetMapping("/lightKnowledgeTree")
-    public RJQ lightKnowledgeTree() throws Exception {
+    public PageData lightKnowledgeTree() throws Exception {
         PageData pageData = this.getPageData();
         Long userId = ShiroUtils.getUserId();
         pageData.put("userid",userId);
@@ -191,9 +191,9 @@ public class CMcurrController extends BaseJQController {
         List<PageData> recursion = recursion(data, currids);
         if (recursion.size()!=0){
 
-            return RJQ.ok().put("data",recursion.get(0));
+            return recursion.get(0);
         }else {
-            return RJQ.ok().put("data",null);
+            return null;
         }
     }
 
@@ -203,9 +203,9 @@ public class CMcurrController extends BaseJQController {
             for (PageData pageData : ids) {
                 String id1 = pageData.getString("mcrurrid");
                 if (id1.equals(id)){
-                    datum.put("classname","pass");
+                    datum.put("className","pass");
                 }else if (!id1.equals(id)){
-                    datum.put("classname","nopass");
+                    datum.put("className","nopass");
                 }
             }
             if (datum.get("children") != null){
