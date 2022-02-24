@@ -189,7 +189,12 @@ public class CMcurrController extends BaseJQController {
         List<PageData> data = cMcurrService.lightKnowledgeTree(pageData);
 
         List<PageData> recursion = recursion(data, currids);
-        return RJQ.ok().put("data",recursion);
+        if (recursion.size()!=0){
+
+            return RJQ.ok().put("data",recursion.get(0));
+        }else {
+            return RJQ.ok().put("data",null);
+        }
     }
 
     private List<PageData> recursion(List<PageData> data,List<PageData> ids){
