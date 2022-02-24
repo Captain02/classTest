@@ -31,7 +31,7 @@ $(function () {
     //        ]
     // };
 
-    
+
     $('#chart-container').orgchart({
 
         'data': baseURL + '/cMcurr/cMcurr/lightKnowledgeTree?parentid=0',
