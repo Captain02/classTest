@@ -33,11 +33,15 @@
                                     placeholder="课程时长"/>
                         </li>
                         <li>
-                            任教老师
-
-                            :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.teacherid"
-                                    placeholder="任教老师"/>
+                            任教老师:
+<!--                            <input style="width:220px; height:35.23px  " type="text"-->
+<!--                                    v-model="q.teacherid"-->
+<!--                                    placeholder="任教老师"/>-->
+                            <select class="btn-group" v-model="q.teacherid" style="width:220px; height:35.23px;">
+                                <option v-for="dropdown in teacherDropdown" :value="dropdown.userId">
+                                    {{dropdown.userName}}
+                                </option>
+                            </select>
                         </li>
                         <li>
                             是否审核通过

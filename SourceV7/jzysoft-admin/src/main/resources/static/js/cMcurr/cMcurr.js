@@ -5,7 +5,7 @@ $(function () {
         colModel: [
             {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
             {label: '微课堂名称', name: 'mname', index: 'mname', width: 80,},
-            {label: '任教老师', name: 'teacherid', index: 'teacherid', width: 80},
+            {label: '任教老师', name: 'teachername', index: 'teacherid', width: 80},
             {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
             // {label: '是否审核通过', name: 'isexamine', index: 'isexamine', width: 80},
             // {label: '父课程', name: 'parentid', index: 'parentid', width: 80},
@@ -74,7 +74,6 @@ function op(cellvalue, options, cell) {
 <!--修改页面-->
  function edit(x) {
     var object = JSON.parse(decodeURI(x))
-    debugger
     var id = object.id
     if (id == null) {
         return;
@@ -89,6 +88,7 @@ function op(cellvalue, options, cell) {
             vm.edit.id = result.data.id;
             vm.edit.mname = result.data.mname;
             vm.edit.teacherid = result.data.teacherid;
+            vm.edit.teachername = result.data.teachername;
             vm.edit.createtime = result.data.createtime;
             vm.edit.isexamine = result.data.isexamine;
             vm.edit.parentid = result.data.parentid;
@@ -103,6 +103,7 @@ function op(cellvalue, options, cell) {
         content: $('#editLayer'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
         btn: ['确定', '取消'],
         yes: function (id) {
+
             vm.saveOrUpdate(id);
         },
         btn2: function () {
@@ -150,11 +151,13 @@ var vm = new Vue({
                 id: null,
                 name: null,
             }
-        ]
+        ],
+        teacherDropdown: []
     },
     created: function () {
-        this.bindsearchdropdown();
-        this.binddropdown();
+        // this.bindsearchdropdown();
+        // this.binddropdown();
+        this.teacherList()
     },
     methods: {
         binddropdown: function () {
@@ -199,6 +202,7 @@ var vm = new Vue({
                     vm.edit.id = result.data.id;
                     vm.edit.mname = result.data.mname;
                     vm.edit.teacherid = result.data.teacherid;
+                    vm.edit.teachername = result.data.teachername;
                     vm.edit.createtime = result.data.createtime;
                     vm.edit.isexamine = result.data.isexamine;
                     vm.edit.parentid = result.data.parentid;
@@ -222,6 +226,7 @@ var vm = new Vue({
         },
         <!--新增修改-->
         saveOrUpdate: function (id) {
+
             var url = id == null ? "cMcurr/cMcurr/adddata" : "cMcurr/cMcurr/updatedata";
             $.ajax({
                 url: baseURL + url,
@@ -303,6 +308,25 @@ var vm = new Vue({
             $("#editLayer")[0].reset();
             layer.closeAll();
             $("#jqGrid").trigger("reloadGrid");
-        }
+        },
+        teacherList: function (){
+            $.ajax({
+                type: "POST",
+                url:  "/system/user/getAllStudent",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    rolename: '教师'
+                }),
+                success: function (r) {
+
+                    if (r.code == 0) {
+                        vm.teacherDropdown = r.data
+                    } else {
+
+                    }
+
+                }
+            });
+        },
     }
 });

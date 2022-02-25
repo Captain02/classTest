@@ -55,6 +55,16 @@ public class SysProfileController extends BaseController
         return prefix + "/profile";
     }
 
+    @GetMapping("profileIndex")
+    public String profileIndex(ModelMap mmap)
+    {
+        SysUser user = ShiroUtils.getSysUser();
+        mmap.put("user", user);
+        mmap.put("roleGroup", userService.selectUserRoleGroup(user.getUserId()));
+        mmap.put("postGroup", userService.selectUserPostGroup(user.getUserId()));
+        return prefix + "/profileIndex";
+    }
+
     @GetMapping("/checkPassword")
     @ResponseBody
     public boolean checkPassword(String password)

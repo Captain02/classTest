@@ -309,32 +309,22 @@ var vm = new Vue({
                     data: vm.edit,
                     before: function(obj){//obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                         layer.load(); //上传loading
-                        // debugger
-                        // console.log($('#currname').val())
-                        // console.log($('#currtime').val())
-                        // console.log($('#teacherid').val())
-                        // console.log($('#ordernum').val())
-                        // console.log($('#mcurr').val())
                     },
                     choose: function (obj) {
 
                         //将每次选择的文件追加到文件队列
                         var files = obj.pushFile();
                         obj.preview(function (index, file, result) {
-                            console.log(index); //得到文件索引
-                            console.log(file); //得到文件对象
                             $('#videopath').val(file.name)
                         })
 
                     },
                     done: function (res) {
-                        console.log(res)
                         layer.closeAll('loading'); //关闭loading
                         vm.reload();
                         layer.close(vm.index)
                     }
                     , error: function (res) {
-                        console.log(res)
                         layer.closeAll('loading'); //关闭loading
                         //请求异常回调
                     }
@@ -351,7 +341,6 @@ var vm = new Vue({
                 }),
                 success: function (r) {
 
-                    console.log(JSON.stringify(r.data))
                     if (r.code == 0) {
                         vm.teacherDropdown = r.data
                     } else {

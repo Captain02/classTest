@@ -22,13 +22,15 @@
                                     v-model="q.mname"
                                     placeholder="微课堂名称"/>
                         </li>
-                        <li>
-                            任教老师
-
-                            :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.teacherid"
-                                    placeholder="任教老师"/>
-                        </li>
+<!--                        <li>-->
+<!--                            任教老师:-->
+<!--&lt;!&ndash;                            <input style="width:220px; height:35.23px  " type="text"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    v-model="q.teacherid"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    placeholder="任教老师"/>&ndash;&gt;-->
+<!--                            <select class="btn-group" v-model="q.teacherid" style="width:220px; height:35.23px;">-->
+<!--                                <option v-for="dropdown in teacherDropdown" :value="dropdown.userId">{{dropdown.userName}}</option>-->
+<!--                            </select>-->
+<!--                        </li>-->
 
 <!--                        <li>-->
 <!--                            ${column.columnComment}-->
@@ -122,8 +124,11 @@
             <label style="width: 100px" class="layui-form-label"> 任教老师
             </label>
             <div style="margin-right: 20px" class="layui-input-block">
-                <input type="text" name="teacherid" v-model="edit.teacherid" required
-                       lay-verify="teacherid" placeholder="请输入" class="layui-input">
+<!--                <input type="text" name="teacherid" v-model="edit.teacherid" required-->
+<!--                       lay-verify="teacherid" placeholder="请输入" class="layui-input">-->
+                <select class="btn-group" name="teacherid" id="teacherid" v-model="edit.teacherid" style="width:220px; height:35.23px;">
+                    <option v-for="dropdown in teacherDropdown" :value="dropdown.userId">{{dropdown.userName}}</option>
+                </select>
             </div>
         </div>
 
