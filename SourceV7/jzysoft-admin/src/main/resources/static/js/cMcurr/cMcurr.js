@@ -4,12 +4,13 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
-            {label: '微课堂名称', name: 'mname', index: 'mname', width: 80,formatter:showName},
+            {label: '微课堂名称', name: 'mname', index: 'mname', width: 80,},
             {label: '任教老师', name: 'teacherid', index: 'teacherid', width: 80},
             {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
             // {label: '是否审核通过', name: 'isexamine', index: 'isexamine', width: 80},
             // {label: '父课程', name: 'parentid', index: 'parentid', width: 80},
             {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80},
+            {label: '操作', name: '', index: '', width: 80, formatter: op},
             // {label: '备注1', name: 'remarks1', index: 'remarks1', width: 80},
             // {label: '备注2', name: 'remarks2', index: 'remarks2', width: 80},
             // {label: '备注3', name: 'remarks3', index: 'remarks3', width: 80}
@@ -27,7 +28,7 @@ $(function () {
 
         jsonReader: {
             root: "data",
-            repeatitems : false
+            repeatitems: false
             // page: "page.currPage",
             // total: "page.totalPage",
             // records: "page.totalResult"
@@ -46,7 +47,7 @@ $(function () {
             parent_id_field: "parentid",  // treeGrid父级id字段
             leaf_field: "leaf_field",  // 是否叶子节点字段o
             expanded_field: "expanded", //treeGrid是否展开字段
-            loaded_field:true //
+            loaded_field: true //
         },
         gridComplete: function () {
             //隐藏grid底部滚动条
@@ -61,18 +62,55 @@ $(function () {
         });
     });
 });
-function showName( cellvalue, options, cell ) {
-    var rowId = cell.id;
-    var checkbox = '<label >'+
-        '<input type="checkbox" id="chx'+rowId+'" class="ace" value="'+rowId+'" onclick="clickCheckbox('+rowId+', this);" />'+
-        '<span class="lbl align-top" ></span>'+
-        cell.mname +
-        '</label>';
-    return  checkbox ;
+
+function op(cellvalue, options, cell) {
+
+    var object = encodeURI(JSON.stringify(cell));
+
+    var button = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="edit(\'' + object + '\')">编辑</button>'
+    return button;
 }
-function clickCheckbox(rowid,obj){
-    alert(rowid)
+
+<!--修改页面-->
+ function edit(x) {
+    var object = JSON.parse(decodeURI(x))
+    debugger
+    var id = object.id
+    if (id == null) {
+        return;
+    }
+    $.ajax({
+        url: baseURL + 'cMcurr/cMcurr/findByid',
+        type: "GET",
+        data: {
+            id: id,
+        },
+        success: function (result) {
+            vm.edit.id = result.data.id;
+            vm.edit.mname = result.data.mname;
+            vm.edit.teacherid = result.data.teacherid;
+            vm.edit.createtime = result.data.createtime;
+            vm.edit.isexamine = result.data.isexamine;
+            vm.edit.parentid = result.data.parentid;
+            vm.edit.remarks1 = result.data.remarks1;
+            vm.edit.remarks2 = result.data.remarks2;
+            vm.edit.remarks3 = result.data.remarks3;
+        }
+    })
+    vm.index = layer.open({
+        type: 1,
+        area: ['95%', '95%'],
+        content: $('#editLayer'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+        btn: ['确定', '取消'],
+        yes: function (id) {
+            vm.saveOrUpdate(id);
+        },
+        btn2: function () {
+            vm.reload();
+        }
+    });
 }
+
 var vm = new Vue({
     el: '#rrapp',
 
