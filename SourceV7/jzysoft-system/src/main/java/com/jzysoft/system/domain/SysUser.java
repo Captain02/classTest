@@ -25,7 +25,7 @@ public class SysUser extends BaseEntity
     private Long userId;
 
     /** 部门ID */
-    @Excel(name = "部门编号", type = Type.IMPORT)
+    @Excel(name = "班级编号", type = Type.IMPORT)
     private Long deptId;
 
     /** 部门父ID */
