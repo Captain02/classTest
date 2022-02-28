@@ -21,7 +21,7 @@ public class SysUser extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 用户ID */
-    @Excel(name = "用户序号", cellType = ColumnType.NUMERIC, prompt = "用户编号")
+//    @Excel(name = "用户序号", cellType = ColumnType.NUMERIC, prompt = "用户编号")
     private Long userId;
 
     /** 部门ID */
@@ -74,17 +74,17 @@ public class SysUser extends BaseEntity
     private String delFlag;
 
     /** 最后登陆IP */
-    @Excel(name = "最后登陆IP", type = Type.EXPORT)
+//    @Excel(name = "最后登陆IP", type = Type.EXPORT)
     private String loginIp;
 
     /** 最后登陆时间 */
-    @Excel(name = "最后登陆时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Type.EXPORT)
+//    @Excel(name = "最后登陆时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Type.EXPORT)
     private Date loginDate;
 
     /** 部门对象 */
     @Excels({
         @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
-        @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
+        @Excel(name = "部门负责人", targetAttr = "leadername", type = Type.EXPORT)
     })
     private SysDept dept;
 

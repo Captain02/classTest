@@ -10,6 +10,7 @@ import com.jzysoft.common.core.domain.BaseEntity;
  * 
  * @author jzysoft
  */
+
 public class SysDept extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
@@ -32,6 +33,9 @@ public class SysDept extends BaseEntity
     /** 负责人 */
     private String leader;
 
+
+    private String leadername;
+
     /** 联系电话 */
     private String phone;
 
@@ -44,11 +48,20 @@ public class SysDept extends BaseEntity
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
 
+
+
     /** 父部门名称 */
     private String parentName;
 
     private String username;
 
+    public String getLeadername() {
+        return leadername;
+    }
+
+    public void setLeadername(String leadername) {
+        this.leadername = leadername;
+    }
     public String getUsername() {
         return username;
     }
