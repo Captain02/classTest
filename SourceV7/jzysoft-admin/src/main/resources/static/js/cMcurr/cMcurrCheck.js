@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + 'cMcurr/cMcurr/list',
+        url: baseURL + 'cMcurr/cMcurr/listByAccept',
         datatype: "json",
         colModel: [
             {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},

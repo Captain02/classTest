@@ -52,6 +52,25 @@ public class CMcurrController extends BaseJQController {
      * 列表
      * sxd
      */
+
+    @ResponseBody
+    @GetMapping("/listByAccept")
+    public RJQ listByAccept(Page page) throws Exception {
+        PageData pageData = this.getPageData();
+        page.setPd(pageData);
+        List<PageData> list = cMcurrService.selectCMcurrList(page);
+        int num = 0;
+        for (PageData data : list) {
+            data.put("leaf_field",false);
+            data.put("expanded",true);
+            data.put("level_field",num);
+            data.put("idstr",data.getString("id"));
+            if (num != 1){
+                num += 1;
+            }
+        }
+        return RJQ.ok().put("page", page).put("data", list);
+    }
     @ResponseBody
     @GetMapping("/list")
     public RJQ selCMcurrPage(Page page) throws Exception {
