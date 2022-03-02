@@ -152,19 +152,26 @@ var vm = new Vue({
                 name: null,
             }
         ],
-        teacherDropdown: []
+        teacherDropdown: [],
+        mcurrDropdown: [
+            {
+                id: null,
+                name: null,
+            }
+        ],
     },
     created: function () {
         // this.bindsearchdropdown();
-        // this.binddropdown();
+        this.binddropdown();
         this.teacherList()
     },
     methods: {
         binddropdown: function () {
             //字典表下拉框
-            this.dropdown1 = BindDropDownControlsdy('sys_dict_data', 'dict_', 'dict_label', '起重机类型管理')
+            // this.dropdown1 = BindDropDownControlsdy('sys_dict_data', 'dict_', 'dict_label', '起重机类型管理')
             // 普通下拉框
-            this.dropdown = BindDropDownControls('sys_dict_data', 'dict_type', 'dict_value');
+            // this.dropdown = BindDropDownControls('sys_dict_data', 'dict_type', 'dict_value');
+            this.mcurrDropdown = BindDropDownControls('c_mcurr', 'id', 'mname');
         },
         // 搜索下拉
         bindsearchdropdown: function () {
