@@ -168,7 +168,6 @@ function del(x) {
 
     var object = JSON.parse(decodeURI(x))
     var id = object
-    debugger
     if (id == null) {
         return;
     }
@@ -323,7 +322,7 @@ var vm = new Vue({
                 contentType: "application/json",
                 data: JSON.stringify(vm.edit),
                 success: function (result) {
-                    vm.reload();
+                    $.treeTable.refresh();
                     layer.close(vm.index)
                 },
                 btn2: function () {
