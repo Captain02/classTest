@@ -13,7 +13,6 @@ $(function () {
             // {label: '备注1', name: 'remarks1', index: 'remarks1', width: 80},
             // {label: '备注2', name: 'remarks2', index: 'remarks2', width: 80},
             // {label: '备注3', name: 'remarks3', index: 'remarks3', width: 80}
-
         ],
         viewrecords: true,
         height: "100%",
@@ -39,14 +38,14 @@ $(function () {
         // },
         treeGrid: true,  // 启用treeGrid树形表格
         treeGridModel: 'adjacency', // treeGrid所使用的数据结构方法,nested:嵌套集模型，: 邻接模型
-        ExpandColumn: 'idstr', // 指定那列来展开tree grid，默认为第一列
+        ExpandColumn: 'id', // 指定那列来展开tree grid，默认为第一列
 
         treeReader: { // 扩展表格的colModel
             level_field: "level_field",  //  treeGrid等级字段，从0开始
             parent_id_field: "parentid",  // treeGrid父级id字段
             leaf_field: "leaf_field",  // 是否叶子节点字段o
             expanded_field: "expanded", //treeGrid是否展开字段
-            loaded_field:true //
+            // loaded_field:true //
         },
         gridComplete: function () {
             //隐藏grid底部滚动条
