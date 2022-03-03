@@ -55,7 +55,7 @@ public class CMcurrController extends BaseJQController {
 
     @ResponseBody
     @PostMapping("/listByAccept")
-    public RJQ listByAccept(Page page) throws Exception {
+    public List<PageData> listByAccept(Page page) throws Exception {
         PageData pageData = this.getPageData();
         page.setPd(pageData);
         List<PageData> list = cMcurrService.selectCMcurrList(page);
@@ -65,11 +65,11 @@ public class CMcurrController extends BaseJQController {
             data.put("level_field",Integer.parseInt(data.get("remarks1").toString()));
             data.put("idstr",data.getString("id"));
         }
-        return RJQ.ok().put("page", page).put("data", list);
+        return list;
     }
     @ResponseBody
     @PostMapping("/list")
-    public RJQ selCMcurrPage(Page page) throws Exception {
+    public List<PageData> selCMcurrPage(Page page) throws Exception {
         PageData pageData = this.getPageData();
         Long userId = ShiroUtils.getUserId();
         pageData.put("teacherid",userId);
@@ -85,7 +85,7 @@ public class CMcurrController extends BaseJQController {
                 num += 1;
             }
         }
-        return RJQ.ok().put("page", page).put("data", list);
+        return list;
     }
     @ResponseBody
     @GetMapping("/listBystudentlistpage")
