@@ -36,8 +36,8 @@
         c_mcurr.remarks2,
         c_mcurr.remarks3,
         sys_user.user_name teachername,
-        (SELECT c_stuscore.ispass FROM c_stuscore WHERE c_stuscore.mcrurrid = c_mcurr.id AND c_stuscore.userid=1) ispass,
-        (SELECT c_stuscore.mcurrscore FROM c_stuscore WHERE c_stuscore.mcrurrid = c_mcurr.id AND c_stuscore.userid=1) mcurrscore,
+        (SELECT c_stuscore.ispass FROM c_stuscore WHERE c_stuscore.mcrurrid = c_mcurr.id AND c_stuscore.userid=#{pd.userid}) ispass,
+        (SELECT c_stuscore.mcurrscore FROM c_stuscore WHERE c_stuscore.mcrurrid = c_mcurr.id AND c_stuscore.userid=#{pd.userid}) mcurrscore,
         ( CASE
         WHEN isexamine = 2 THEN '未通过'
         WHEN isexamine = 1 THEN '已通过'
