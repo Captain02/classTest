@@ -5,8 +5,6 @@
 <!--<head th:include="include :: header"></head>-->
 <head>
     <th:block th:include="include :: header('微课堂')"/>
-    <th:block th:include="include :: bootstrap-fileinput-css"/>
-    <th:block th:include="includejqgrid :: includejqgrid"/>
 </head>
 <body>
 
@@ -106,9 +104,12 @@
     <!--jqgrid-->
     <div class="layui-row" style="background-color: white;">
         <!--jqgrid表格-->
-        <div id="jq" class="col-sm-12">
-            <table id="jqGrid" data-mobile-responsive="true"></table>
-            <div id="jqGridPager" style="background-color: white"></div>
+<!--        <div id="jq" class="col-sm-12">-->
+<!--            <table id="jqGrid" data-mobile-responsive="true"></table>-->
+<!--            <div id="jqGridPager" style="background-color: white"></div>-->
+<!--        </div>-->
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-tree-table"></table>
         </div>
     </div>
 
@@ -187,6 +188,7 @@
 <!--            </div>-->
 <!--        </div>-->
     </form>
+    <th:block th:include="include :: footer"/>
     <script src="/js/cMcurr/cMcurr.js" type="text/javascript"></script>
 </div>
 </body>
