@@ -227,6 +227,6 @@
 
     <select id="selectPassCurr" resultType="com.jzysoft.commonmoudle.lib.config.page.PageData">
         select c_stuscore.mcrurrid from c_stuscore
-        WHERE c_stuscore.userid = 1 AND ispass = "及格"
+        WHERE c_stuscore.userid = #{userid} AND ispass = "及格"
     </select>
 </mapper>
