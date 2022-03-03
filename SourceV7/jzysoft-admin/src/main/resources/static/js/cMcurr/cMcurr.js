@@ -1,5 +1,4 @@
-$(function () {
-    var prefix = ctx + "cMcurr/cMcurr"
+
     // $("#jqGrid").jqGrid({
     //     url: baseURL + 'cMcurr/cMcurr/list',
     //     datatype: "json",
@@ -62,6 +61,8 @@ $(function () {
     //         noneSelectedText: '请选择'
     //     });
     // });
+$(function () {
+    var prefix = ctx + "cMcurr/cMcurr"
     var options = {
         code: "id",
         parentCode: "parentid",
@@ -104,14 +105,15 @@ $(function () {
                     var object = encodeURI(JSON.stringify(row));
 
                     var button = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="edit(\'' + object + '\')">编辑</button>'
-                    var button2 = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="$.operate.remove(\'' + row.id + '\')">删除</button>'
+                    var button2 = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="del(\'' + row.id + '\')">删除</button>'
                     return button + button2;
                 }
             },
         ]
     };
     $.treeTable.init(options);
-});
+    }
+);
 
 function op(cellvalue, options, cell) {
 
@@ -165,7 +167,7 @@ function edit(x) {
 function del(x) {
 
     var object = JSON.parse(decodeURI(x))
-    var id = object.id
+    var id = object
     debugger
     if (id == null) {
         return;
@@ -178,7 +180,7 @@ function del(x) {
             id: id,
         },
         success: function (result) {
-            window.parent.$.treeTable.refresh();
+            $.treeTable.refresh();
         }
     })
 }
