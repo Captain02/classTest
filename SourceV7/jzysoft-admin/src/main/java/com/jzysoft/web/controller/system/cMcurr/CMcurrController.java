@@ -59,12 +59,12 @@ public class CMcurrController extends BaseJQController {
         PageData pageData = this.getPageData();
         page.setPd(pageData);
         List<PageData> list = cMcurrService.selectCMcurrList(page);
-        for (PageData data : list) {
-            data.put("leaf_field",false);
-            data.put("expanded",true);
-            data.put("level_field",Integer.parseInt(data.get("remarks1").toString()));
-            data.put("idstr",data.getString("id"));
-        }
+//        for (PageData data : list) {
+//            data.put("leaf_field",false);
+//            data.put("expanded",true);
+//            data.put("level_field",Integer.parseInt(data.get("remarks1").toString()));
+//            data.put("idstr",data.getString("id"));
+//        }
         return list;
     }
     @ResponseBody

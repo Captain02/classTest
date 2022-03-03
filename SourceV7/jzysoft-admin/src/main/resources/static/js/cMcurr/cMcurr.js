@@ -68,8 +68,8 @@ $(function () {
         uniqueId: "id",
         url: prefix + '/list',
         // createUrl: prefix + "/add/{id}",
-        // updateUrl: prefix + "/edit/{id}",
-        // removeUrl: prefix + "/remove/{id}",
+        updateUrl: prefix + "/edit/{id}",
+        removeUrl: prefix + "/remove/{id}",
         modalName: "微课堂",
         columns: [
             {
@@ -104,7 +104,7 @@ $(function () {
                     var object = encodeURI(JSON.stringify(row));
 
                     var button = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="edit(\'' + object + '\')">编辑</button>'
-                    var button2 = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="del(\'' + object + '\')">删除</button>'
+                    var button2 = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="$.operate.remove(\'' + row.id + '\')">删除</button>'
                     return button + button2;
                 }
             },
