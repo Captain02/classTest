@@ -201,6 +201,7 @@ public class CMcurrController extends BaseJQController {
                 String id1 = pageData.getString("mcrurrid");
                 if (id1.equals(id)){
                     datum.put("className","pass");
+                    break;
                 }else if (!id1.equals(id)){
                     datum.put("className","nopass");
                 }
