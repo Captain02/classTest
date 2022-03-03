@@ -63,7 +63,7 @@ $(function () {
     //     });
     // });
     var options = {
-        code: "deptId",
+        code: "id",
         parentCode: "parentid",
         uniqueId: "id",
         url: prefix + '/list',
@@ -198,8 +198,8 @@ var vm = new Vue({
         teacherDropdown: [],
         mcurrDropdown: [
             {
-                id: null,
-                name: null,
+                id: 0,
+                name: '根目录',
             }
         ],
     },
@@ -214,7 +214,14 @@ var vm = new Vue({
             // this.dropdown1 = BindDropDownControlsdy('sys_dict_data', 'dict_', 'dict_label', '起重机类型管理')
             // 普通下拉框
             // this.dropdown = BindDropDownControls('sys_dict_data', 'dict_type', 'dict_value');
-            this.mcurrDropdown = BindDropDownControls('c_mcurr', 'id', 'mname');
+            let drop = BindDropDownControls('c_mcurr', 'id', 'mname');
+            debugger
+            for (let i=0;i<drop.length;i++) {
+                
+                this.mcurrDropdown.push(drop[i])
+            }
+
+            console.log(this.mcurrDropdown)
         },
         // 搜索下拉
         bindsearchdropdown: function () {
