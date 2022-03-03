@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +44,14 @@ public class CTestController extends BaseJQController {
         PageData pageData = this.getPageData();
         page.setPd(pageData);
         List<PageData> list = cTestService.selectCTestList(page);
-        return RJQ.ok().put("page", page).put("data", list);
+        List<PageData> newdata = new ArrayList<>();
+        for (PageData data : list) {
+            Object mname = data.get("mname");
+            if (mname != null){
+                newdata.add(data);
+            }
+        }
+        return RJQ.ok().put("page", page).put("data", newdata);
     }
 
     /**

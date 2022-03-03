@@ -57,6 +57,7 @@ public class CMcurrController extends BaseJQController {
     @PostMapping("/listByAccept")
     public List<PageData> listByAccept(Page page) throws Exception {
         PageData pageData = this.getPageData();
+        page.setShowCount(Integer.MAX_VALUE);
         page.setPd(pageData);
         List<PageData> list = cMcurrService.selectCMcurrList(page);
 //        for (PageData data : list) {
@@ -71,6 +72,7 @@ public class CMcurrController extends BaseJQController {
     @PostMapping("/list")
     public List<PageData> selCMcurrPage(Page page) throws Exception {
         PageData pageData = this.getPageData();
+        page.setShowCount(Integer.MAX_VALUE);
         Long userId = ShiroUtils.getUserId();
         pageData.put("teacherid",userId);
         page.setPd(pageData);

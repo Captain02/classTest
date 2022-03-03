@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +48,14 @@ public class CVideoreporteController extends BaseJQController {
         PageData pageData = this.getPageData();
         page.setPd(pageData);
         List<PageData> list = cVideoreporteService.selectCVideoreporteList(page);
-        return RJQ.ok().put("page", page).put("data", list);
+        List<PageData> newdata = new ArrayList<>();
+        for (PageData data : list) {
+            Object mname = data.get("mname");
+            if (mname != null){
+                newdata.add(data);
+            }
+        }
+        return RJQ.ok().put("page", page).put("data", newdata);
     }
 
     /**
@@ -105,7 +113,14 @@ public class CVideoreporteController extends BaseJQController {
     public AjaxResult exportReport() throws Exception {
         List<VideoEntity> list = cVideoreporteService.exportReport();
         ExcelUtil<VideoEntity> util = new ExcelUtil<VideoEntity>(VideoEntity.class);
-        return util.exportExcel(list, "视频报表");
+        List<VideoEntity> newdata = new ArrayList<>();
+        for (VideoEntity data : list) {
+            Object mname = data.getMname();
+            if (mname != null){
+                newdata.add(data);
+            }
+        }
+        return util.exportExcel(newdata, "视频报表");
     }
 
 

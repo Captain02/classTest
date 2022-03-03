@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,10 +42,18 @@ public class CMcurrreporteController extends BaseJQController {
     @ResponseBody
     @GetMapping("/list")
     public RJQ selCMcurrreportePage(Page page) throws Exception {
-        PageData pageData = this.getPageData();
-        page.setPd(pageData);
+
         List<PageData> list = cMcurrreporteService.selectCMcurrreporteList(page);
-        return RJQ.ok().put("page", page).put("data", list);
+        List<PageData> pageData1 = new ArrayList<>();
+        for (PageData data : list) {
+            Object mname = data.get("mname");
+            if (mname != null){
+                pageData1.add(data);
+            }
+        }
+
+
+        return RJQ.ok().put("page", page).put("data", pageData1);
     }
 
     /**
@@ -102,6 +111,13 @@ public class CMcurrreporteController extends BaseJQController {
     public AjaxResult exportReport() throws Exception {
         List<MCurrEntity> list = cMcurrreporteService.exportReport();
         ExcelUtil<MCurrEntity> util = new ExcelUtil<MCurrEntity>(MCurrEntity.class);
-        return util.exportExcel(list, "微课堂报表");
+        List<MCurrEntity> newdata = new ArrayList<>();
+        for (MCurrEntity data : list) {
+            Object mname = data.getMname();
+            if (mname != null){
+                newdata.add(data);
+            }
+        }
+        return util.exportExcel(newdata, "微课堂报表");
     }
 }

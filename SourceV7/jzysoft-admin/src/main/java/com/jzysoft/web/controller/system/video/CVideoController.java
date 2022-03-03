@@ -10,6 +10,7 @@ import com.jzysoft.commonmoudle.lib.util.BaseJQController;
 import com.jzysoft.commonmoudle.lib.util.RJQ;
 import com.jzysoft.framework.util.ShiroUtils;
 import com.jzysoft.web.controller.system.cCurr.CCurrService;
+import com.jzysoft.web.controller.system.cVideoreporte.VideoEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -20,6 +21,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,7 +63,14 @@ public class CVideoController extends BaseJQController {
         PageData pageData = this.getPageData();
         page.setPd(pageData);
         List<PageData> list = cVideoService.selectCVideoListPage(page);
-        return RJQ.ok().put("page", page).put("data", list);
+        List<PageData> newdata = new ArrayList<>();
+        for (PageData data : list) {
+            Object mname = data.get("mname");
+            if (mname != null){
+                newdata.add(data);
+            }
+        }
+        return RJQ.ok().put("page", page).put("data", newdata);
     }
 
     @Autowired
