@@ -30,7 +30,7 @@ import java.util.List;
 public class CMcurrController extends BaseJQController {
     private String prefix = "moudles/cMcurr";
     @Autowired
-        CMcurrService cMcurrService;
+    CMcurrService cMcurrService;
 
     @RequestMapping(value = "")
     public String CMcurr() {
@@ -88,8 +88,8 @@ public class CMcurrController extends BaseJQController {
         return list;
     }
     @ResponseBody
-    @GetMapping("/listBystudentlistpage")
-    public RJQ listBystudentlistpage(Page page) throws Exception {
+    @PostMapping("/listBystudentlistpage")
+    public List<PageData> listBystudentlistpage(Page page) throws Exception {
         PageData pageData = this.getPageData();
         Long userId = ShiroUtils.getUserId();
         pageData.put("userid",userId);
@@ -105,7 +105,7 @@ public class CMcurrController extends BaseJQController {
                 num += 1;
             }
         }
-        return RJQ.ok().put("page", page).put("data", list);
+        return list;
     }
 
     /**

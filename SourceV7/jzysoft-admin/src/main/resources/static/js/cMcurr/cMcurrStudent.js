@@ -1,67 +1,124 @@
+var prefix = ctx + "cMcurr/cMcurr"
 $(function () {
-    $("#jqGrid").jqGrid({
-        url: baseURL + 'cMcurr/cMcurr/listBystudentlistpage?isexamine=1',
-        datatype: "json",
-        colModel: [
-            {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
-            {label: '微课堂名称', name: 'mname', index: 'mname', width: 80,formatter:showItem},
-            {label: '任教老师', name: 'teachername', index: 'teachername', width: 80},
-            {label: '是否合格', name: 'ispass', index: 'ispass', width: 80},
-            {label: '分数', name: 'mcurrscore', index: 'mcurrscore', width: 80},
-            // {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
-            // {label: '是否审核通过', name: 'isexamine', index: 'isexamine', width: 80},
-            // {label: '父课程', name: 'parentid', index: 'parentid', width: 80},
-            // {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80},
-            // {label: '备注1', name: 'remarks1', index: 'remarks1', width: 80},
-            // {label: '备注2', name: 'remarks2', index: 'remarks2', width: 80},
-            // {label: '备注3', name: 'remarks3', index: 'remarks3', width: 80}
+    // $("#jqGrid").jqGrid({
+    //     url: baseURL + 'cMcurr/cMcurr/listBystudentlistpage?isexamine=1',
+    //     datatype: "json",
+    //     colModel: [
+    //         {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
+    //         {label: '微课堂名称', name: 'mname', index: 'mname', width: 80,formatter:showItem},
+    //         {label: '任教老师', name: 'teachername', index: 'teachername', width: 80},
+    //         {label: '是否合格', name: 'ispass', index: 'ispass', width: 80},
+    //         {label: '分数', name: 'mcurrscore', index: 'mcurrscore', width: 80},
+    //         // {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
+    //         // {label: '是否审核通过', name: 'isexamine', index: 'isexamine', width: 80},
+    //         // {label: '父课程', name: 'parentid', index: 'parentid', width: 80},
+    //         // {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80},
+    //         // {label: '备注1', name: 'remarks1', index: 'remarks1', width: 80},
+    //         // {label: '备注2', name: 'remarks2', index: 'remarks2', width: 80},
+    //         // {label: '备注3', name: 'remarks3', index: 'remarks3', width: 80}
+    //
+    //     ],
+    //     viewrecords: true,
+    //     height: "100%",
+    //     rowNum: 10,
+    //     rowList: [10, 30, 50],
+    //     rownumbers: true,
+    //     rownumWidth: 25,
+    //     autowidth: true,
+    //     multiselect: true,
+    //     pager: "#jqGridPager",
+    //
+    //     jsonReader: {
+    //         root: "data",
+    //         repeatitems : false
+    //         // page: "page.currPage",
+    //         // total: "page.totalPage",
+    //         // records: "page.totalResult"
+    //     },
+    //     // prmNames: {
+    //     //     page: "currentPage",
+    //     //     rows: "showCount",
+    //     //     order: "order"
+    //     // },
+    //     treeGrid: true,  // 启用treeGrid树形表格
+    //     treeGridModel: 'adjacency', // treeGrid所使用的数据结构方法,nested:嵌套集模型，: 邻接模型
+    //     ExpandColumn: 'idstr', // 指定那列来展开tree grid，默认为第一列
+    //
+    //     treeReader: { // 扩展表格的colModel
+    //         level_field: "level_field",  //  treeGrid等级字段，从0开始
+    //         parent_id_field: "parentid",  // treeGrid父级id字段
+    //         leaf_field: "leaf_field",  // 是否叶子节点字段o
+    //         expanded_field: "expanded", //treeGrid是否展开字段
+    //         loaded_field:true //
+    //     },
+    //     gridComplete: function () {
+    //         //隐藏grid底部滚动条
+    //         $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
+    //     }
+    // });
+    // $(window).on('load', function () {
+    //
+    //     $('.selectpicker').selectpicker({
+    //         'selectedText': 'cat',
+    //         noneSelectedText: '请选择'
+    //     });
+    // });
+    var options = {
+        code: "id",
+        parentCode: "parentid",
+        uniqueId: "id",
+        url: prefix + '/listBystudentlistpage?isexamine=1',
+        // createUrl: prefix + "/add/{id}",
+        // updateUrl: prefix + "/edit/{id}",
+        // removeUrl: prefix + "/remove/{id}",
+        modalName: "微课堂",
+        columns: [
+            {
+                field: 'selectItem',
+                radio: true
+            },
+            // {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
+            {
+                title: '微课堂名称',
+                field: 'mname',
+                formatter: function (value, row, index){
+                    var id = row.id
 
-        ],
-        viewrecords: true,
-        height: "100%",
-        rowNum: 10,
-        rowList: [10, 30, 50],
-        rownumbers: true,
-        rownumWidth: 25,
-        autowidth: true,
-        multiselect: true,
-        pager: "#jqGridPager",
+                    var a = '<a href="javascript:void(0)" onclick="openItem('+id+')">'+row.mname+'</a>'
 
-        jsonReader: {
-            root: "data",
-            repeatitems : false
-            // page: "page.currPage",
-            // total: "page.totalPage",
-            // records: "page.totalResult"
-        },
-        // prmNames: {
-        //     page: "currentPage",
-        //     rows: "showCount",
-        //     order: "order"
-        // },
-        treeGrid: true,  // 启用treeGrid树形表格
-        treeGridModel: 'adjacency', // treeGrid所使用的数据结构方法,nested:嵌套集模型，: 邻接模型
-        ExpandColumn: 'idstr', // 指定那列来展开tree grid，默认为第一列
+                    return a
+                }
 
-        treeReader: { // 扩展表格的colModel
-            level_field: "level_field",  //  treeGrid等级字段，从0开始
-            parent_id_field: "parentid",  // treeGrid父级id字段
-            leaf_field: "leaf_field",  // 是否叶子节点字段o
-            expanded_field: "expanded", //treeGrid是否展开字段
-            loaded_field:true //
-        },
-        gridComplete: function () {
-            //隐藏grid底部滚动条
-            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
-        }
-    });
-    $(window).on('load', function () {
+            },
+            {
+                title: '任教老师',
+                field: 'teachername',
+            },
 
-        $('.selectpicker').selectpicker({
-            'selectedText': 'cat',
-            noneSelectedText: '请选择'
-        });
-    });
+            {
+                title: '是否合格',
+                field: 'ispass',
+
+            },
+
+            {
+                title: '分数',
+                field: 'mcurrscore',
+            },
+            // {
+            //     title: '操作',
+            //     field: '',
+            //     formatter: function (value, row, index){
+            //         var object = encodeURI(JSON.stringify(row));
+            //
+            //         var button = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="edit(\'' + object + '\')">编辑</button>'
+            //         var button2 = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="$.operate.remove(\'' + row.id + '\')">删除</button>'
+            //         return button + button2;
+            //     }
+            // },
+        ]
+    };
+    $.treeTable.init(options);
 });
 // function showName( cellvalue, options, cell ) {
 //     var rowId = cell.id;

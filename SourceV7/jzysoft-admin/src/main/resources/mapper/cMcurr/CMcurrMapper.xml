@@ -50,6 +50,9 @@
         <if test="pd.mname != null  and pd.mname != ''  ">
                 AND mname like '%' #{pd.mname} '%'
             </if>
+            <if test="pd.teachername != null  and pd.teachername != ''  ">
+                AND sys_user.user_name like '%' #{pd.teachername} '%'
+            </if>
             <if test="pd.createtime != null  and pd.createtime != ''  ">
                 AND createtime like '%' #{pd.createtime} '%'
             </if>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <!--<head th:include="include :: header"></head>-->
 <head>
-    <th:block th:include="include :: header('文件上传')"/>
+    <th:block th:include="include :: header('微课堂')"/>
     <th:block th:include="include :: bootstrap-fileinput-css"/>
     <th:block th:include="includejqgrid :: includejqgrid"/>
 </head>
@@ -22,14 +22,14 @@
                             微课堂名称
 
                             :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.mname"
+                                    v-model="q.mname" name="mname"
                                     placeholder="微课堂名称"/>
                         </li>
                         <li>
                             任教老师
 
                             :<input style="width:220px; height:35.23px  " type="text"
-                                    v-model="q.teacherid"
+                                    v-model="q.teachername" name="teachername"
                                     placeholder="任教老师"/>
                         </li>
 
@@ -80,7 +80,7 @@
 <!--                <select style="width:220px; height:35.23px;" id="selectuserid" class="selectpicker"-->
 <!--                        data-live-search="true">-->
 <!--                </select>-->
-                <a class="btn btn-primary btn-rounded btn-sm" style="margin-top: 5px" @click="query"><i
+                <a class="btn btn-primary btn-rounded btn-sm" style="margin-top: 5px" onclick="$.treeTable.search()"><i
                         class="fa fa-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
                 <a class="btn btn-warning btn-rounded btn-sm" style="margin-top: 5px" @click="reset"><i
                         class="fa fa-refresh"></i>&nbsp;重置</a>
@@ -89,24 +89,27 @@
     </div>
     <!--按钮-->
     <div id="anniu" class="layui-row">
-        <div class="col-sm-12">
-            <a class="btn btn-success" @click="addPage()">
-                <i class="fa fa-plus"></i> 新增
-            </a>
-            <a class="btn btn-primary btn-edit" @click="editPage()">
-                <i class="fa fa-edit"></i> 修改
-            </a>
-            <a class="btn btn-danger btn-del " @click="del()">
-                <i class="fa fa-remove"></i> 删除
-            </a>
-        </div>
+<!--        <div class="col-sm-12">-->
+<!--            <a class="btn btn-success" @click="addPage()">-->
+<!--                <i class="fa fa-plus"></i> 新增-->
+<!--            </a>-->
+<!--            <a class="btn btn-primary btn-edit" @click="editPage()">-->
+<!--                <i class="fa fa-edit"></i> 修改-->
+<!--            </a>-->
+<!--            <a class="btn btn-danger btn-del " @click="del()">-->
+<!--                <i class="fa fa-remove"></i> 删除-->
+<!--            </a>-->
+<!--        </div>-->
     </div>
     <!--jqgrid-->
     <div class="layui-row" style="background-color: white;">
         <!--jqgrid表格-->
-        <div id="jq" class="col-sm-12">
-            <table id="jqGrid" data-mobile-responsive="true"></table>
-            <div id="jqGridPager" style="background-color: white"></div>
+<!--        <div id="jq" class="col-sm-12">-->
+<!--            <table id="jqGrid" data-mobile-responsive="true"></table>-->
+<!--            <div id="jqGridPager" style="background-color: white"></div>-->
+<!--        </div>-->
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-tree-table"></table>
         </div>
     </div>
 
@@ -172,7 +175,7 @@
 <!--            </div>-->
 <!--        </div>-->
     </form>
-    <th:block th:include="include :: footer2" />
+    <th:block th:include="include :: footer" />
     <script src="/js/cMcurr/cMcurrStudent.js" type="text/javascript"></script>
 </div>
 </body>
