@@ -100,6 +100,13 @@ $(function () {
             {
                 title: '操作',
                 field: '',
+                formatter: function (value, row, index){
+                    var object = encodeURI(JSON.stringify(row));
+
+                    var button = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="edit(\'' + object + '\')">编辑</button>'
+                    var button2 = '<button type="button" class="layui-btn  layui-btn-sm layui-btn-radius layui-btn-normal" onclick="del(\'' + object + '\')">删除</button>'
+                    return button + button2;
+                }
             },
         ]
     };
@@ -154,6 +161,30 @@ function edit(x) {
         }
     });
 }
+
+function del(x) {
+
+    var object = JSON.parse(decodeURI(x))
+    var id = object.id
+    debugger
+    if (id == null) {
+        return;
+    }
+    $.ajax({
+        url: baseURL + 'cMcurr/cMcurr/del',
+        type: "POST",
+        // contentType: "application/json",
+        data: {
+            id: id,
+        },
+        success: function (result) {
+            window.parent.$.treeTable.refresh();
+        }
+    })
+}
+
+
+
 
 var vm = new Vue({
     el: '#rrapp',
@@ -215,9 +246,8 @@ var vm = new Vue({
             // 普通下拉框
             // this.dropdown = BindDropDownControls('sys_dict_data', 'dict_type', 'dict_value');
             let drop = BindDropDownControls('c_mcurr', 'id', 'mname');
-            debugger
             for (let i=0;i<drop.length;i++) {
-                
+
                 this.mcurrDropdown.push(drop[i])
             }
 

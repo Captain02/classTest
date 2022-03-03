@@ -148,12 +148,9 @@ public class CMcurrController extends BaseJQController {
      */
     @ResponseBody
     @PostMapping("/del")
-    public RJQ delCMcurrDataList(@RequestBody Integer[] ids) throws Exception {
+    public RJQ delCMcurrDataList() throws Exception {
         PageData pageData = this.getPageData();
-        for (Integer id : ids) {
-            pageData.put("id", id);
-                cMcurrService.deleteCMcurrByIds(pageData);
-        }
+        cMcurrService.deleteCMcurrByIds(pageData);
         return RJQ.ok();
     }
 

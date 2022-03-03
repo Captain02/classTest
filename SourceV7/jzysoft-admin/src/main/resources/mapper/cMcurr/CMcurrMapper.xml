@@ -126,7 +126,7 @@
             <if test="isexamine != null  and isexamine != ''">isexamine,
             </if>
 
-            <if test="parentid != null  and parentid != ''">parentid,
+            <if test="parentid != 'a'">parentid,
             </if>
 
             <if test="remarks1 != null  and remarks1 != ''">remarks1,
@@ -147,7 +147,7 @@
             </if>
             <if test="isexamine != null and isexamine != '' ">#{isexamine},
             </if>
-            <if test="parentid != null and parentid != '' ">#{parentid},
+            <if test="parentid != 'a' ">#{parentid},
             </if>
             <if test="remarks1 != null and remarks1 != '' ">#{remarks1},
             </if>
