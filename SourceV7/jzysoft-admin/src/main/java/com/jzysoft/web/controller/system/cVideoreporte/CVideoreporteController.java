@@ -50,7 +50,7 @@ public class CVideoreporteController extends BaseJQController {
         List<PageData> list = cVideoreporteService.selectCVideoreporteList(page);
         List<PageData> newdata = new ArrayList<>();
         for (PageData data : list) {
-            Object mname = data.get("mname");
+            Object mname = data.get("currname");
             if (mname != null){
                 newdata.add(data);
             }
