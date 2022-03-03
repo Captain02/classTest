@@ -1,65 +1,109 @@
 $(function () {
-    $("#jqGrid").jqGrid({
-        url: baseURL + 'cMcurr/cMcurr/list',
-        datatype: "json",
-        colModel: [
-            {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
-            {label: '微课堂名称', name: 'mname', index: 'mname', width: 80,},
-            {label: '任教老师', name: 'teachername', index: 'teacherid', width: 80},
-            {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
-            // {label: '是否审核通过', name: 'isexamine', index: 'isexamine', width: 80},
-            // {label: '父课程', name: 'parentid', index: 'parentid', width: 80},
-            {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80},
-            {label: '操作', name: '', index: '', width: 80, formatter: op},
-            // {label: '备注1', name: 'remarks1', index: 'remarks1', width: 80},
-            // {label: '备注2', name: 'remarks2', index: 'remarks2', width: 80},
-            // {label: '备注3', name: 'remarks3', index: 'remarks3', width: 80}
+    var prefix = ctx + "cMcurr/cMcurr"
+    // $("#jqGrid").jqGrid({
+    //     url: baseURL + 'cMcurr/cMcurr/list',
+    //     datatype: "json",
+    //     colModel: [
+    //         {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
+    //         {label: '微课堂名称', name: 'mname', index: 'mname', width: 80,},
+    //         {label: '任教老师', name: 'teachername', index: 'teacherid', width: 80},
+    //         {label: '创建时间', name: 'createtime', index: 'createtime', width: 80},
+    //         // {label: '是否审核通过', name: 'isexamine', index: 'isexamine', width: 80},
+    //         // {label: '父课程', name: 'parentid', index: 'parentid', width: 80},
+    //         {label: '是否审核通过', name: 'isexaminestr', index: 'isexaminestr', width: 80},
+    //         {label: '操作', name: '', index: '', width: 80, formatter: op},
+    //         // {label: '备注1', name: 'remarks1', index: 'remarks1', width: 80},
+    //         // {label: '备注2', name: 'remarks2', index: 'remarks2', width: 80},
+    //         // {label: '备注3', name: 'remarks3', index: 'remarks3', width: 80}
+    //
+    //     ],
+    //     viewrecords: true,
+    //     height: "100%",
+    //     rowNum: 10,
+    //     rowList: [10, 30, 50],
+    //     rownumbers: true,
+    //     rownumWidth: 25,
+    //     autowidth: true,
+    //     multiselect: true,
+    //     pager: "#jqGridPager",
+    //
+    //     jsonReader: {
+    //         root: "data",
+    //         repeatitems: false
+    //         // page: "page.currPage",
+    //         // total: "page.totalPage",
+    //         // records: "page.totalResult"
+    //     },
+    //     // prmNames: {
+    //     //     page: "currentPage",
+    //     //     rows: "showCount",
+    //     //     order: "order"
+    //     // },
+    //     treeGrid: true,  // 启用treeGrid树形表格
+    //     treeGridModel: 'adjacency', // treeGrid所使用的数据结构方法,nested:嵌套集模型，: 邻接模型
+    //     ExpandColumn: 'idstr', // 指定那列来展开tree grid，默认为第一列
+    //
+    //     treeReader: { // 扩展表格的colModel
+    //         level_field: "level_field",  //  treeGrid等级字段，从0开始
+    //         parent_id_field: "parentid",  // treeGrid父级id字段
+    //         leaf_field: "leaf_field",  // 是否叶子节点字段o
+    //         expanded_field: "expanded", //treeGrid是否展开字段
+    //         loaded_field: true //
+    //     },
+    //     gridComplete: function () {
+    //         //隐藏grid底部滚动条
+    //         $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
+    //     }
+    // });
+    // $(window).on('load', function () {
+    //
+    //     $('.selectpicker').selectpicker({
+    //         'selectedText': 'cat',
+    //         noneSelectedText: '请选择'
+    //     });
+    // });
+    var options = {
+        code: "deptId",
+        parentCode: "parentid",
+        uniqueId: "id",
+        url: prefix + '/list',
+        // createUrl: prefix + "/add/{id}",
+        // updateUrl: prefix + "/edit/{id}",
+        // removeUrl: prefix + "/remove/{id}",
+        modalName: "微课堂",
+        columns: [
+            {
+                field: 'selectItem',
+                radio: true
+            },
+            // {label: '${column.columnComment}', name: 'id', index: 'id', width: 0, key: true, hidden: true},
+            {
+                title: '微课堂名称',
+                field: 'mname',
 
-        ],
-        viewrecords: true,
-        height: "100%",
-        rowNum: 10,
-        rowList: [10, 30, 50],
-        rownumbers: true,
-        rownumWidth: 25,
-        autowidth: true,
-        multiselect: true,
-        pager: "#jqGridPager",
+            },
+            {
+                title: '任教老师',
+                field: 'teachername',
+            },
 
-        jsonReader: {
-            root: "data",
-            repeatitems: false
-            // page: "page.currPage",
-            // total: "page.totalPage",
-            // records: "page.totalResult"
-        },
-        // prmNames: {
-        //     page: "currentPage",
-        //     rows: "showCount",
-        //     order: "order"
-        // },
-        treeGrid: true,  // 启用treeGrid树形表格
-        treeGridModel: 'adjacency', // treeGrid所使用的数据结构方法,nested:嵌套集模型，: 邻接模型
-        ExpandColumn: 'id', // 指定那列来展开tree grid，默认为第一列
+            {
+                title: '创建时间',
+                field: 'createtime',
 
-        treeReader: { // 扩展表格的colModel
-            level_field: "level_field",  //  treeGrid等级字段，从0开始
-            parent_id_field: "parentid",  // treeGrid父级id字段
-            leaf_field: "leaf_field",  // 是否叶子节点字段o
-            expanded_field: "expanded", //treeGrid是否展开字段
-        },
-        gridComplete: function () {
-            //隐藏grid底部滚动条
-            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
-        }
-    });
-    $(window).on('load', function () {
+            },
 
-        $('.selectpicker').selectpicker({
-            'selectedText': 'cat',
-            noneSelectedText: '请选择'
-        });
-    });
+            {
+                title: '是否审核通过',
+                field: 'isexaminestr',
+            },
+            {
+                title: '操作',
+                field: '',
+            },
+        ]
+    };
+    $.treeTable.init(options);
 });
 
 function op(cellvalue, options, cell) {
@@ -71,7 +115,7 @@ function op(cellvalue, options, cell) {
 }
 
 <!--修改页面-->
- function edit(x) {
+function edit(x) {
     var object = JSON.parse(decodeURI(x))
     var id = object.id
     if (id == null) {
@@ -315,10 +359,10 @@ var vm = new Vue({
             layer.closeAll();
             $("#jqGrid").trigger("reloadGrid");
         },
-        teacherList: function (){
+        teacherList: function () {
             $.ajax({
                 type: "POST",
-                url:  "/system/user/getAllStudent",
+                url: "/system/user/getAllStudent",
                 contentType: "application/json",
                 data: JSON.stringify({
                     rolename: '教师'
